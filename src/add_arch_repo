@@ -1,0 +1,29 @@
+#!/bin/bash
+
+pacman -Syu artix-archlinux-support
+
+
+printf "#[testing]
+#Include = /etc/pacman.d/mirrorlist-arch
+
+
+[extra]
+Include = /etc/pacman.d/mirrorlist-arch
+
+
+#[community-testing]
+#Include = /etc/pacman.d/mirrorlist-arch
+
+
+[community]
+Include = /etc/pacman.d/mirrorlist-arch
+
+
+#[multilib-testing]
+#Include = /etc/pacman.d/mirrorlist-arch
+
+
+#[multilib]
+#Include = /etc/pacman.d/mirrorlist-arch" >> /etc/pacman.conf
+
+pacman-key --populate archlinux

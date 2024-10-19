@@ -1,0 +1,9 @@
+source,interface,context
+apt,cli,base,
+brew,gui,server,
+nix,graphical,devellopement,
+pacman,hardware,gaming,
+paru,programs,virtualization,
+git,services,hardware,
+curl,,development,
+stow,,containers,

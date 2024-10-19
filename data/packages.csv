@@ -1,0 +1,157 @@
+source,name,interface,context,directory,URL,description
+pacman,git,cli,base,,,clone repo
+pacman,bluez,cli,hardware,,,clone repo
+pacman,bluez-utils,cli,hardware,,,clone repo
+pacman,zsh,cli,base,
+pacman,man,cli,base,
+pacman,base-devel,cli,base,
+pacman,patch,cli,base,
+pacman,make,cli,base,
+pacman,cmake,cli,base,
+pacman,clang,cli,base,
+pacman,gdb,cli,base,
+pacman,lldb,cli,base,
+pacman,llvm,cli,base,
+pacman,valgrind,cli,base,
+pacman,python,cli,base,
+pacman,python-pip,cli,base,,,not sure i need it system wide
+pacman,python-uv,cli,archived,,,will replace pip
+pacman,uv,cli,base,,,replacement for pip python-venv
+pacman,hdf5,cli,donotneed,,,General purpose library and file format for storing scientific data
+pacman,cloc,cli,base,,,Count Lines of Code
+pacman,tk,gui,base,,,lib graphique pour pynput
+pacman,fd,cli,base,,,fd-find
+pacman,ripgrep,cli,base,
+pacman,bat,cli,base,
+pacman,wget,cli,base,
+pacman,curl,cli,base,
+pacman,stow,cli,base,
+pacman,tmux,cli,base,
+pacman,kitty,gui,base,
+pacman,htop,cli,base,
+pacman,poppler,cli,base,,,PDF rendering library based on xpdf 3.0
+pacman,net-tools,cli,base,,,Configuration tools for Linux networking
+pacman,openssh,cli,base,
+pacman,iptables,cli,base,
+pacman,fail2ban,cli,base,
+pacman,alsa-utils,cli,base,
+pacman,alsa-ucm-conf,cli,base,
+pacman,pulseaudio,cli,base,
+pacman,keepassxc,gui,base,
+pacman,graphviz,gui,base,,,Graph Visualization Software in the DOT language needs to be installed locally to work
+pacman,fastfetch,cli,base,
+pacman,nnn,cli,base,
+pacman,redshift,gui,base,
+pacman,firefox,gui,base,
+pacman,tree,cli,base,
+pacman,discord,gui,base,
+pacman,p7zip,cli,base,
+pacman,sway,gui,base,
+pacman,swaybg,gui,base,
+pacman,imv,cli,base,
+pacman,obsidian,gui,base,
+pacman,barrier,gui,base,
+pacman,qbittorrent,gui,base,
+pacman,docker,cli,base,
+pacman,docker-compose,cli,base,
+pacman,nextcloud-client,gui,base,
+pacman,kdeconnect,gui,base,
+pacman,wireshark-qt,gui,base,,,Network GUI analyzer
+pacman,nmap,cli,base,,,Network Mapper
+pacman,nfs-utils,cli,base,,,Network file system needed in the inception project
+pacman,qemu-full,cli,virtualization,,,Machine emulator Virtualizer
+pacman,virt-manager,gui,virtualization,,,graphical user front end for the LibVirt library
+pacman,virt-viewer,gui,virtualization,,,A lightweight interface for interacting with the graphical display of virtualized guest OS.
+pacman,dnsmasq,cli,base,,,DNS configuration for Qemu
+pacman,feh,gui,base,,,X11 image viewer
+pacman,i3,gui,base,,,window manager
+pacman,dmenu,cli,base,,,launcher menu for X
+pacman,xorg-xinput,gui,base,,,X11 change input pad
+pacman,xorg-xrandr,gui,base,,,X11 change resolution
+pacman,wine,gui,gaming,
+pacman,ntfs-3g,cli,base,,,NTFS filesystem driver and utilities
+pacman,hyprland,gui,base,
+pacman,monero,cli,finance,
+pacman,monero-gui,gui,finance,
+paru,python311,cli,archived,,,python-uv can download required version of python
+paru,gnome-browser-connector,gui,base,
+paru,extension-manager,gui,base,
+paru,touchegg,gui,base,
+paru,wiki-tui,cli,archived,
+paru,wofi,gui,base,
+paru,waybar,gui,base,
+paru,swaylock,gui,base,
+paru,lazydocker,gui,base,,,test better docker Visualization
+apt,git,cli,base,,,clone repo
+apt,libx11-dev,gui,base,,,Dependencies
+apt,libxft-dev,gui,base,,,Dependencies
+apt,libxext-dev,gui,base,,,Dependencies
+apt,libxinerama-dev,gui,base,,,Dependencies
+apt,zsh,cli,base,
+apt,man,cli,base,
+apt,build-essential,cli,base,
+apt,cmake,cli,base,
+apt,clang,cli,base,
+apt,clangd,cli,base,
+apt,clang-tools,cli,base,
+apt,llvm,cli,base,
+apt,lldb,cli,base,
+apt,cloc,cli,base,
+apt,inetutils-tools,cli,base,,,collection of common network programs from GNU
+apt,inetutils-ping,cli,base,,,ping command from GNU
+apt,valgrind,cli,base,
+apt,python3,cli,base,
+apt,tk,gui,base,,,lib graphique
+apt,pip,cli,base,
+apt,fd-find,cli,base,,,better find in rust
+apt,wget,cli,base,
+apt,curl,cli,base,,,C URL library
+apt,tar,cli,base,
+apt,unzip,cli,base,
+apt,gzip,cli,base,
+apt,xcompmgr,cli,base,
+apt,stow,cli,base,
+apt,tmux,cli,base,
+apt,htop,cli,base,
+apt,poppler-utils,cli,base,
+apt,net-tools,cli,base,
+apt,ssh,cli,base,
+apt,iptables,cli,base,
+apt,fail2ban,cli,base,
+apt,ripgrep,cli,base,
+apt,bat,cli,base,
+apt,sendmail,cli,base,
+apt,keepassxc,gui,base,
+apt,fastfetch,cli,base,
+apt,nnn,cli,base,
+apt,redshift-gtk,gui,base,
+apt,tree,cli,base,
+apt,wireshark,gui,base,
+brew,tmux,cli,base,
+brew,stow,cli,base,
+brew,fd,cli,base,
+brew,bat,cli,base,
+brew,ripgrep,cli,base,
+brew,helix,cli,test,
+brew,python@3.11,cli,installed_with_uv,
+brew,cloc,cli,less_is_more,
+brew,fastfetch,cli,too_much_storage,
+nix,nixpkgs.man,cli,base,
+nix,nixpkgs.git,cli,base,
+nix,nixpkgs.gcc,cli,base,
+nix,nixpkgs.cmake,cli,base,
+nix,nixpkgs.zsh,cli,base,
+nix,nixpkgs.bat,cli,base,
+nix,nixpkgs.nnn,cli,base,
+nix,nixpkgs.stow,cli,base,
+nix,nixpkgs.tmux,cli,base,
+nix,nixpkgs.neovim,cli,base,
+nix,nixpkgs.fastfetch,cli,base,
+nix,nixpkgs.ripgrep,cli,base,
+nix,nixpkgs.zsh-fzf-tab,cli,base,
+nix,nixpkgs.font-awesome,cli,base,,,Font
+nix,nixpkgs.nerdfonts,cli,base,,,Font
+nix,nixpkgs.keepassxc,gui,base,,,Tool
+nix,nixpkgs.stremio,gui,base,,,Video
+nix,nixpkgs.barrier,gui,base,,,Hardware Sharing
+nix,nixpkgs.obsidian,gui,base,,,NON FREE SOFTWARE

@@ -1,0 +1,187 @@
+#!/usr/bin/env bash
+
+
+# set -Eeuo pipefail
+
+
+# ██╗███╗   ██╗██╗████████╗    ███████╗██╗   ██╗███████╗████████╗███████╗███╗   ███╗
+# ██║████╗  ██║██║╚══██╔══╝    ██╔════╝╚██╗ ██╔╝██╔════╝╚══██╔══╝██╔════╝████╗ ████║
+# ██║██╔██╗ ██║██║   ██║       ███████╗ ╚████╔╝ ███████╗   ██║   █████╗  ██╔████╔██║
+# ██║██║╚██╗██║██║   ██║       ╚════██║  ╚██╔╝  ╚════██║   ██║   ██╔══╝  ██║╚██╔╝██║
+# ██║██║ ╚████║██║   ██║       ███████║   ██║   ███████║   ██║   ███████╗██║ ╚═╝ ██║
+# ╚═╝╚═╝  ╚═══╝╚═╝   ╚═╝       ╚══════╝   ╚═╝   ╚══════╝   ╚═╝   ╚══════╝╚═╝     ╚═╝
+
+
+# made using Dark with shadow ascii art on textfancy.com
+
+# this is a refactorisation
+
+# The idea was to make a idempotent script to insall my apps / config / and personal dotfiles
+
+library_path=$HOME/base/library
+setup_path=$HOME/base/unix/setup
+system_path=$HOME/base/unix/system
+user_path=$HOME/base/unix/user
+
+
+. ${library_path}/interface_system.sh
+. ${library_path}/operating_system.sh
+
+
+path=$(readlink -f $0 | xargs dirname);
+
+
+# we call the script and display an ongoing message
+# the script contain the sucess or error message or usage
+#
+# for the system script we create the files for system directly in /usr/local/bin/
+
+
+##############
+##  Clean   ##
+##############
+
+. ${system_path}/clean $USER
+
+
+##############################
+##  Create User Directory   ##
+##############################
+
+. ${setup_path}/create_user_directory
+
+
+##############
+##  Admin   ##
+##############
+
+# use the sudo test to know if we need to do the system branch
+
+# should be rename to am_i_system_administrator
+am_i_sudo
+# the next question is what type of system am i on ? virtual, hardware, and how do i manage it ?
+
+if [[ $? == 0 ]]
+then
+
+    print_ongoing_process "\n---[ Setting System package manager command. ]---\n\n"
+    . ${system_path}/define_system_command
+
+
+    print_ongoing_process "%s has been detected on your system\nUpgrading your system\n" ${system_package_manager}
+    . /usr/local/bin/update_system
+
+
+    # install nix
+    # print_ongoing_process "\n---[ Installing Nix on your system ]---\n\n"
+    # . ${setup_path}/install_nix
+
+    # source Nix
+    # . $HOME/.nix-profile/etc/profile.d/nix.sh
+
+    # chequ if Nix is well installed
+    # nix-env --version
+
+    # if [[ $? -eq 0 ]]
+    # then
+    #     print_success "\n---< Nix est bien installer. >---\n\n"
+    # fi
+fi
+
+
+# install paru
+
+if [[ -x "/usr/bin/pacman" ]]
+then
+    print_success "\n---< We are on Arch. >---\n\n"
+    print_ongoing_process "\n---[ Installing paru. ]---\n\n"
+    . ${setup_path}/install_paru
+fi
+
+
+#############
+##  User   ##
+#############
+
+
+# source Nix for user
+# . $HOME/.nix-profile/etc/profile.d/nix.sh
+
+
+# not sure about this one since we can have multiple source now
+# print_ongoing_process "\nSetup User package manager.\n\n"
+# . ${setup_path}/setup_user_package_manager
+
+
+#  Git Credential
+git config --global credential.helper store
+
+printf "[user]
+    email = plagache@protonmail.com
+    name = plgch
+[credential]
+	helper = store" >> $HOME/.gitconfig
+
+
+FILE=${user_path}/install_user_packages
+if [[ -f "$FILE" ]]; then
+    print_information "${FILE} exists no need to create one\n\n"
+else
+    print_ongoing_process "\n---[ Creating $USER configuration. ]---\n\n"
+    . ${setup_path}/create_user_configuration
+
+    print_ongoing_process "\n---[ Building $USER session. ]---\n\n"
+    . ${user_path}/build_user_session
+fi
+
+# we should probably update before Installing
+# needs to be sure it works every time
+print_ongoing_process "\nUpdating User.\n\n"
+. ${user_path}/update_user
+
+# this line allow us to review the install_user_packages
+less ${user_path}/install_user_packages
+
+read -p "Do you want to proceed? (y/yes/no/n): " choice
+
+# Convert user input to lowercase for case-insensitive comparison
+choice_lower=$(echo "$choice" | tr '[:upper:]' '[:lower:]')
+
+case $choice_lower in
+    y|yes)
+        print_ongoing_process "\n---[ Installing $USER packages. ]---\n\n"
+        . ${user_path}/install_user_packages
+        ;;
+    n|no)
+        print_information "You chose to not proceed.\n\n"
+        ;;
+    *)
+        print_error "Fail installing $USER packages.\n\n"
+        ;;
+esac
+
+print_ongoing_process "\n---[ Installing Neovim ]---\n\n"
+. ${setup_path}/install_neovim
+
+
+print_ongoing_process "\n---[ Installing NVM ]---\n\n"
+. ${setup_path}/install_nvm
+
+
+print_ongoing_process "\n---[ Making Zsh the one true shell. ]---\n\n"
+chsh -s $(which zsh)
+last_command_status
+
+
+# cat /etc/sudoers
+print_ongoing_process "\n---[ Chown all ${USER} files. ]---\n\n"
+chown --recursive $USER:$USER $HOME
+last_command_status
+
+
+# we should do cronjobs
+# crontab -e
+# this line run the script every time its 0 minutes so every hour
+# 0 * * * * path/to/the/script/ >/dev/null 2>&1
+# Update user at reboot
+# @reboot $HOME/.multi_to0L/unix/user/update_user.sh >/dev/null 2>&1

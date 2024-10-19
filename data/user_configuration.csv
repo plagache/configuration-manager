@@ -1,0 +1,6 @@
+pacman,cli,base
+paru,gui,devellopement
+git,,gaming
+curl,,virtualization
+stow,,hardware
+,,test

@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+
+library_path=$HOME/base/library
+
+. ${library_path}/interface_system.sh
+. ${library_path}/file_system.sh
+
+
+create_user_directory() {
+
+    print_ongoing_process "\nCreating User directory.\n\n"
+
+    ensure_directory_exist "$HOME/.local/bin"
+    last_command_status
+
+    # maybe not needed with autocreate of curl
+    # ensure_directory_exist "$HOME/.local/share/fonts"
+    # last_command_status
+    #
+    ensure_directory_exist "$HOME/.config"
+    last_command_status
+
+    ensure_directory_exist "$HOME/.tools"
+    last_command_status
+
+    ensure_directory_exist "$HOME/workspace"
+    last_command_status
+}
+
+create_user_directory

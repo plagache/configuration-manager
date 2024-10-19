@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+# for now we are only creating the user_session script
+# we need clean_user_session >> takes the source and remove the other packages
+# we need a update_user_session >> update the user based on the source
+
+user_path=$HOME/base/unix/user
+lists_path=$HOME/base/list
+awk_path=$HOME/base/unix/awk
+
+
+config_file="user_configuration.csv"
+install_file=$HOME/base/unix/user/install_user_packages
+clean_file=$HOME/base/unix/user/clean_user_packages
+update_file=$HOME/base/unix/user/update_user
+
+
+[ -f "${install_file}" ] && rm ${install_file};
+[ -f "${clean_file}" ] && rm ${clean_file};
+[ -f "${update_file}" ] && rm ${update_file};
+
+# cat /proc/version >> $session
+
+# xargs -l execute the command for each entry
+# clean and install files are created with the build_user_session.awk
+awk -f ${awk_path}/build_user_session.awk
+
+chmod +x ${install_file}
+chmod +x ${clean_file}
+chmod +x ${update_file}
