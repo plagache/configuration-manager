@@ -1,0 +1,3 @@
+#!/bin/sh
+
+time awk -f "$src_dir"/test.awk

@@ -1,7 +1,15 @@
 # configuration-manager
+Started as a collection of scripts
 
-Select/Create Profile and activate them
+## Installation and dependencies
 
-Resulting in the creation of script
+You need a shell, git and awk
+```sh
+git clone https://github.com/plagache/configuration-manager
+cd configuration-manager
+./configuration-manager
+```
 
-dump of my script and installation file
+## Objectives
+Select/Create Profile base on tags (minimal,dev,desktop) and activate them
+Create script to install;update;clean packages;services;Files
