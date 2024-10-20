@@ -1,7 +1,15 @@
 #!/bin/sh
-#!/usr/bin/env bash
 
-set -o posix
+set -Eeuo posix pipefail
 
-# awk -f test.awk -v packages_file="/home/user/base/unix/user/user_configuration.csv" -v commands_file="/home/user/base/list/source_commands.csv" -v config_file="/home/user/base/unix/user/user_configuration.csv"
-time awk -f test.awk
+if [ -f ./configuration-manager ] && [ -f ./src/init_system ]; then
+    configuration_directory=./config
+    src_dir=src
+else
+    xdg_config_home="${XDG_CONFIG_HOME:-$HOME/.config}"
+    configuration_directory="$xdg_config_home"/configuration-manager
+    path=$(cd -- "$(dirname "$0")" && pwd)
+    src_dir="$path"/src
+fi
+
+source "$src_dir"/main
