@@ -1,7 +1,5 @@
 #!/bin/sh
 
-set -Eeuo posix pipefail
-
 if [ -f ./configuration-manager ] && [ -f ./src/init_system ]; then
     configuration_directory=./config
     src_dir=src
@@ -12,4 +10,4 @@ else
     src_dir="$path"/src
 fi
 
-source "$src_dir"/main
+. "$src_dir"/main

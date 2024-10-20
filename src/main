@@ -1,3 +1,115 @@
-#!/bin/sh
+# a profil name is the name of the directory
+# it contains the respective scripts and/or files needed for this profile
 
-time awk -f "$src_dir"/test.awk
+configuration_manager_version=0.0.0
+action=
+action_arguments=
+
+Usage() {
+    printf 'configuration-manager v%s\n' "${configuration_manager_version}"
+    printf 'https://github.com/plagache/configuration-manager\n'
+    echo
+    printf 'Usage:  %s [OPTIONS]... ACTION\n' "$0"
+    echo
+    printf 'Supported actions:\n'
+    printf '  create    Create the configuration\n'
+    printf '  build     Build the system to reflect the current contents of the configuration\n'
+    printf '  active    Activate the configuration\n'
+    printf '  diff      Compare configuration and system\n'
+    echo
+    printf 'Supported options:\n'
+    printf '  -h, --help               Print this message\n'
+    printf '  -c, --config DIR         Set the path to your configuration directory\n'
+    printf '      --skip-config        Skip the configuration parsing step\n'
+}
+
+UsageError() {
+    Usage
+    echo
+    printf "%s\n" "$@"
+    echo
+    exit 2
+}
+
+Main() {
+    prompt_mode=normal
+    skip_config=n
+
+    while [ "$#" -ne 0 ]; do
+        case "$1" in
+            create|build|active|diff)
+                if [ -n "$action" ]; then
+                    UsageError "An action has already been specified"
+                fi
+                action="$1"
+                shift
+                if [ "$action" = diff ]; then
+                    # Simply store remaining arguments for diff
+                    # action_arguments="$@"
+                    action_arguments="$action_arguments $@"
+                    break
+                fi
+                ;;
+            -h|--help|help)
+                Usage
+                exit 0
+                ;;
+            -c|--config)
+                configuration_directory="$2"
+                shift 2
+                ;;
+            # --skip-config)
+            #     skip_config=y
+            #     shift
+            #     ;;
+            # --paranoid)
+            #     if [ "$prompt_mode" != normal ]; then
+            #         UsageError "A prompt mode has already been specified"
+            #     fi
+            #     prompt_mode=paranoid
+            #     pacman_opts="$pacman_opts --confirm"
+            #     shift
+            #     ;;
+            # --yes)
+            #     if [ "$prompt_mode" != normal ]; then
+            #         UsageError "A prompt mode has already been specified"
+            #     fi
+            #     prompt_mode=never
+            #     pacman_opts="$pacman_opts --noconfirm"
+            #     shift
+            #     ;;
+            *)
+                UsageError "Unrecognized option: %s" "$1"
+                ;;
+        esac
+    done
+
+    # Action handling
+    case "$action" in
+        create)
+            printf '>> Creating profile...\n\n'
+            # create, build, and ask for activation
+            ;;
+        build)
+            # check/needs a profile before building and ask for activation
+            printf '>> Building profile:-[%s]...\n\n' "$configuration_directory"
+            awk -f "$src_dir"/test.awk
+            ;;
+        active)
+            # activate a given profile
+            printf '>> Activating profile...\n\n'
+            ;;
+        diff)
+            printf '>> Diff profile...\n\n'
+            ;;
+        *)
+            Usage
+            exit 2
+            ;;
+    esac
+
+    exit 0
+}
+
+# Call Main with arguments
+Main "$@"
