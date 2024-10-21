@@ -7,7 +7,9 @@ configuration_manager_version=0.0.0
 action=
 action_arguments=
 
-. "$src_dir"/create_configuration
+. "$src_dir"/create
+. "$src_dir"/utils
+. "$src_dir"/activate
 
 Usage() {
     printf 'configuration-manager v%s\n' "${configuration_manager_version}"
@@ -17,7 +19,7 @@ Usage() {
     echo
     printf 'Supported actions:\n'
     printf '  create    Create the configuration\n'
-    printf '  build     Build the system to reflect the current contents of the configuration\n'
+    printf '  build     Build the configuration\n'
     printf '  active    Activate the configuration\n'
     printf '  diff      Compare configuration and system\n'
     echo
@@ -59,7 +61,11 @@ Main() {
                 exit 0
                 ;;
             -c|--config)
-                configuration_directory="$2"
+                config_directory="$2"
+                shift 2
+                ;;
+            -p|--profile)
+                profile_name="$2"
                 shift 2
                 ;;
             # --skip-config)
@@ -95,15 +101,38 @@ Main() {
             # create, build, and ask for activation
             # could take as aruguments a profil name
             Create_configuration
+            awk -f "$src_dir"/test.awk \
+                -v config_file="$output_file" \
+                -v commands_file="$data_directory/source_commands.csv" \
+                -v packages_file="$packages_file" \
+                -v profile_directory="$output_directory"
+            clear
+            printf '>> Profile has been built...\n'
+            if request_confirmation "Do you want to activate the profile?"; then
+                activate "$output_directory"
+            else
+                printf 'Warning: Operation cancelled.\n\n'
+            fi
             ;;
         build)
             # check/needs a profile before building and ask for activation
-            printf '>> Building profile:-[%s]...\n\n' "$configuration_directory"
-            awk -f "$src_dir"/test.awk
+            printf '>> Building profile: [%s]...\n\n' "$profile_name"
+            awk -f "$src_dir"/test.awk \
+                -v config_file="$configuration_directory/$profile_name/$profile_name.csv" \
+                -v commands_file="$data_directory/source_commands.csv" \
+                -v packages_file="$packages_file" \
+                -v profile_directory="$configuration_directory/$profile_name"
+            clear
+            printf '>> Profile has been built...\n'
+            if request_confirmation "Do you want to activate the profile?"; then
+                activate "$output_directory"
+            else
+                printf 'Warning: Operation cancelled.\n\n'
+            fi
             ;;
         active)
-            # activate a given profile
-            printf '>> Activating profile...\n\n'
+            printf '>> Activating profile: [%s]...\n\n' "$output_directory"
+            activate "$output_directory"
             ;;
         diff)
             printf '>> Diff profile...\n\n'

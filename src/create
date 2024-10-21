@@ -1,9 +1,5 @@
 #!/bin/sh
 
-ensure_directory_exist() {
-    mkdir -p "$1"
-}
-
 check_available_source() {
     source_name="$1"
 
@@ -30,6 +26,7 @@ select_sources() {
     awk -F, 'NR>1 { print $1 }' "$packages_file" | sort | uniq | while read -r package; do
         check_available_source "$package"
     done
+    echo
     read -r selected_sources
 
     # Validate selected_sources
@@ -69,6 +66,7 @@ select_interfaces() {
     # Prompt user to select interfaces
     echo "Enter the interface you want to select:"
     echo "$interfaces"
+    echo
     read -r selected_interfaces
 
     for interface in $(echo "$selected_interfaces" | tr ' ' '\n'); do
@@ -107,6 +105,7 @@ select_contexts() {
     # Prompt user to select contexts
     echo "Enter the context you want to select:"
     echo "$contexts"
+    echo
     read -r selected_contexts
 
     # Validate each selected context

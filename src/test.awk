@@ -26,13 +26,25 @@ BEGIN {
         # print("no packages file has been given backing on", packages_file)
     }
 
+    if (profile_directory == "") {
+        profile_directory = "active"
+    }
+
     read_config(config_file)
     read_commands(commands_file)
     read_packages(packages_file)
 
-    generate_update_script("update_script")
-    generate_remove_script("clean_script")
-    generate_install_script("install_script")
+    # generate_update_script("update_script")
+    # generate_remove_script("clean_script")
+    # generate_install_script("install_script")
+
+    update_file = profile_directory "/update_script"
+    clean_file = profile_directory "/clean_script"
+    install_file = profile_directory "/install_script"
+
+    generate_update_script(update_file)
+    generate_remove_script(clean_file)
+    generate_install_script(install_file)
 }
 
 function read_config(file) {
@@ -152,9 +164,9 @@ function read_packages(file) {
 }
 
 function generate_update_script(update_file) {
-    printf("#!/usr/bin/env bash\n\n") > update_file
+    printf("#!/bin/sh\n\n") > update_file
     printf("# This file was automatically generated with %s\n\n", script_file) >> update_file
-    printf("# set -Eeuo pipefail\n\n") >> update_file
+    # printf("# set -eu\n\n") >> update_file
     printf("### From {%d} sources\n", source_count) >> update_file
 
     for (source_iterator = 0; source_iterator < source_count; source_iterator++) {

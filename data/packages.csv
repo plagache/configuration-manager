@@ -81,7 +81,7 @@ paru,wiki-tui,cli,archived,
 paru,wofi,gui,base,
 paru,waybar,gui,base,
 paru,swaylock,gui,base,
-paru,lazydocker,gui,base,,,test better docker Visualization
+paru,lazydocker,cli,base,,,test better docker Visualization
 apt,git,cli,base,,,clone repo
 apt,libx11-dev,gui,base,,,Dependencies
 apt,libxft-dev,gui,base,,,Dependencies

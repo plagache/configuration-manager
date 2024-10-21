@@ -1,4 +1,4 @@
 #!/bin/sh
 
-link configuration manager to .local/bin
-or something like that
+# link configuration manager to .local/bin
+# set the path to the active configuration

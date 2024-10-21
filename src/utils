@@ -1,0 +1,30 @@
+#!/bin/sh
+
+ensure_directory_exist() {
+    mkdir -p "$1"
+}
+
+request_confirmation() {
+    question="$1"
+
+    while true; do
+        # Prompt the user with the provided question
+        printf "%s (y/n): " "$question"
+
+        # Read the user input
+        read -r answer
+
+        # Check the answer
+        case "$answer" in
+            [YyOo]* )
+                return 0  # Indicate "yes" response
+                ;;
+            [Nn]* )
+                return 1  # Indicate "no" response
+                ;;
+            * )
+                echo "Please answer yes or no."  # Handle invalid input
+                ;;
+        esac
+    done
+}

@@ -1,0 +1,35 @@
+#!/bin/sh
+
+backup() {
+    # Generate a hash based on the list of files
+    backup_dir_hash=$(find "$active_directory" -type f -exec md5sum {} \; | md5sum | cut -d ' ' -f1)
+
+    # Define the backup directory
+    backup_location="$configuration_directory"/backup
+    backup_dir="$backup_location/$backup_dir_hash"
+
+    # Create the backup directory
+    ensure_directory_exist "$backup_dir"
+
+    # Copy files to the backup directory
+    mv "$active_directory"/* "$backup_dir"
+
+    echo "Backup created at: $backup_dir"
+}
+
+activate() {
+    active_directory="$configuration_directory"/active
+
+    output_directory="$1"
+
+    # Check if there are any files (excluding hidden files) in the directory
+    if [ -z "$(find "$active_directory" -maxdepth 1 -type f 2>/dev/null)" ]; then
+        echo "No files to back up in: $active_directory"
+    else
+        backup
+    fi
+
+    cp -r "$output_directory"/* "$active_directory"
+
+    echo "Profile activated"
+}

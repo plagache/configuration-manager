@@ -1,3 +1,5 @@
 #!/bin/sh
 
-dash configuration-manager create
+# dash configuration-manager create
+
+dash configuration-manager build -p tata
