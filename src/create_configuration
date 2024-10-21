@@ -1,0 +1,167 @@
+#!/bin/sh
+
+ensure_directory_exist() {
+    mkdir -p "$1"
+}
+
+check_available_source() {
+    source_name="$1"
+
+    if command -v "$source_name" >/dev/null 2>&1; then
+        echo "$source_name"
+    fi
+}
+
+create_new_configuration() {
+    clear
+    printf "Define a new profil\n\nProfile Name: "
+    read -r profile_name
+    output_directory="$configuration_directory"/"$profile_name"
+    output_file="$output_directory"/"$profile_name"_configuration.csv
+    # printf "\n$output_directory\n"
+    # printf "\n$output_file\n"
+    ensure_directory_exist "$output_directory"
+}
+
+select_sources() {
+    clear
+    echo "Enter the source you want to select:"
+    # Extract and display unique and validated 'source'
+    awk -F, 'NR>1 { print $1 }' "$packages_file" | sort | uniq | while read -r package; do
+        check_available_source "$package"
+    done
+    read -r selected_sources
+
+    # Validate selected_sources
+    for source in $(echo "$selected_sources" | tr ' ' '\n'); do
+        if ! awk -F, 'NR>1 { print $1 }' "$packages_file" | sort | uniq | grep -qw "$source"; then
+            echo "Error: Invalid source selected: $source"
+            exit 1
+        fi
+    done
+}
+
+select_interfaces() {
+    clear
+    # Filter based on selected sources and extract unique interfaces (column 3)
+    interfaces=$(awk -F, -v sources="$selected_sources" '
+        BEGIN {
+            # Split selected_sources into an array
+            n = split(sources, selected_array, " ")
+        }
+        NR > 1 {
+            # Check if column 1 (source) is in selected_array
+            for (i = 1; i <= n; i++) {
+                if ($1 == selected_array[i]) {
+                    print $3  # Print the interface (column 3)
+                    break
+                }
+            }
+        }
+    ' "$packages_file" | sort | uniq)
+
+    # Check if there are any interfaces to show
+    if [ -z "$interfaces" ]; then
+        echo "No interfaces found for the selected sources."
+        exit 1
+    fi
+
+    # Prompt user to select interfaces
+    echo "Enter the interface you want to select:"
+    echo "$interfaces"
+    read -r selected_interfaces
+
+    for interface in $(echo "$selected_interfaces" | tr ' ' '\n'); do
+        if ! awk -F, 'NR>1 { print $3 }' "$packages_file" | sort | uniq | grep -qw "$interface"; then
+            echo "Error: Invalid interface selected: $interface"
+            exit 1
+        fi
+    done
+}
+
+select_contexts() {
+    clear
+    # Filter based on selected sources and extract unique interfaces (column 3)
+    contexts=$(awk -F, -v sources="$selected_sources" '
+        BEGIN {
+            # Split selected_sources into an array
+            n = split(sources, selected_array, " ")
+        }
+        NR > 1 {
+            # Check if column 1 (source) is in selected_array
+            for (i = 1; i <= n; i++) {
+                if ($1 == selected_array[i]) {
+                    print $4  # Print the context (column 4)
+                    break
+                }
+            }
+        }
+    ' "$packages_file" | sort | uniq)
+
+    # Check if there are any context to show
+    if [ -z "$contexts" ]; then
+        echo "No contexts found for the selected sources."
+        exit 1
+    fi
+
+    # Prompt user to select contexts
+    echo "Enter the context you want to select:"
+    echo "$contexts"
+    read -r selected_contexts
+
+    # Validate each selected context
+    for context in $(echo "$selected_contexts" | tr ' ' '\n'); do
+        if ! awk -F, 'NR>1 { print $4 }' "$packages_file" | sort | uniq | grep -qw "$context"; then
+            echo "Error: Invalid context selected: $context"
+            exit 1
+        fi
+    done
+}
+
+set_new_configuration() {
+    clear
+    awk -v sources="$selected_sources" -v interfaces="$selected_interfaces" -v contexts="$selected_contexts" '
+    BEGIN {
+        # Split each string into arrays
+        n_sources = split(sources, src_arr, " ")
+        n_interfaces = split(interfaces, int_arr, " ")
+        n_contexts = split(contexts, ctx_arr, " ")
+
+        # Calculate the maximum length to iterate over
+        max_rows = (n_sources > n_interfaces ? n_sources : n_interfaces)
+        max_rows = (max_rows > n_contexts ? max_rows : n_contexts)
+
+        # Generate output
+        for (i = 1; i <= max_rows; i++) {
+            # Print the source, interface, and context in CSV format
+            printf "%s,%s,%s\n",
+                (i <= n_sources ? src_arr[i] : ""),
+                (i <= n_interfaces ? int_arr[i] : ""),
+                (i <= n_contexts ? ctx_arr[i] : "")
+        }
+    }' > "$output_file"
+
+    echo "Check $output_file"
+    cat "$output_file"
+}
+
+Create_configuration() {
+    # printf '%s\n' "$configuration_directory"
+    # printf '%s\n' "$data_directory"
+    # printf '%s\n' "$config_file"
+
+    packages_file="$data_directory"/packages.csv
+    if [ ! -f "$packages_file" ]; then
+        echo "Error: packages file not found!"
+    fi
+
+    create_new_configuration
+
+    select_sources
+
+    select_interfaces
+
+    select_contexts
+
+    set_new_configuration
+}

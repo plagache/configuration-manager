@@ -1,9 +1,13 @@
+#!/bin/sh
+
 # a profil name is the name of the directory
 # it contains the respective scripts and/or files needed for this profile
 
 configuration_manager_version=0.0.0
 action=
 action_arguments=
+
+. "$src_dir"/create_configuration
 
 Usage() {
     printf 'configuration-manager v%s\n' "${configuration_manager_version}"
@@ -89,6 +93,8 @@ Main() {
         create)
             printf '>> Creating profile...\n\n'
             # create, build, and ask for activation
+            # could take as aruguments a profil name
+            Create_configuration
             ;;
         build)
             # check/needs a profile before building and ask for activation
