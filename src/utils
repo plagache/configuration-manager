@@ -9,7 +9,7 @@ request_confirmation() {
 
     while true; do
         # Prompt the user with the provided question
-        printf "%s (y/n): " "$question"
+        printf "%s [Y/n] " "$question"
 
         # Read the user input
         read -r answer

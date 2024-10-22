@@ -14,10 +14,11 @@ backup() {
     # Copy files to the backup directory
     mv "$active_directory"/* "$backup_dir"
 
-    echo "Backup created at: $backup_dir"
+    echo " Backup created: $backup_dir"
 }
 
 activate() {
+    printf ':: Activating %s...\n' "$profile_name"
     active_directory="$configuration_directory"/active
 
     output_directory="$1"
@@ -29,7 +30,9 @@ activate() {
         backup
     fi
 
+    ensure_directory_exist "$active_directory"
+
     cp -r "$output_directory"/* "$active_directory"
 
-    echo "Profile activated"
+    printf ' %s activated\n' "$profile_name"
 }

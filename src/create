@@ -21,12 +21,16 @@ create_new_configuration() {
 
 select_sources() {
     clear
-    echo "Enter the source you want to select:"
-    # Extract and display unique and validated 'source'
-    awk -F, 'NR>1 { print $1 }' "$packages_file" | sort | uniq | while read -r package; do
-        check_available_source "$package"
-    done
-    echo
+
+    valid_sources=$(awk -F, 'NR>1 { print $1 }' "$packages_file" | sort | uniq | \
+    while IFS= read -r source; do
+        check_available_source "$source"
+    done)
+
+    sources_count=$(printf "%s" "$valid_sources" | wc -w)
+    printf "Sources (%d)\n" "$sources_count"
+    printf "%s\n" "$valid_sources"
+    printf "\n:: Enter the sources you want to select: "
     read -r selected_sources
 
     # Validate selected_sources
@@ -63,10 +67,10 @@ select_interfaces() {
         exit 1
     fi
 
-    # Prompt user to select interfaces
-    echo "Enter the interface you want to select:"
-    echo "$interfaces"
-    echo
+    interfaces_count=$(echo "$interfaces" | wc -w)
+    printf "Interfaces (%d)\n" "$interfaces_count"
+    printf "%s\n" "$interfaces"
+    printf "\n:: Enter the interfaces you want to select: "
     read -r selected_interfaces
 
     for interface in $(echo "$selected_interfaces" | tr ' ' '\n'); do
@@ -103,9 +107,10 @@ select_contexts() {
     fi
 
     # Prompt user to select contexts
-    echo "Enter the context you want to select:"
-    echo "$contexts"
-    echo
+    contexts_count=$(echo "$contexts" | wc -w)
+    printf "Contexts (%d)\n" "$contexts_count"
+    printf "%s\n" "$contexts"
+    printf "\n:: Enter the contexts you want to select: "
     read -r selected_contexts
 
     # Validate each selected context
@@ -166,18 +171,16 @@ create_configuration() {
 }
 
 create() {
-    printf '>> Creating profile...\n\n'
-    # create, build, and ask for activation
-    # could take as aruguments a profil name
+    # could take as aruguments a profil name ?
     create_configuration
-    printf '>> Building profile: [%s]...\n\n' "$profile_name"
+    printf ':: Building %s...\n' "$profile_name"
     awk -f "$src_dir"/build.awk \
         -v config_file="$output_file" \
         -v commands_file="$data_directory/source_commands.csv" \
         -v packages_file="$packages_file" \
         -v profile_directory="$output_directory"
     # clear
-    printf '>> Profile [%s] has been built...\n' "$profile_name"
+    printf ' %s is built\n' "$profile_name"
     if request_confirmation "Do you want to activate the profile?"; then
         activate "$output_directory"
     else

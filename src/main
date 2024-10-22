@@ -27,6 +27,7 @@ usage() {
     printf 'Supported options:\n'
     printf '  -h, --help               Print this message\n'
     printf '  -c, --config DIR         Set the path to your configuration directory\n'
+    printf '  -p, --profile NAME       Set the path to your configuration directory\n'
     printf '      --skip-config        Skip the configuration parsing step\n'
 }
 
