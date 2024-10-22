@@ -8,22 +8,19 @@ request_confirmation() {
     question="$1"
 
     while true; do
-        # Prompt the user with the provided question
-        printf "%s [Y/n] " "$question"
+        printf "\n%s [Y/n] " "$question"
 
-        # Read the user input
         read -r answer
 
-        # Check the answer
         case "$answer" in
             [YyOo]* )
-                return 0  # Indicate "yes" response
+                return 0
                 ;;
             [Nn]* )
-                return 1  # Indicate "no" response
+                return 1
                 ;;
             * )
-                echo "Please answer yes or no."  # Handle invalid input
+                echo "Please answer yes or no."
                 ;;
         esac
     done

@@ -28,7 +28,7 @@ select_sources() {
     done)
 
     sources_count=$(printf "%s" "$valid_sources" | wc -w)
-    printf "Sources (%d)\n" "$sources_count"
+    printf "Sources (%d)\n\n" "$sources_count"
     printf "%s\n" "$valid_sources"
     printf "\n:: Enter the sources you want to select: "
     read -r selected_sources
@@ -68,7 +68,7 @@ select_interfaces() {
     fi
 
     interfaces_count=$(echo "$interfaces" | wc -w)
-    printf "Interfaces (%d)\n" "$interfaces_count"
+    printf "Interfaces (%d)\n\n" "$interfaces_count"
     printf "%s\n" "$interfaces"
     printf "\n:: Enter the interfaces you want to select: "
     read -r selected_interfaces
@@ -108,7 +108,7 @@ select_contexts() {
 
     # Prompt user to select contexts
     contexts_count=$(echo "$contexts" | wc -w)
-    printf "Contexts (%d)\n" "$contexts_count"
+    printf "Contexts (%d)\n\n" "$contexts_count"
     printf "%s\n" "$contexts"
     printf "\n:: Enter the contexts you want to select: "
     read -r selected_contexts
@@ -145,8 +145,9 @@ set_new_configuration() {
         }
     }' > "$output_file"
 
-    echo "Check $output_file"
-    cat "$output_file"
+    printf "[%s] created at %s\n\n" "${profile_name}" "${output_file}"
+    cat "${output_file}"
+    printf "\n"
 }
 
 create_configuration() {
@@ -173,17 +174,17 @@ create_configuration() {
 create() {
     # could take as aruguments a profil name ?
     create_configuration
-    printf ':: Building %s...\n' "$profile_name"
+    printf ':: Building [%s]...\n' "$profile_name"
     awk -f "$src_dir"/build.awk \
         -v config_file="$output_file" \
         -v commands_file="$data_directory/source_commands.csv" \
         -v packages_file="$packages_file" \
         -v profile_directory="$output_directory"
     # clear
-    printf ' %s is built\n' "$profile_name"
-    if request_confirmation "Do you want to activate the profile?"; then
+    printf ' [%s] is built\n' "$profile_name"
+    if request_confirmation ":: Do you want to activate the profile?"; then
         activate "$output_directory"
     else
-        printf 'Warning: Operation cancelled.\n\n'
+        printf 'Warning: [%s] not activated.\n' "${profile_name}"
     fi
 }

@@ -1,3 +1,5 @@
+- [ ] chmod the new script ?
+
 ### Own Package Manager
 
 - [ ] Create arch linux vm 0
@@ -28,9 +30,9 @@
 
 ### create_config
 
-- [ ] only proposed available source in packages
-- [ ] test listed source for availability
-- [ ] only list interface and context for the remaining packages
+- [x] only proposed available source in packages
+- [x] test listed source for availability
+- [x] only list interface and context for the remaining packages
 
 - [ ] multi user support
     - [ ] create profile for a $USER

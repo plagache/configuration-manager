@@ -18,7 +18,7 @@ backup() {
 }
 
 activate() {
-    printf ':: Activating %s...\n' "$profile_name"
+    printf ':: Activating [%s]...\n' "$profile_name"
     active_directory="$configuration_directory"/active
 
     output_directory="$1"
@@ -34,5 +34,5 @@ activate() {
 
     cp -r "$output_directory"/* "$active_directory"
 
-    printf ' %s activated\n' "$profile_name"
+    printf ' [%s] activated\n' "$profile_name"
 }
