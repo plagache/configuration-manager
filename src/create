@@ -144,7 +144,7 @@ set_new_configuration() {
     cat "$output_file"
 }
 
-Create_configuration() {
+create_configuration() {
     # printf '%s\n' "$configuration_directory"
     # printf '%s\n' "$data_directory"
     # printf '%s\n' "$config_file"
@@ -163,4 +163,24 @@ Create_configuration() {
     select_contexts
 
     set_new_configuration
+}
+
+create() {
+    printf '>> Creating profile...\n\n'
+    # create, build, and ask for activation
+    # could take as aruguments a profil name
+    create_configuration
+    printf '>> Building profile: [%s]...\n\n' "$profile_name"
+    awk -f "$src_dir"/test.awk \
+        -v config_file="$output_file" \
+        -v commands_file="$data_directory/source_commands.csv" \
+        -v packages_file="$packages_file" \
+        -v profile_directory="$output_directory"
+    # clear
+    printf '>> Profile [%s] has been built...\n' "$profile_name"
+    if request_confirmation "Do you want to activate the profile?"; then
+        activate "$output_directory"
+    else
+        printf 'Warning: Operation cancelled.\n\n'
+    fi
 }

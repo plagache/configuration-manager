@@ -1,0 +1,19 @@
+#!/bin/sh
+
+build() {
+    # check/needs a profile before building and ask for activation
+    # if no profile has been passed we should list the available one and ask for selection of one
+    printf '>> Building profile: [%s]...\n\n' "$profile_name"
+    awk -f "$src_dir"/test.awk \
+        -v config_file="$configuration_directory/$profile_name/${profile_name}_configuration.csv" \
+        -v commands_file="$data_directory/source_commands.csv" \
+        -v packages_file="$packages_file" \
+        -v profile_directory="$configuration_directory/$profile_name"
+    # clear
+    printf '>> Profile [%s] has been built...\n' "$profile_name"
+    if request_confirmation "Do you want to activate the profile?"; then
+        activate "$configuration_directory/$profile_name"
+    else
+        printf 'Warning: Operation cancelled.\n\n'
+    fi
+}

@@ -3,3 +3,4 @@
 # dash configuration-manager create
 
 dash configuration-manager build -p tata
+# dash configuration-manager build -p toto

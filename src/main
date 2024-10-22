@@ -8,6 +8,7 @@ action=
 action_arguments=
 
 . "$src_dir"/create
+. "$src_dir"/build
 . "$src_dir"/utils
 . "$src_dir"/activate
 
@@ -97,42 +98,15 @@ Main() {
     # Action handling
     case "$action" in
         create)
-            printf '>> Creating profile...\n\n'
-            # create, build, and ask for activation
-            # could take as aruguments a profil name
-            Create_configuration
-            awk -f "$src_dir"/test.awk \
-                -v config_file="$output_file" \
-                -v commands_file="$data_directory/source_commands.csv" \
-                -v packages_file="$packages_file" \
-                -v profile_directory="$output_directory"
-            clear
-            printf '>> Profile has been built...\n'
-            if request_confirmation "Do you want to activate the profile?"; then
-                activate "$output_directory"
-            else
-                printf 'Warning: Operation cancelled.\n\n'
-            fi
+            create
             ;;
         build)
-            # check/needs a profile before building and ask for activation
-            printf '>> Building profile: [%s]...\n\n' "$profile_name"
-            awk -f "$src_dir"/test.awk \
-                -v config_file="$configuration_directory/$profile_name/$profile_name.csv" \
-                -v commands_file="$data_directory/source_commands.csv" \
-                -v packages_file="$packages_file" \
-                -v profile_directory="$configuration_directory/$profile_name"
-            clear
-            printf '>> Profile has been built...\n'
-            if request_confirmation "Do you want to activate the profile?"; then
-                activate "$output_directory"
-            else
-                printf 'Warning: Operation cancelled.\n\n'
-            fi
+            build
             ;;
         active)
-            printf '>> Activating profile: [%s]...\n\n' "$output_directory"
-            activate "$output_directory"
+            # show a list of profil to activate
+            # printf '>> Activating profile: [%s]...\n\n' "$selected_profile"
+            # activate "$selected_profile"
             ;;
         diff)
             printf '>> Diff profile...\n\n'
