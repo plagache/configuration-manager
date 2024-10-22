@@ -171,7 +171,7 @@ create() {
     # could take as aruguments a profil name
     create_configuration
     printf '>> Building profile: [%s]...\n\n' "$profile_name"
-    awk -f "$src_dir"/test.awk \
+    awk -f "$src_dir"/build.awk \
         -v config_file="$output_file" \
         -v commands_file="$data_directory/source_commands.csv" \
         -v packages_file="$packages_file" \

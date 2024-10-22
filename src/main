@@ -12,7 +12,7 @@ action_arguments=
 . "$src_dir"/utils
 . "$src_dir"/activate
 
-Usage() {
+usage() {
     printf 'configuration-manager v%s\n' "${configuration_manager_version}"
     printf 'https://github.com/plagache/configuration-manager\n'
     echo
@@ -30,35 +30,30 @@ Usage() {
     printf '      --skip-config        Skip the configuration parsing step\n'
 }
 
-UsageError() {
-    Usage
+usage_error() {
+    usage
     echo
     printf "%s\n" "$@"
     echo
     exit 2
 }
 
-Main() {
-    prompt_mode=normal
-    skip_config=n
-
+main() {
     while [ "$#" -ne 0 ]; do
         case "$1" in
             create|build|active|diff)
                 if [ -n "$action" ]; then
-                    UsageError "An action has already been specified"
+                    usage_error "An action has already been specified"
                 fi
                 action="$1"
                 shift
                 if [ "$action" = diff ]; then
-                    # Simply store remaining arguments for diff
-                    # action_arguments="$@"
                     action_arguments="$action_arguments $@"
                     break
                 fi
                 ;;
             -h|--help|help)
-                Usage
+                usage
                 exit 0
                 ;;
             -c|--config)
@@ -69,28 +64,8 @@ Main() {
                 profile_name="$2"
                 shift 2
                 ;;
-            # --skip-config)
-            #     skip_config=y
-            #     shift
-            #     ;;
-            # --paranoid)
-            #     if [ "$prompt_mode" != normal ]; then
-            #         UsageError "A prompt mode has already been specified"
-            #     fi
-            #     prompt_mode=paranoid
-            #     pacman_opts="$pacman_opts --confirm"
-            #     shift
-            #     ;;
-            # --yes)
-            #     if [ "$prompt_mode" != normal ]; then
-            #         UsageError "A prompt mode has already been specified"
-            #     fi
-            #     prompt_mode=never
-            #     pacman_opts="$pacman_opts --noconfirm"
-            #     shift
-            #     ;;
             *)
-                UsageError "Unrecognized option: %s" "$1"
+                usage_error "Unrecognized option: %s" "$1"
                 ;;
         esac
     done
@@ -112,7 +87,7 @@ Main() {
             printf '>> Diff profile...\n\n'
             ;;
         *)
-            Usage
+            usage
             exit 2
             ;;
     esac
@@ -121,4 +96,4 @@ Main() {
 }
 
 # Call Main with arguments
-Main "$@"
+main "$@"

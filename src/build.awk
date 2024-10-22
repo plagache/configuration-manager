@@ -3,7 +3,7 @@
 BEGIN {
     FS = ","
 
-    script_file = home_dir "/base/unix/awk/test.awk"
+    script_file = home_dir "/base/unix/awk/build.awk"
 
     home_dir = ENVIRON["HOME"]
 

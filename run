@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# dash configuration-manager create
+dash configuration-manager create
 
-dash configuration-manager build -p tata
-# dash configuration-manager build -p toto
+# dash configuration-manager build -p dev
+# dash configuration-manager build -p minimal
