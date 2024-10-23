@@ -44,7 +44,6 @@ select_sources() {
 
 select_interfaces() {
     clear
-    # Filter based on selected sources and extract unique interfaces (column 3)
     interfaces=$(awk -F, -v sources="$selected_sources" '
         BEGIN {
             # Split selected_sources into an array
@@ -61,7 +60,6 @@ select_interfaces() {
         }
     ' "$packages_file" | sort | uniq)
 
-    # Check if there are any interfaces to show
     if [ -z "$interfaces" ]; then
         echo "No interfaces found for the selected sources."
         exit 1
@@ -83,7 +81,6 @@ select_interfaces() {
 
 select_contexts() {
     clear
-    # Filter based on selected sources and extract unique interfaces (column 3)
     contexts=$(awk -F, -v sources="$selected_sources" '
         BEGIN {
             # Split selected_sources into an array
@@ -100,20 +97,17 @@ select_contexts() {
         }
     ' "$packages_file" | sort | uniq)
 
-    # Check if there are any context to show
     if [ -z "$contexts" ]; then
         echo "No contexts found for the selected sources."
         exit 1
     fi
 
-    # Prompt user to select contexts
     contexts_count=$(echo "$contexts" | wc -w)
     printf "Contexts (%d)\n\n" "$contexts_count"
     printf "%s\n" "$contexts"
     printf "\n:: Enter the contexts you want to select: "
     read -r selected_contexts
 
-    # Validate each selected context
     for context in $(echo "$selected_contexts" | tr ' ' '\n'); do
         if ! awk -F, 'NR>1 { print $4 }' "$packages_file" | sort | uniq | grep -qw "$context"; then
             echo "Error: Invalid context selected: $context"

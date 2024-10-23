@@ -11,5 +11,5 @@ cd configuration-manager
 ```
 
 ## Objectives
-Select/Create Profile base on tags (minimal,dev,desktop) and activate them
-Create script to install;update;clean packages;services;Files
+Select/Create Profile base on tags (minimal,dev,desktop) available in packages.csv  
+Create/build script to install;update;clean packages;services;Files
