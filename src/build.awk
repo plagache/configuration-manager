@@ -7,6 +7,9 @@ BEGIN {
 
     home_dir = ENVIRON["HOME"]
 
+    # REWRITE THIS PART
+    # REMOVE ALL UNECSESSARY FILES
+
     # Construct the path to the data files
     if (config_file == "") {
         config_file = home_dir "/base/unix/user/user_configuration.csv"

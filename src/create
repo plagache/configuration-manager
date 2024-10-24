@@ -13,7 +13,7 @@ create_new_configuration() {
     printf "Define a new profil\n\nProfile Name: "
     read -r profile_name
     output_directory="$configuration_directory"/"$profile_name"
-    output_file="$output_directory"/"$profile_name"_configuration.csv
+    output_file="$output_directory"/"$profile_name".csv
     # printf "\n$output_directory\n"
     # printf "\n$output_file\n"
     ensure_directory_exist "$output_directory"
@@ -33,9 +33,8 @@ select_sources() {
     printf "\n:: Enter the sources you want to select: "
     read -r selected_sources
 
-    # Validate selected_sources
     for source in $(echo "$selected_sources" | tr ' ' '\n'); do
-        if ! awk -F, 'NR>1 { print $1 }' "$packages_file" | sort | uniq | grep -qw "$source"; then
+        if ! awk -F, -v source="$source" 'NR > 1 { if ($1 == source) found=1 } END { exit !found }' "$packages_file"; then
             echo "Error: Invalid source selected: $source"
             exit 1
         fi
@@ -72,7 +71,7 @@ select_interfaces() {
     read -r selected_interfaces
 
     for interface in $(echo "$selected_interfaces" | tr ' ' '\n'); do
-        if ! awk -F, 'NR>1 { print $3 }' "$packages_file" | sort | uniq | grep -qw "$interface"; then
+        if ! awk -F, -v interface="$interface" 'NR > 1 { if ($3 == interface) found=1 } END { exit !found }' "$packages_file"; then
             echo "Error: Invalid interface selected: $interface"
             exit 1
         fi
@@ -109,7 +108,7 @@ select_contexts() {
     read -r selected_contexts
 
     for context in $(echo "$selected_contexts" | tr ' ' '\n'); do
-        if ! awk -F, 'NR>1 { print $4 }' "$packages_file" | sort | uniq | grep -qw "$context"; then
+        if ! awk -F, -v context="$context" 'NR > 1 { if ($4 == context) found=1 } END { exit !found }' "$packages_file"; then
             echo "Error: Invalid context selected: $context"
             exit 1
         fi
@@ -174,6 +173,7 @@ create() {
         -v commands_file="$data_directory/source_commands.csv" \
         -v packages_file="$packages_file" \
         -v profile_directory="$output_directory"
+    find "${output_directory}" -type f ! -name "*.csv" -print0 | xargs -0 chmod 744
     # clear
     printf ' [%s] is built\n' "$profile_name"
     if request_confirmation ":: Do you want to activate the profile?"; then
