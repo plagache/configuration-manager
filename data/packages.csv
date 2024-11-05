@@ -160,7 +160,7 @@ curl,Hack-Nerd-Font,gui,minimal,.local/share/fonts/Hack-Nerd-Font.ttf,https://gi
 curl,Hack-Nerd-Font-Mono,gui,minimal,.local/share/fonts/Hack-Nerd-Font-Mono.ttf,https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Hack/Regular/HackNerdFontMono-Regular.ttf
 curl,Fira-Code-Nerd-Font-Mono,gui,minimal,.local/share/fonts/Fira-Code-Nerd-Font-Mono.ttf,https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/FiraCode/Regular/FiraCodeNerdFontMono-Regular.ttf
 curl,MaterialDesign-Font,gui,minimal,.local/share/fonts/MaterialDesign-Font.ttf,https://github.com/Templarian/MaterialDesign-Font/raw/master/MaterialDesignIconsDesktop.ttf
-git,base,cli,base,base,https://gitlab.com/plgch/base,This is the Base
+git,base,cli,minimal,base,https://gitlab.com/plgch/base,This is the Base
 git,notes,cli,minimal,notes,https://gitlab.com/plgch/notes,My Personal notes
 git,dotfiles,cli,minimal,.config/dot_files,https://gitlab.com/plgch/dot_files,My Personal dotfiles
 git,neovim,cli,minimal,.config/nvim,https://gitlab.com/plgch/neovim_config,My Personal Neovim Config
