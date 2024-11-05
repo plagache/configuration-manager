@@ -1,157 +1,196 @@
 source,name,interface,context,directory,URL,description
-pacman,git,cli,base,,,clone repo
+pacman,git,cli,minimal,,,clone repo
 pacman,bluez,cli,hardware,,,clone repo
 pacman,bluez-utils,cli,hardware,,,clone repo
-pacman,zsh,cli,base,
-pacman,man,cli,base,
-pacman,base-devel,cli,base,
-pacman,patch,cli,base,
-pacman,make,cli,base,
-pacman,cmake,cli,base,
-pacman,clang,cli,base,
-pacman,gdb,cli,base,
-pacman,lldb,cli,base,
-pacman,llvm,cli,base,
-pacman,valgrind,cli,base,
-pacman,python,cli,base,
-pacman,python-pip,cli,base,,,not sure i need it system wide
+pacman,zsh,cli,minimal,
+pacman,man,cli,minimal,
+pacman,minimal-devel,cli,minimal,
+pacman,patch,cli,minimal,
+pacman,make,cli,minimal,
+pacman,cmake,cli,minimal,
+pacman,clang,cli,minimal,
+pacman,gdb,cli,minimal,
+pacman,lldb,cli,minimal,
+pacman,llvm,cli,minimal,
+pacman,valgrind,cli,minimal,
+pacman,python,cli,minimal,
+pacman,python-pip,cli,minimal,,,not sure i need it system wide
 pacman,python-uv,cli,archived,,,will replace pip
-pacman,uv,cli,base,,,replacement for pip python-venv
+pacman,uv,cli,minimal,,,replacement for pip python-venv
 pacman,hdf5,cli,donotneed,,,General purpose library and file format for storing scientific data
-pacman,cloc,cli,base,,,Count Lines of Code
-pacman,tk,gui,base,,,lib graphique pour pynput
-pacman,fd,cli,base,,,fd-find
-pacman,ripgrep,cli,base,
-pacman,bat,cli,base,
-pacman,wget,cli,base,
-pacman,curl,cli,base,
-pacman,stow,cli,base,
-pacman,tmux,cli,base,
-pacman,kitty,gui,base,
-pacman,htop,cli,base,
-pacman,poppler,cli,base,,,PDF rendering library based on xpdf 3.0
-pacman,net-tools,cli,base,,,Configuration tools for Linux networking
-pacman,openssh,cli,base,
-pacman,iptables,cli,base,
-pacman,fail2ban,cli,base,
-pacman,alsa-utils,cli,base,
-pacman,alsa-ucm-conf,cli,base,
-pacman,pulseaudio,cli,base,
-pacman,keepassxc,gui,base,
-pacman,graphviz,gui,base,,,Graph Visualization Software in the DOT language needs to be installed locally to work
-pacman,fastfetch,cli,base,
-pacman,nnn,cli,base,
-pacman,redshift,gui,base,
-pacman,firefox,gui,base,
-pacman,tree,cli,base,
-pacman,discord,gui,base,
-pacman,p7zip,cli,base,
-pacman,sway,gui,base,
-pacman,swaybg,gui,base,
-pacman,imv,cli,base,
-pacman,obsidian,gui,base,
-pacman,barrier,gui,base,
-pacman,qbittorrent,gui,base,
-pacman,docker,cli,base,
-pacman,docker-compose,cli,base,
-pacman,nextcloud-client,gui,base,
-pacman,kdeconnect,gui,base,
-pacman,wireshark-qt,gui,base,,,Network GUI analyzer
-pacman,nmap,cli,base,,,Network Mapper
-pacman,nfs-utils,cli,base,,,Network file system needed in the inception project
+pacman,cloc,cli,minimal,,,Count Lines of Code
+pacman,tk,gui,minimal,,,lib graphique pour pynput
+pacman,fd,cli,minimal,,,fd-find
+pacman,ripgrep,cli,minimal,
+pacman,bat,cli,minimal,
+pacman,wget,cli,minimal,
+pacman,curl,cli,minimal,
+pacman,stow,cli,minimal,
+pacman,tmux,cli,minimal,
+pacman,kitty,gui,minimal,
+pacman,htop,cli,minimal,
+pacman,poppler,cli,minimal,,,PDF rendering library minimald on xpdf 3.0
+pacman,net-tools,cli,minimal,,,Configuration tools for Linux networking
+pacman,openssh,cli,minimal,
+pacman,iptables,cli,minimal,
+pacman,fail2ban,cli,minimal,
+pacman,alsa-utils,cli,minimal,
+pacman,alsa-ucm-conf,cli,minimal,
+pacman,pulseaudio,cli,minimal,
+pacman,keepassxc,gui,minimal,
+pacman,graphviz,gui,minimal,,,Graph Visualization Software in the DOT language needs to be installed locally to work
+pacman,fastfetch,cli,minimal,
+pacman,nnn,cli,minimal,
+pacman,redshift,gui,minimal,
+pacman,firefox,gui,minimal,
+pacman,tree,cli,minimal,
+pacman,discord,gui,minimal,
+pacman,p7zip,cli,minimal,
+pacman,sway,gui,minimal,
+pacman,swaybg,gui,minimal,
+pacman,imv,cli,minimal,
+pacman,obsidian,gui,minimal,
+pacman,barrier,gui,minimal,
+pacman,qbittorrent,gui,minimal,
+pacman,docker,cli,minimal,
+pacman,docker-compose,cli,minimal,
+pacman,nextcloud-client,gui,minimal,
+pacman,kdeconnect,gui,minimal,
+pacman,wireshark-qt,gui,minimal,,,Network GUI analyzer
+pacman,nmap,cli,minimal,,,Network Mapper
+pacman,nfs-utils,cli,minimal,,,Network file system needed in the inception project
 pacman,qemu-full,cli,virtualization,,,Machine emulator Virtualizer
 pacman,virt-manager,gui,virtualization,,,graphical user front end for the LibVirt library
 pacman,virt-viewer,gui,virtualization,,,A lightweight interface for interacting with the graphical display of virtualized guest OS.
-pacman,dnsmasq,cli,base,,,DNS configuration for Qemu
-pacman,feh,gui,base,,,X11 image viewer
-pacman,i3,gui,base,,,window manager
-pacman,dmenu,cli,base,,,launcher menu for X
-pacman,xorg-xinput,gui,base,,,X11 change input pad
-pacman,xorg-xrandr,gui,base,,,X11 change resolution
+pacman,dnsmasq,cli,minimal,,,DNS configuration for Qemu
+pacman,feh,gui,minimal,,,X11 image viewer
+pacman,i3,gui,minimal,,,window manager
+pacman,dmenu,cli,minimal,,,launcher menu for X
+pacman,xorg-xinput,gui,minimal,,,X11 change input pad
+pacman,xorg-xrandr,gui,minimal,,,X11 change resolution
 pacman,wine,gui,gaming,
-pacman,ntfs-3g,cli,base,,,NTFS filesystem driver and utilities
-pacman,hyprland,gui,base,
+pacman,ntfs-3g,cli,minimal,,,NTFS filesystem driver and utilities
+pacman,hyprland,gui,minimal,
 pacman,monero,cli,finance,
 pacman,monero-gui,gui,finance,
 paru,python311,cli,archived,,,python-uv can download required version of python
-paru,gnome-browser-connector,gui,base,
-paru,extension-manager,gui,base,
-paru,touchegg,gui,base,
+paru,gnome-browser-connector,gui,minimal,
+paru,extension-manager,gui,minimal,
+paru,touchegg,gui,minimal,
 paru,wiki-tui,cli,archived,
-paru,wofi,gui,base,
-paru,waybar,gui,base,
-paru,swaylock,gui,base,
-paru,lazydocker,cli,base,,,test better docker Visualization
-apt,git,cli,base,,,clone repo
-apt,libx11-dev,gui,base,,,Dependencies
-apt,libxft-dev,gui,base,,,Dependencies
-apt,libxext-dev,gui,base,,,Dependencies
-apt,libxinerama-dev,gui,base,,,Dependencies
-apt,zsh,cli,base,
-apt,man,cli,base,
-apt,build-essential,cli,base,
-apt,cmake,cli,base,
-apt,clang,cli,base,
-apt,clangd,cli,base,
-apt,clang-tools,cli,base,
-apt,llvm,cli,base,
-apt,lldb,cli,base,
-apt,cloc,cli,base,
-apt,inetutils-tools,cli,base,,,collection of common network programs from GNU
-apt,inetutils-ping,cli,base,,,ping command from GNU
-apt,valgrind,cli,base,
-apt,python3,cli,base,
-apt,tk,gui,base,,,lib graphique
-apt,pip,cli,base,
-apt,fd-find,cli,base,,,better find in rust
-apt,wget,cli,base,
-apt,curl,cli,base,,,C URL library
-apt,tar,cli,base,
-apt,unzip,cli,base,
-apt,gzip,cli,base,
-apt,xcompmgr,cli,base,
-apt,stow,cli,base,
-apt,tmux,cli,base,
-apt,htop,cli,base,
-apt,poppler-utils,cli,base,
-apt,net-tools,cli,base,
-apt,ssh,cli,base,
-apt,iptables,cli,base,
-apt,fail2ban,cli,base,
-apt,ripgrep,cli,base,
-apt,bat,cli,base,
-apt,sendmail,cli,base,
-apt,keepassxc,gui,base,
-apt,fastfetch,cli,base,
-apt,nnn,cli,base,
-apt,redshift-gtk,gui,base,
-apt,tree,cli,base,
-apt,wireshark,gui,base,
-brew,tmux,cli,base,
-brew,stow,cli,base,
-brew,fd,cli,base,
-brew,bat,cli,base,
-brew,ripgrep,cli,base,
+paru,wofi,gui,minimal,
+paru,waybar,gui,minimal,
+paru,swaylock,gui,minimal,
+paru,lazydocker,gui,minimal,,,test better docker Visualization
+paru,kanata,cli,minimal,,,cross-platform software keyboard remapper
+apt,git,cli,minimal,,,clone repo
+apt,libx11-dev,gui,minimal,,,Dependencies
+apt,libxft-dev,gui,minimal,,,Dependencies
+apt,libxext-dev,gui,minimal,,,Dependencies
+apt,libxinerama-dev,gui,minimal,,,Dependencies
+apt,zsh,cli,minimal,
+apt,man,cli,minimal,
+apt,build-essential,cli,minimal,
+apt,cmake,cli,minimal,
+apt,clang,cli,minimal,
+apt,clangd,cli,minimal,
+apt,clang-tools,cli,minimal,
+apt,llvm,cli,minimal,
+apt,lldb,cli,minimal,
+apt,cloc,cli,minimal,
+apt,inetutils-tools,cli,minimal,,,collection of common network programs from GNU
+apt,inetutils-ping,cli,minimal,,,ping command from GNU
+apt,valgrind,cli,minimal,
+apt,python3,cli,minimal,
+apt,tk,gui,minimal,,,lib graphique
+apt,pip,cli,minimal,
+apt,fd-find,cli,minimal,,,better find in rust
+apt,wget,cli,minimal,
+apt,curl,cli,minimal,,,C URL library
+apt,tar,cli,minimal,
+apt,unzip,cli,minimal,
+apt,gzip,cli,minimal,
+apt,xcompmgr,cli,minimal,
+apt,stow,cli,minimal,
+apt,tmux,cli,minimal,
+apt,htop,cli,minimal,
+apt,poppler-utils,cli,minimal,
+apt,net-tools,cli,minimal,
+apt,ssh,cli,minimal,
+apt,iptables,cli,minimal,
+apt,fail2ban,cli,minimal,
+apt,ripgrep,cli,minimal,
+apt,bat,cli,minimal,
+apt,sendmail,cli,minimal,
+apt,keepassxc,gui,minimal,
+apt,fastfetch,cli,minimal,
+apt,nnn,cli,minimal,
+apt,redshift-gtk,gui,minimal,
+apt,tree,cli,minimal,
+apt,wireshark,gui,minimal,
+brew,tmux,cli,minimal,
+brew,stow,cli,minimal,
+brew,fd,cli,minimal,
+brew,bat,cli,minimal,
+brew,ripgrep,cli,minimal,
 brew,helix,cli,test,
 brew,python@3.11,cli,installed_with_uv,
 brew,cloc,cli,less_is_more,
 brew,fastfetch,cli,too_much_storage,
-nix,nixpkgs.man,cli,base,
-nix,nixpkgs.git,cli,base,
-nix,nixpkgs.gcc,cli,base,
-nix,nixpkgs.cmake,cli,base,
-nix,nixpkgs.zsh,cli,base,
-nix,nixpkgs.bat,cli,base,
-nix,nixpkgs.nnn,cli,base,
-nix,nixpkgs.stow,cli,base,
-nix,nixpkgs.tmux,cli,base,
-nix,nixpkgs.neovim,cli,base,
-nix,nixpkgs.fastfetch,cli,base,
-nix,nixpkgs.ripgrep,cli,base,
-nix,nixpkgs.zsh-fzf-tab,cli,base,
-nix,nixpkgs.font-awesome,cli,base,,,Font
-nix,nixpkgs.nerdfonts,cli,base,,,Font
-nix,nixpkgs.keepassxc,gui,base,,,Tool
-nix,nixpkgs.stremio,gui,base,,,Video
-nix,nixpkgs.barrier,gui,base,,,Hardware Sharing
-nix,nixpkgs.obsidian,gui,base,,,NON FREE SOFTWARE
+nix,nixpkgs.man,cli,minimal,
+nix,nixpkgs.git,cli,minimal,
+nix,nixpkgs.gcc,cli,minimal,
+nix,nixpkgs.cmake,cli,minimal,
+nix,nixpkgs.zsh,cli,minimal,
+nix,nixpkgs.bat,cli,minimal,
+nix,nixpkgs.nnn,cli,minimal,
+nix,nixpkgs.stow,cli,minimal,
+nix,nixpkgs.tmux,cli,minimal,
+nix,nixpkgs.neovim,cli,minimal,
+nix,nixpkgs.fastfetch,cli,minimal,
+nix,nixpkgs.ripgrep,cli,minimal,
+nix,nixpkgs.zsh-fzf-tab,cli,minimal,
+nix,nixpkgs.font-awesome,cli,minimal,,,Font
+nix,nixpkgs.nerdfonts,cli,minimal,,,Font
+nix,nixpkgs.keepassxc,gui,minimal,,,Tool
+nix,nixpkgs.stremio,gui,minimal,,,Video
+nix,nixpkgs.barrier,gui,minimal,,,Hardware Sharing
+nix,nixpkgs.obsidian,gui,minimal,,,NON FREE SOFTWARE
+curl,Hack-Nerd-Font,gui,minimal,.local/share/fonts/Hack-Nerd-Font.ttf,https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Hack/Regular/HackNerdFont-Regular.ttf
+curl,Hack-Nerd-Font-Mono,gui,minimal,.local/share/fonts/Hack-Nerd-Font-Mono.ttf,https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Hack/Regular/HackNerdFontMono-Regular.ttf
+curl,Fira-Code-Nerd-Font-Mono,gui,minimal,.local/share/fonts/Fira-Code-Nerd-Font-Mono.ttf,https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/FiraCode/Regular/FiraCodeNerdFontMono-Regular.ttf
+curl,MaterialDesign-Font,gui,minimal,.local/share/fonts/MaterialDesign-Font.ttf,https://github.com/Templarian/MaterialDesign-Font/raw/master/MaterialDesignIconsDesktop.ttf
+git,minimal,cli,minimal,minimal,https://gitlab.com/plgch/minimal,This is the Base
+git,notes,cli,minimal,notes,https://gitlab.com/plgch/notes,My Personal notes
+git,dotfiles,cli,minimal,.config/dot_files,https://gitlab.com/plgch/dot_files,My Personal dotfiles
+git,neovim,cli,minimal,.config/nvim,https://gitlab.com/plgch/neovim_config,My Personal Neovim Config
+git,neovim_éphémère,cli,minimal,workspace/nvim_fmr,https://github.com/plagache/nvim_fmr,Tool to create a portable neovim configuration
+git,tmux-thumbs,cli,minimal,.config/tmux/tmux-thumbs,https://github.com/fcsonline/tmux-thumbs,Extension for tmux
+git,tmux-resurrect,cli,minimal,.config/tmux/tmux-resurrect,https://github.com/tmux-plugins/tmux-resurrect,Restore tmux session
+git,tmux-continuum,cli,minimal,.config/tmux/tmux-continuum,https://github.com/tmux-plugins/tmux-continuum,Save tmux session periodically
+git,wallpapers-collection,gui,fancy,.tools/wallpapers,https://gitlab.com/plgch/wallpapers,My Personal wallpapers
+git,fzf,cli,minimal,.tools/fzf,https://github.com/junegunn/fzf.git,FuzzyFinder in go
+git,fzf-tab,cli,minimal,.tools/fzf-tab,https://github.com/Aloxaf/fzf-tab,Extension for fzf
+git,ping,cli,minimal,workspace/ping,git@github.com:plagache/ping.git,WIP_ping
+git,dslr,cli,minimal,workspace/dslr,git@github.com:plagache/DSLR.git,WIP_DSLR
+git,Make-venv,cli,minimal,workspace/Make-venv,git@github.com:plagache/Make-venv.git,Makefile example of a virtual environment in Python
+git,fusion,cli,minimal,workspace/fusion,git@github.com:plagache/fusion.git,Fusion of different tools for Machine learning
+git,inception of things,cli,archived,workspace/inception_of_things,git@github.com:plagache/inception_of_things.git,WIP_inception
+git,memory,cli,minimal,workspace/memory,https://gitlab.com/plgch/memory,this is where i do test
+git,tiny_test,cli,minimal,workspace/tiny_test,git@github.com:plagache/tiny_test.git,this is where i do test on tinygrad
+git,leaffliction,cli,minimal,workspace/leaffliction,git@github.com:plagache/leaffliction.git,
+git,ddgr,cli,archived,.tools/ddgr,https://github.com/jarun/ddgr,search
+git,ytfzf,cli,archived,.tools/ytfzf,https://github.com/pystardust/ytfzf,search
+git,ytmp,cli,archived,.tools/ytmp,https://github.com/unclereeemus/ytmp/,search
+git,keyboards,cli,archived,.tools/keyboard,https://gitlab.com/plgch/keyboard,My Personal keyboard
+stow,zsh,cli,minimal,
+stow,fd,cli,minimal,
+stow,tmux,cli,minimal,
+stow,linux,cli,minimal,
+stow,kitty,gui,minimal,
+stow,fastfetch,cli,minimal,
+stow,i3,gui,minimal,
+stow,sway,gui,minimal,
+stow,kanata,cli,minimal
+stow,helix,cli,minimal,
+stow,gnome,gui,minimal,
