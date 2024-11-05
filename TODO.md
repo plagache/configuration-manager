@@ -1,4 +1,7 @@
-- [ ] chmod the new script ?
+- [x] chmod the new script
+- [ ] set active directory to $PATH
+- [ ] read packages.csv and is able to rebuild it / check homogenous number of column and add them if nescessary
+- [ ] replace base tags with minimal for easier comprehension
 
 ### Own Package Manager
 

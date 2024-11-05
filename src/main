@@ -12,6 +12,8 @@ action_arguments=
 . "$src_dir"/utils
 . "$src_dir"/activate
 
+awk -f "$src_dir"/data_verification.awk "$data_dir"/packages.csv > "$data_dir"/tmp.csv && mv "$data_dir"/tmp.csv "$data_dir"/packages.csv
+
 usage() {
     printf 'configuration-manager v%s\n' "${configuration_manager_version}"
     printf 'https://github.com/plagache/configuration-manager\n'
