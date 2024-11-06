@@ -2,3 +2,6 @@
 
 # link configuration manager to .local/bin
 # set the path to the active configuration
+path=$(cd -- "$(dirname "$0")" && pwd)
+active_directory="$path"/configuration/active
+find "${active_directory}" -type f -executable -print0 | xargs -0 ln -s -t ~/.local/bin/
