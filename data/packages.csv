@@ -73,6 +73,16 @@ pacman,ntfs-3g,cli,minimal,,,NTFS filesystem driver and utilities
 pacman,hyprland,gui,minimal,,,
 pacman,monero,cli,finance,,,
 pacman,monero-gui,gui,finance,,,
+pacman,vlc,gui,minimal,,,
+pacman,lsusb,cli,hardware,,,
+pacman,nvidia,cli,hardware,,,nvidia driver
+pacman,nvidia-settings,cli,hardware,,,
+pacman,xf86-video-intel,cli,hardware,,,
+pacman,glxinfo,cli,hardware,,,
+pacman,nvidia-prime,cli,hardware,,,
+pacman,hplip,cli,hardware,,,imprimante hp driver
+pacman,cups,cli,hardware,,,imprimante service
+pacman,system-config-printer,cli,hardware,,,imprimante shit
 paru,python311,cli,archived,,,python-uv can download required version of python
 paru,gnome-browser-connector,gui,minimal,,,
 paru,extension-manager,gui,minimal,,,
@@ -83,6 +93,8 @@ paru,waybar,gui,minimal,,,
 paru,swaylock,gui,minimal,,,
 paru,lazydocker,gui,minimal,,,test better docker Visualization
 paru,kanata,cli,minimal,,,cross-platform software keyboard remapper
+paru,google-chrome,gui,work,,,browser for work
+paru,optimus-manager-git,cli,hardware,,,manage balance between integrated and external graphique card
 apt,git,cli,minimal,,,clone repo
 apt,libx11-dev,gui,minimal,,,Dependencies
 apt,libxft-dev,gui,minimal,,,Dependencies

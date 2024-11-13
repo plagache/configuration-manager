@@ -1,7 +1,10 @@
 - [x] chmod the new script
-- [ ] set active directory to $PATH
+- [x] set active directory to $PATH with install script
 - [ ] read packages.csv and is able to rebuild it / check homogenous number of column and add them if nescessary
-- [ ] replace base tags with minimal for easier comprehension
+- [x] replace base tags with minimal for easier comprehension
+- [ ] add services
+    - [ ] enable for install
+    - [ ] disable for remove
 
 ### Own Package Manager
 
