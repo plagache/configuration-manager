@@ -3,6 +3,7 @@ pacman,git,cli,minimal,,,clone repo
 pacman,bluez,cli,hardware,,,clone repo
 pacman,bluez-utils,cli,hardware,,,clone repo
 pacman,zsh,cli,minimal,,,
+pacman,nushell,cli,archived,,,
 pacman,man,cli,minimal,,,
 pacman,minimal-devel,cli,minimal,,,
 pacman,patch,cli,minimal,,,
