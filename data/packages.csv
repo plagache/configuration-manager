@@ -77,13 +77,15 @@ pacman,monero-gui,gui,finance,,,
 pacman,vlc,gui,minimal,,,
 pacman,lsusb,cli,hardware,,,
 pacman,nvidia,cli,hardware,,,nvidia driver
-pacman,nvidia-settings,cli,hardware,,,
-pacman,xf86-video-intel,cli,hardware,,,
+pacman,nvidia-settings,cli,hardware,,,nvidia gui settings manager
+pacman,xf86-video-intel,driver,hardware,,,intel integrated driver
 pacman,glxinfo,cli,hardware,,,
-pacman,nvidia-prime,cli,hardware,,,
-pacman,hplip,cli,hardware,,,imprimante hp driver
-pacman,cups,cli,hardware,,,imprimante service
-pacman,system-config-printer,cli,hardware,,,imprimante shit
+pacman,nvidia,driver,hardware,,,nvidia driver
+pacman,cuda,driver,coding,,,nvidia gpu programming toolkit
+pacman,nvidia-prime,driver,hardware,,,nvidia software to balance between integrated graphique and nvidia gpu
+pacman,hplip,driver,imprimante,,,imprimante hp driver
+pacman,cups,driver,imprimante,,,imprimante service
+pacman,system-config-printer,driver,imprimante,,,imprimante shit
 paru,python311,cli,archived,,,python-uv can download required version of python
 paru,gnome-browser-connector,gui,minimal,,,
 paru,extension-manager,gui,minimal,,,

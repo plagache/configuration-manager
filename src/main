@@ -12,7 +12,12 @@ action_arguments=
 . "$src_dir"/utils
 . "$src_dir"/activate
 
-touch "$data_directory"/tmp.csv && awk -f "$src_dir"/data_verification.awk "$data_directory"/packages.csv > "$data_directory"/tmp.csv && mv "$data_directory"/tmp.csv "$data_directory"/packages.csv && rm -rf "$data_dirt"/tmp.csv
+data_verification() {
+    touch "$data_directory"/tmp.csv
+    awk -f "$src_dir"/data_verification.awk "$data_directory"/packages.csv > "$data_directory"/tmp.csv
+    mv "$data_directory"/tmp.csv "$data_directory"/packages.csv
+    rm -rf "$data_directory"/tmp.csv
+}
 
 usage() {
     printf 'configuration-manager v%s\n' "${configuration_manager_version}"
@@ -99,4 +104,5 @@ main() {
 }
 
 # Call Main with arguments
+data_verification
 main "$@"
