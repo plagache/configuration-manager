@@ -39,7 +39,7 @@ pacman,alsa-utils,cli,minimal,,,
 pacman,alsa-ucm-conf,cli,minimal,,,
 pacman,pulseaudio,cli,minimal,,,
 pacman,keepassxc,gui,minimal,,,
-pacman,graphviz,gui,minimal,,,Graph Visualization Software in the DOT language needs to be installed locally to work
+pacman,graphviz,gui,archived,,,Graph Visualization Software in the DOT language needs to be installed locally to work | I prefer a minimal python web server
 pacman,fastfetch,cli,minimal,,,
 pacman,nnn,cli,minimal,,,
 pacman,redshift,gui,minimal,,,
@@ -51,7 +51,8 @@ pacman,sway,gui,minimal,,,
 pacman,swaybg,gui,minimal,,,
 pacman,imv,cli,minimal,,,
 pacman,obsidian,gui,minimal,,,
-pacman,barrier,gui,minimal,,,
+pacman,barrier,gui,archived,,,replaced by input-leap
+pacman,input-leap,gui,minimal,,,replace barrier
 pacman,qbittorrent,gui,minimal,,,
 pacman,docker,cli,minimal,,,
 pacman,docker-compose,cli,minimal,,,
@@ -86,6 +87,7 @@ pacman,nvidia-prime,driver,hardware,,,nvidia software to balance between integra
 pacman,hplip,driver,imprimante,,,imprimante hp driver
 pacman,cups,driver,imprimante,,,imprimante service
 pacman,system-config-printer,driver,imprimante,,,imprimante shit
+pacman,lizardbyte/sunshine,driver,hardware,,,
 paru,python311,cli,archived,,,python-uv can download required version of python
 paru,gnome-browser-connector,gui,minimal,,,
 paru,extension-manager,gui,minimal,,,
@@ -94,9 +96,9 @@ paru,wiki-tui,cli,archived,,,
 paru,wofi,gui,minimal,,,
 paru,waybar,gui,minimal,,,
 paru,swaylock,gui,minimal,,,
-paru,lazydocker,gui,minimal,,,test better docker Visualization
+paru,lazydocker,gui,archived,,,test better docker Visualization
 paru,kanata,cli,minimal,,,cross-platform software keyboard remapper
-paru,google-chrome,gui,work,,,browser for work
+paru,google-chrome,gui,archived,,,browser for work
 paru,optimus-manager-git,cli,hardware,,,manage balance between integrated and external graphique card
 apt,git,cli,minimal,,,clone repo
 apt,libx11-dev,gui,minimal,,,Dependencies

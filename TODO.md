@@ -1,10 +1,18 @@
+how do we query the information from the system ?
+what is your package manager ?
+what are your packages ?
+
+- [ ] Add dry run optiont: features that show the changes that would be applied without executing them
+- [ ] Error handling
 - [x] chmod the new script
 - [x] set active directory to $PATH with install script
 - [ ] read packages.csv and is able to rebuild it / check homogenous number of column and add them if nescessary
 - [x] replace base tags with minimal for easier comprehension
 - [ ] add services
+    - [ ] how to treat configuration file ? diff? how to treat the service in it self enable and start
     - [ ] enable for install
     - [ ] disable for remove
+- [ ] list available configuration and allow for selection
 
 ### Own Package Manager
 
