@@ -84,6 +84,7 @@ pacman,glxinfo,cli,hardware,,,
 pacman,nvidia,driver,hardware,,,nvidia driver
 pacman,cuda,driver,coding,,,nvidia gpu programming toolkit
 pacman,nvidia-prime,driver,hardware,,,nvidia software to balance between integrated graphique and nvidia gpu
+pacman,gimp,gui,minimal,,,GNU Image Manipulation Program
 pacman,hplip,driver,imprimante,,,imprimante hp driver
 pacman,cups,driver,imprimante,,,imprimante service
 pacman,system-config-printer,driver,imprimante,,,imprimante shit
