@@ -77,11 +77,10 @@ pacman,monero,cli,finance,,,
 pacman,monero-gui,gui,finance,,,
 pacman,vlc,gui,minimal,,,
 pacman,lsusb,cli,hardware,,,
-pacman,nvidia,cli,hardware,,,nvidia driver
+pacman,nvidia,driver,hardware,,,nvidia driver
 pacman,nvidia-settings,cli,hardware,,,nvidia gui settings manager
 pacman,xf86-video-intel,driver,hardware,,,intel integrated driver
 pacman,glxinfo,cli,hardware,,,
-pacman,nvidia,driver,hardware,,,nvidia driver
 pacman,cuda,driver,coding,,,nvidia gpu programming toolkit
 pacman,nvidia-prime,driver,hardware,,,nvidia software to balance between integrated graphique and nvidia gpu
 pacman,gimp,gui,minimal,,,GNU Image Manipulation Program
@@ -89,6 +88,11 @@ pacman,hplip,driver,imprimante,,,imprimante hp driver
 pacman,cups,driver,imprimante,,,imprimante service
 pacman,system-config-printer,driver,imprimante,,,imprimante shit
 pacman,lizardbyte/sunshine,driver,hardware,,,
+pacman,scrcpy,gui,hardware,,,Display and control your Android device require dev mode on android device
+pacman,yt-dlp,cli,software,,,feature-rich command-line audio/video downloader
+pacman,rmpc,cli,software,,,Rusty Music Player Client
+pacman,mpd,cli,software,,,music player daemon
+pacman,python-mutagen,cli,software,,,An audio metadata tag reader and writer (python library)
 paru,python311,cli,archived,,,python-uv can download required version of python
 paru,gnome-browser-connector,gui,minimal,,,
 paru,extension-manager,gui,minimal,,,
@@ -101,6 +105,7 @@ paru,lazydocker,gui,archived,,,test better docker Visualization
 paru,kanata,cli,minimal,,,cross-platform software keyboard remapper
 paru,google-chrome,gui,archived,,,browser for work
 paru,optimus-manager-git,cli,hardware,,,manage balance between integrated and external graphique card
+paru,freetube,gui,software,,,free as in free software youtube
 apt,git,cli,minimal,,,clone repo
 apt,libx11-dev,gui,minimal,,,Dependencies
 apt,libxft-dev,gui,minimal,,,Dependencies
