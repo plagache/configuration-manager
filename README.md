@@ -3,7 +3,7 @@ Started as a collection of scripts
 
 ## Installation and dependencies
 
-You need a shell, git and awk
+You need git and awk
 ```sh
 git clone https://github.com/plagache/configuration-manager
 cd configuration-manager
@@ -11,11 +11,26 @@ cd configuration-manager
 ```
 
 ## Objectives
-so i have different configuration with mac and linux and my idea at first was to create a simple tools to manage all my config,
-I only have acccess to base language, available on any mac or linux, so i choose AWK to parse my csv and sh to create the final script for the user
+
+Multiple sessions / different usage:
+    - create session config
+        - list and allow selection of available sources, interfaces, and context
+        - how to define important context? e.g. interface is sound, what is the difference between a driver that is required and a dependencies of a programs?
+        - test session config can work on system and session
+        - do we need to separate the data ? packages.csv in different source?
+
+Multiple package manager / sources:
+    - test if session is configured for the current user
+    - build session
+        - create script install;update;clean
+        - post install action ? services to enable ? Other Config file to add, e.g. kanata config file (script that check and replace already exist) ?
+        - 2 type of things to do, install something, configure
+        - packages not in the list of data with special install Neovim, nextcloud
+    - detect change from session / and packages
+    - diff when rebuilding a session between tmp and newly created
+
+## limitations
+
 sometimes i do not have privilages
-so i did a program with some multiple #!/bin/sh script and awk to parse my csv of packages, and csv of command per package manager, and create a profile in a csv with the package manager i want and there tags
-Select/Create Profile base on tags (minimal,dev,desktop) available in packages.csv
-Create/build script to install;update;clean packages;services;Files
-what do you think of this methode ?
-how can i improve it with the configuration of linux services?
+access to base tool, language, available on any mac or linux
+    - AWK to parse data, #!/bin/sh
