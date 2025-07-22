@@ -187,7 +187,7 @@ git,base,cli,minimal,base,https://gitlab.com/plgch/base,This is the Base
 git,notes,cli,minimal,notes,https://gitlab.com/plgch/notes,My Personal notes
 git,dotfiles,cli,minimal,.config/dot_files,https://gitlab.com/plgch/dot_files,My Personal dotfiles
 git,neovim,cli,minimal,.config/nvim,https://gitlab.com/plgch/neovim_config,My Personal Neovim Config
-git,neovim_éphémère,cli,minimal,workspace/nvim_fmr,https://github.com/plagache/nvim_fmr,Tool to create a portable neovim configuration
+git,nvim_fmr,cli,minimal,workspace/nvim_fmr,https://github.com/plagache/nvim_fmr,Tool to create a portable neovim configuration
 git,tmux-thumbs,cli,minimal,.config/tmux/tmux-thumbs,https://github.com/fcsonline/tmux-thumbs,Extension for tmux
 git,tmux-resurrect,cli,minimal,.config/tmux/tmux-resurrect,https://github.com/tmux-plugins/tmux-resurrect,Restore tmux session
 git,tmux-continuum,cli,minimal,.config/tmux/tmux-continuum,https://github.com/tmux-plugins/tmux-continuum,Save tmux session periodically
