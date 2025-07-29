@@ -87,7 +87,7 @@ pacman,gimp,gui,minimal,,,GNU Image Manipulation Program
 pacman,hplip,driver,imprimante,,,imprimante hp driver
 pacman,cups,driver,imprimante,,,imprimante service
 pacman,system-config-printer,driver,imprimante,,,imprimante shit
-pacman,lizardbyte/sunshine,driver,hardware,,,
+pacman,lizardbyte/sunshine,driver,archived,,https://github.com/LizardByte/Sunshine,Self-hosted game stream host for Moonlight
 pacman,scrcpy,gui,hardware,,,Display and control your Android device require dev mode on android device
 pacman,yt-dlp,cli,software,,,feature-rich command-line audio/video downloader
 pacman,rmpc,cli,software,,,Rusty Music Player Client
