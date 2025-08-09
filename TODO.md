@@ -2,6 +2,10 @@ how do we query the information from the system ?
 what is your package manager ?
 what are your packages ?
 
+- [ ] Add a backup for Stow >> Manual Link
+- [ ] Introduce more expressiveness e.g. change create for create_new_configuration, create_scripts or create_user_files
+- [ ] Decouple interactions | if scripts could be independant, it would be great
+
 - [ ] Add dry run optiont: features that show the changes that would be applied without executing them
 - [ ] Error handling
 - [x] chmod the new script

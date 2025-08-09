@@ -67,7 +67,8 @@ pacman,virt-viewer,gui,virtualization,,,A lightweight interface for interacting 
 pacman,dnsmasq,cli,minimal,,,DNS configuration for Qemu
 pacman,feh,gui,minimal,,,X11 image viewer
 pacman,i3,gui,minimal,,,window manager
-pacman,dmenu,cli,minimal,,,launcher menu for X
+pacman,dmenu,cli,Archived_for_rofi,,,dmenu is a dynamic menu for X | We Should git clone this one
+pacman,rofi,gui,minimal,,,A dmenu replacement
 pacman,xorg-xinput,gui,minimal,,,X11 change input pad
 pacman,xorg-xrandr,gui,minimal,,,X11 change resolution
 pacman,wine,gui,gaming,,,
