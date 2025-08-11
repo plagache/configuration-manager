@@ -2,7 +2,9 @@ how do we query the information from the system ?
 what is your package manager ?
 what are your packages ?
 
-- [ ] Add a backup for Stow >> Manual Link
+- [ ] pacman -Scc does not have a --noconfirm options
+- [ ] removing unused packages is another matter | https://gist.github.com/rumansaleem/083187292632f5a7cbb4beee82fa5031
+- [ ] Add a backup for Stow >> Manual ln -s
 - [ ] Introduce more expressiveness e.g. change create for create_new_configuration, create_scripts or create_user_files
 - [ ] Decouple interactions | if scripts could be independant, it would be great
 
