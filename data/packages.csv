@@ -94,6 +94,7 @@ pacman,yt-dlp,cli,software,,,feature-rich command-line audio/video downloader
 pacman,rmpc,cli,software,,,Rusty Music Player Client
 pacman,mpd,cli,software,,,music player daemon
 pacman,python-mutagen,cli,software,,,An audio metadata tag reader and writer (python library)
+pacman,flameshot,gui,software,,,Flameshot is a program for taking screenshots
 paru,python311,cli,archived,,,python-uv can download required version of python
 paru,gnome-browser-connector,gui,minimal,,,
 paru,extension-manager,gui,minimal,,,
@@ -107,6 +108,7 @@ paru,kanata,cli,minimal,,,cross-platform software keyboard remapper
 paru,google-chrome,gui,archived,,,browser for work
 paru,optimus-manager-git,cli,hardware,,,manage balance between integrated and external graphique card
 paru,freetube,gui,software,,,free as in free software youtube
+paru,yt-x,cli,software,,,Browse YouTube from your terminal
 apt,git,cli,minimal,,,clone repo
 apt,libx11-dev,gui,minimal,,,Dependencies
 apt,libxft-dev,gui,minimal,,,Dependencies
@@ -122,6 +124,7 @@ apt,clang-tools,cli,minimal,,,
 apt,llvm,cli,minimal,,,
 apt,lldb,cli,minimal,,,
 apt,cloc,cli,minimal,,,
+apt,sway,cli,minimal,,,
 apt,inetutils-tools,cli,minimal,,,collection of common network programs from GNU
 apt,inetutils-ping,cli,minimal,,,ping command from GNU
 apt,valgrind,cli,minimal,,,
@@ -147,7 +150,7 @@ apt,ripgrep,cli,minimal,,,
 apt,bat,cli,minimal,,,
 apt,sendmail,cli,minimal,,,
 apt,keepassxc,gui,minimal,,,
-apt,fastfetch,cli,minimal,,,
+apt,fastfetch,cli,archived,,,
 apt,nnn,cli,minimal,,,
 apt,redshift-gtk,gui,minimal,,,
 apt,tree,cli,minimal,,,
@@ -212,9 +215,11 @@ stow,fd,cli,minimal,,,
 stow,tmux,cli,minimal,,,
 stow,linux,cli,minimal,,,
 stow,kitty,gui,minimal,,,
-stow,fastfetch,cli,minimal,,,
+stow,fastfetch,cli,archived,,,
 stow,i3,gui,minimal,,,
+stow,rofi,gui,minimal,,,
 stow,sway,gui,minimal,,,
+stow,waybar,gui,minimal,,,
 stow,kanata,cli,minimal,,,
-stow,helix,cli,minimal,,,
-stow,gnome,gui,minimal,,,
+stow,helix,cli,archived,,,
+stow,gnome,gui,archived,,,

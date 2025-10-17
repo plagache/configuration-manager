@@ -2,6 +2,21 @@ how do we query the information from the system ?
 what is your package manager ?
 what are your packages ?
 
+less tags, is a program nescessary or not ?
+set flag for git i owned or not
+check should be like this:
+sh
+```
+!github_token
+    install git not owned
+!stow_flag
+    backup to ln -s
+!config_file_found
+    generate one for the current user and system
+```
+
+- [ ] remove the interactive part of config creation, too complex for no reason, we generate one
+
 - [ ] pacman -Scc does not have a --noconfirm options
 - [ ] removing unused packages is another matter | https://gist.github.com/rumansaleem/083187292632f5a7cbb4beee82fa5031
 - [ ] Add a backup for Stow >> Manual ln -s
