@@ -129,6 +129,10 @@ apt,inetutils-tools,cli,minimal,,,collection of common network programs from GNU
 apt,inetutils-ping,cli,minimal,,,ping command from GNU
 apt,valgrind,cli,minimal,,,
 apt,python3,cli,minimal,,,
+apt,kanata,cli,minimal,,,
+apt,i3,cli,minimal,,,
+apt,sway,cli,minimal,,,
+apt,gnome,cli,minimal,,,
 apt,tk,gui,minimal,,,lib graphique
 apt,pip,cli,minimal,,,
 apt,fd-find,cli,minimal,,,better find in rust
@@ -139,8 +143,10 @@ apt,unzip,cli,minimal,,,
 apt,gzip,cli,minimal,,,
 apt,xcompmgr,cli,minimal,,,
 apt,stow,cli,minimal,,,
+apt,fuse,cli,minimal,,,
 apt,tmux,cli,minimal,,,
 apt,htop,cli,minimal,,,
+apt,btop,cli,minimal,,,
 apt,poppler-utils,cli,minimal,,,
 apt,net-tools,cli,minimal,,,
 apt,ssh,cli,minimal,,,
@@ -151,10 +157,10 @@ apt,bat,cli,minimal,,,
 apt,sendmail,cli,minimal,,,
 apt,keepassxc,gui,minimal,,,
 apt,fastfetch,cli,archived,,,
-apt,nnn,cli,minimal,,,
+apt,nnn,cli,archived,,,
 apt,redshift-gtk,gui,minimal,,,
 apt,tree,cli,minimal,,,
-apt,wireshark,gui,minimal,,,
+apt,wireshark,gui,archived,,,
 brew,tmux,cli,minimal,,,
 brew,stow,cli,minimal,,,
 brew,fd,cli,minimal,,,
@@ -187,15 +193,15 @@ curl,Hack-Nerd-Font,gui,minimal,.local/share/fonts/Hack-Nerd-Font.ttf,https://gi
 curl,Hack-Nerd-Font-Mono,gui,minimal,.local/share/fonts/Hack-Nerd-Font-Mono.ttf,https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Hack/Regular/HackNerdFontMono-Regular.ttf,
 curl,Fira-Code-Nerd-Font-Mono,gui,minimal,.local/share/fonts/Fira-Code-Nerd-Font-Mono.ttf,https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/FiraCode/Regular/FiraCodeNerdFontMono-Regular.ttf,
 curl,MaterialDesign-Font,gui,minimal,.local/share/fonts/MaterialDesign-Font.ttf,https://github.com/Templarian/MaterialDesign-Font/raw/master/MaterialDesignIconsDesktop.ttf,
-git,base,cli,minimal,base,https://gitlab.com/plgch/base,This is the Base
-git,notes,cli,minimal,notes,https://gitlab.com/plgch/notes,My Personal notes
-git,dotfiles,cli,minimal,.config/dot_files,https://gitlab.com/plgch/dot_files,My Personal dotfiles
+git,base,cli,minimal,base,git@gitlab.com:plgch/base.git,This is the Base
+git,notes,cli,minimal,notes,git@gitlab.com:plgch/notes.git,My Personal notes
+git,dotfiles,cli,minimal,.config/dot_files,git@gitlab.com:plgch/dot_files.git,My Personal dotfiles
 git,neovim,cli,minimal,.config/nvim,https://gitlab.com/plgch/neovim_config,My Personal Neovim Config
 git,nvim_fmr,cli,minimal,workspace/nvim_fmr,https://github.com/plagache/nvim_fmr,Tool to create a portable neovim configuration
 git,tmux-thumbs,cli,minimal,.config/tmux/tmux-thumbs,https://github.com/fcsonline/tmux-thumbs,Extension for tmux
 git,tmux-resurrect,cli,minimal,.config/tmux/tmux-resurrect,https://github.com/tmux-plugins/tmux-resurrect,Restore tmux session
 git,tmux-continuum,cli,minimal,.config/tmux/tmux-continuum,https://github.com/tmux-plugins/tmux-continuum,Save tmux session periodically
-git,wallpapers-collection,gui,fancy,.tools/wallpapers,https://gitlab.com/plgch/wallpapers,My Personal wallpapers
+git,wallpapers-collection,gui,fancy,.tools/wallpapers,git@gitlab.com:plgch/wallpapers.git,My Personal wallpapers
 git,fzf,cli,minimal,.tools/fzf,https://github.com/junegunn/fzf.git,FuzzyFinder in go
 git,fzf-tab,cli,minimal,.tools/fzf-tab,https://github.com/Aloxaf/fzf-tab,Extension for fzf
 git,ping,cli,minimal,workspace/ping,git@github.com:plagache/ping.git,WIP_ping
@@ -203,13 +209,13 @@ git,dslr,cli,minimal,workspace/dslr,git@github.com:plagache/DSLR.git,WIP_DSLR
 git,Make-venv,cli,minimal,workspace/Make-venv,git@github.com:plagache/Make-venv.git,Makefile example of a virtual environment in Python
 git,fusion,cli,minimal,workspace/fusion,git@github.com:plagache/fusion.git,Fusion of different tools for Machine learning
 git,inception of things,cli,archived,workspace/inception_of_things,git@github.com:plagache/inception_of_things.git,WIP_inception
-git,memory,cli,minimal,workspace/memory,https://gitlab.com/plgch/memory,this is where i do test
+git,memory,cli,minimal,workspace/memory,git@gitlab.com:plgch/memory.git,this is where i do test
 git,tiny_test,cli,minimal,workspace/tiny_test,git@github.com:plagache/tiny_test.git,this is where i do test on tinygrad
 git,leaffliction,cli,minimal,workspace/leaffliction,git@github.com:plagache/leaffliction.git,
 git,ddgr,cli,archived,.tools/ddgr,https://github.com/jarun/ddgr,search
 git,ytfzf,cli,archived,.tools/ytfzf,https://github.com/pystardust/ytfzf,search
 git,ytmp,cli,archived,.tools/ytmp,https://github.com/unclereeemus/ytmp/,search
-git,keyboards,cli,archived,.tools/keyboard,https://gitlab.com/plgch/keyboard,My Personal keyboard
+git,keyboards,cli,archived,.tools/keyboard,git@gitlab.com:plgch/keyboard.git,My Personal keyboard
 stow,zsh,cli,minimal,,,
 stow,fd,cli,minimal,,,
 stow,tmux,cli,minimal,,,
