@@ -1,0 +1,195 @@
+#!/bin/sh
+
+DATA=./data
+CONFIGURATION=./configuration
+PACKAGES="$DATA"/packages.csv
+PROFILE="./profile"
+
+help() {
+    cat << EOF
+    Compote de pomme
+        figuration
+            de terre
+EOF
+}
+
+ensure_directory_exist() {
+    mkdir -p "$1"
+}
+
+check_available_source() {
+    source_name="$1"
+
+    if command -v "$source_name" >/dev/null 2>&1; then
+        echo "$source_name"
+    fi
+}
+
+select_sources() {
+    clear
+
+    valid_sources=$(awk -F, 'NR>1 { print $1 }' "$PACKAGES" | sort | uniq | \
+    while IFS= read -r source; do
+        check_available_source "$source"
+    done)
+    printf "%s\n" "$valid_sources"
+}
+
+select_interfaces() {
+    clear
+    interfaces=$(awk -F, -v sources="$valid_sources" '
+        BEGIN {
+            # Split selected_sources into an array
+            n = split(sources, selected_array, " ")
+        }
+        NR > 1 {
+            # Check if column 1 (source) is in selected_array
+            for (i = 1; i <= n; i++) {
+                if ($1 == selected_array[i]) {
+                    print $3  # Print the interface (column 3)
+                    break
+                }
+            }
+        }
+    ' "$PACKAGES" | sort | uniq)
+
+    if [ -z "$interfaces" ]; then
+        echo "No interfaces found for the selected sources."
+        exit 1
+    fi
+}
+
+select_contexts() {
+    clear
+    contexts=$(awk -F, -v sources="$valid_sources" '
+        BEGIN {
+            # Split selected_sources into an array
+            n = split(sources, selected_array, " ")
+        }
+        NR > 1 {
+            # Check if column 1 (source) is in selected_array
+            for (i = 1; i <= n; i++) {
+                if ($1 == selected_array[i]) {
+                    print $4  # Print the context (column 4)
+                    break
+                }
+            }
+        }
+    ' "$PACKAGES" | sort | uniq)
+
+    if [ -z "$contexts" ]; then
+        echo "No contexts found for the selected sources."
+        exit 1
+    fi
+}
+
+set_new_configuration() {
+    clear
+    awk -v sources="$valid_sources" -v interfaces="$interfaces" -v contexts="$contexts" '
+    BEGIN {
+        # Split each string into arrays
+        n_sources = split(sources, src_arr, " ")
+        n_interfaces = split(interfaces, int_arr, " ")
+        n_contexts = split(contexts, ctx_arr, " ")
+
+        # Calculate the maximum length to iterate over
+        max_rows = (n_sources > n_interfaces ? n_sources : n_interfaces)
+        max_rows = (max_rows > n_contexts ? max_rows : n_contexts)
+
+        # Generate output
+        for (i = 1; i <= max_rows; i++) {
+            # Print the source, interface, and context in CSV format
+            printf "%s,%s,%s\n",
+                (i <= n_sources ? src_arr[i] : ""),
+                (i <= n_interfaces ? int_arr[i] : ""),
+                (i <= n_contexts ? ctx_arr[i] : "")
+        }
+    }' > "$PROFILE_FILE"
+
+    printf "[%s] created at %s\n\n" "$PROFILE_NAME" "$PROFILE_FILE"
+    cat "$PROFILE_FILE"
+    printf "\n"
+}
+
+setup_profile() {
+
+    if [ ! -f "$PACKAGES" ]; then
+        echo "Error: packages file not found!"
+        exit 1
+    fi
+
+    PROFILE_NAME="$1"
+    PROFILE_DIR="$PROFILE"/"$PROFILE_NAME"
+    PROFILE_FILE="$PROFILE_DIR"/"$PROFILE_NAME".csv
+
+    ensure_directory_exist "$PROFILE_DIR"
+
+    select_sources
+
+    select_interfaces
+
+    select_contexts
+
+    set_new_configuration
+}
+
+build() {
+    PROFILE_NAME="$1"
+    if [ -z "$PROFILE_NAME" ]; then
+        printf "No profile has been pass\nPlease choose one:\n"
+        list
+        exit 0
+    fi
+
+    printf ':: Building [%s]...\n' "$PROFILE_NAME"
+    awk -f src/build.awk \
+        -v config_file="$configuration_directory/$PROFILE_NAME/${PROFILE_NAME}.csv" \
+        -v commands_file="$data_directory/source_commands.csv" \
+        -v packages_file="$packages_file" \
+        -v profile_directory="$configuration_directory/$PROFILE_NAME"
+    # clear
+    find "${configuration_directory}/${PROFILE_NAME}" -type f ! -name "*.csv" -print0 | xargs -0 chmod 744
+    printf ' [%s] is built\n' "$PROFILE_NAME"
+}
+
+list() {
+    # echo "$PROFILE_DIR"
+    for profile in "$PROFILE"/*; do
+        if [ -d "$profile" ]; then
+            basename "$profile"
+        fi
+    done
+}
+
+first() {
+    SYSTEM_FILE="$PROFILE"/system/system.csv
+    echo "first"
+
+    if [ ! -z "$SYSTEM_FILE" ]; then
+        echo "no system"
+        setup_profile system
+    fi
+
+
+
+
+    # is system created ?
+        # if not we create
+    # if it is created
+        # is it up to date ?
+            # if not we update
+        # if update nothing
+
+    # is active created ?
+    # if not we create the dir
+        # indicate user it can use system has an example to create a profile
+    true;
+}
+
+case "$1" in
+    list) list ;;
+    build) build "$2" ;;
+    help|--help|-h) help ;;
+    "") first ;;
+    *) echo "toto" ;;
+esac
