@@ -4,6 +4,7 @@ DATA=./data
 PACKAGES="$DATA"/packages.csv
 COMMANDS="$DATA"/source_commands.csv
 PROFILE="./profile"
+BIN_DIR="$HOME/.local/bin"
 
 help() {
     cat << EOF
@@ -162,18 +163,18 @@ build() {
 }
 
 # when creating list we could use find its probably installed
-#
+
 activate() {
 
     setup_profile_variable "$1"
 
     printf ':: Activating [%s]...\n' "$PROFILE_NAME"
 
-    ensure_directory_exist "$HOME/.local/bin"
+    ensure_directory_exist "$BIN_DIR"
 
-    cp -r "$PROFILE_DIR"/* "$HOME/.local/bin"
+    find "$PROFILE_DIR" -mindepth 1 ! -name '*.csv' -exec cp -R {} "$BIN_DIR" \;
 
-    printf ' [%s] files copied\n' "$profile_name"
+    printf ' [%s] files copied\n' "$PROFILE_NAME"
 }
 
 first() {
@@ -184,7 +185,9 @@ first() {
         echo "no system"
         create_profile_configuration system
         build system
+        activate system
     fi
+
     # is system created ?
         # if not we create
     # if it is created
@@ -192,10 +195,10 @@ first() {
             # if not we update
         # if update nothing
 
-    # is active created ?
-    # if not we create the dir
-        # indicate user it can use system has an example to create a profile
-    true;
+    # is system active in ~/.local/bin ?
+    # ensure .local/bin exist ?
+
+    # indicate user it can use system has an example to create a profile
 }
 
 case "$1" in
