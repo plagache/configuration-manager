@@ -3,16 +3,20 @@ what is your package manager ?
 what are your packages ?
 
 less tags, is a program nescessary or not ?
-set flag for git i owned or not
+
+set flag for git i owned or not, in context seems relevant
+
+interface should be removed for something like Right, do we need Admin ?
+
 check should be like this:
 sh
 ```
-!github_token
+!ssh_keys
     install git not owned
 !stow_flag
     backup to ln -s
 !config_file_found
-    generate one for the current user and system
+    generate one for the current system
 ```
 
 - [ ] remove the interactive part of config creation, too complex for no reason, we generate one

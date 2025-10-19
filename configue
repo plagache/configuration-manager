@@ -1,8 +1,8 @@
 #!/bin/sh
 
 DATA=./data
-CONFIGURATION=./configuration
 PACKAGES="$DATA"/packages.csv
+COMMANDS="$DATA"/source_commands.csv
 PROFILE="./profile"
 
 help() {
@@ -111,16 +111,24 @@ set_new_configuration() {
     printf "\n"
 }
 
-setup_profile() {
+setup_profile_variable() {
+
+    PROFILE_NAME="$1"
+    PROFILE_DIR="$PROFILE"/"$PROFILE_NAME"
+    PROFILE_FILE="$PROFILE_DIR"/"$PROFILE_NAME".csv
+
+    ensure_directory_exist "$PROFILE_DIR"
+
+}
+
+create_profile_configuration() {
 
     if [ ! -f "$PACKAGES" ]; then
         echo "Error: packages file not found!"
         exit 1
     fi
 
-    PROFILE_NAME="$1"
-    PROFILE_DIR="$PROFILE"/"$PROFILE_NAME"
-    PROFILE_FILE="$PROFILE_DIR"/"$PROFILE_NAME".csv
+    setup_profile_variable "$1"
 
     ensure_directory_exist "$PROFILE_DIR"
 
@@ -134,7 +142,9 @@ setup_profile() {
 }
 
 build() {
-    PROFILE_NAME="$1"
+
+    setup_profile_variable "$1"
+
     if [ -z "$PROFILE_NAME" ]; then
         printf "No profile has been pass\nPlease choose one:\n"
         list
@@ -142,23 +152,28 @@ build() {
     fi
 
     printf ':: Building [%s]...\n' "$PROFILE_NAME"
-    awk -f src/build.awk \
-        -v config_file="$configuration_directory/$PROFILE_NAME/${PROFILE_NAME}.csv" \
-        -v commands_file="$data_directory/source_commands.csv" \
-        -v packages_file="$packages_file" \
-        -v profile_directory="$configuration_directory/$PROFILE_NAME"
+    awk -f src/build_profile.awk \
+        -v profile_name="$PROFILE_NAME" \
+        -v commands_file="$COMMANDS" \
+        -v packages_file="$PACKAGES" \
     # clear
-    find "${configuration_directory}/${PROFILE_NAME}" -type f ! -name "*.csv" -print0 | xargs -0 chmod 744
+    find "$PROFILE_DIR" -type f ! -name "*.csv" -print0 | xargs -0 chmod 744
     printf ' [%s] is built\n' "$PROFILE_NAME"
 }
 
-list() {
-    # echo "$PROFILE_DIR"
-    for profile in "$PROFILE"/*; do
-        if [ -d "$profile" ]; then
-            basename "$profile"
-        fi
-    done
+# when creating list we could use find its probably installed
+#
+activate() {
+
+    setup_profile_variable "$1"
+
+    printf ':: Activating [%s]...\n' "$PROFILE_NAME"
+
+    ensure_directory_exist "$HOME/.local/bin"
+
+    cp -r "$PROFILE_DIR"/* "$HOME/.local/bin"
+
+    printf ' [%s] files copied\n' "$profile_name"
 }
 
 first() {
@@ -167,12 +182,9 @@ first() {
 
     if [ ! -z "$SYSTEM_FILE" ]; then
         echo "no system"
-        setup_profile system
+        create_profile_configuration system
+        build system
     fi
-
-
-
-
     # is system created ?
         # if not we create
     # if it is created
@@ -187,7 +199,6 @@ first() {
 }
 
 case "$1" in
-    list) list ;;
     build) build "$2" ;;
     help|--help|-h) help ;;
     "") first ;;
