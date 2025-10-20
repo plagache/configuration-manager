@@ -19,7 +19,6 @@ pacman,python-pip,cli,minimal,,,not sure i need it system wide
 pacman,python-uv,cli,archived,,,will replace pip
 pacman,uv,cli,minimal,,,replacement for pip python-venv
 pacman,hdf5,cli,donotneed,,,General purpose library and file format for storing scientific data
-pacman,cloc,cli,minimal,,,Count Lines of Code
 pacman,tk,gui,minimal,,,lib graphique pour pynput
 pacman,fd,cli,minimal,,,fd-find
 pacman,ripgrep,cli,minimal,,,
@@ -40,7 +39,6 @@ pacman,alsa-ucm-conf,cli,minimal,,,
 pacman,pulseaudio,cli,minimal,,,
 pacman,keepassxc,gui,minimal,,,
 pacman,graphviz,gui,archived,,,Graph Visualization Software in the DOT language needs to be installed locally to work | I prefer a minimal python web server
-pacman,fastfetch,cli,minimal,,,
 pacman,nnn,cli,minimal,,,
 pacman,redshift,gui,minimal,,,
 pacman,firefox,gui,minimal,,,
@@ -123,7 +121,6 @@ apt,clangd,cli,minimal,,,
 apt,clang-tools,cli,minimal,,,
 apt,llvm,cli,minimal,,,
 apt,lldb,cli,minimal,,,
-apt,cloc,cli,minimal,,,
 apt,sway,cli,minimal,,,
 apt,inetutils-tools,cli,minimal,,,collection of common network programs from GNU
 apt,inetutils-ping,cli,minimal,,,ping command from GNU
@@ -157,7 +154,6 @@ apt,ripgrep,cli,minimal,,,
 apt,bat,cli,minimal,,,
 apt,sendmail,cli,minimal,,,
 apt,keepassxc,gui,minimal,,,
-apt,fastfetch,cli,archived,,,
 apt,nnn,cli,archived,,,
 apt,redshift-gtk,gui,minimal,,,
 apt,tree,cli,minimal,,,
@@ -169,8 +165,6 @@ brew,bat,cli,minimal,,,
 brew,ripgrep,cli,minimal,,,
 brew,helix,cli,test,,,
 brew,python@3.11,cli,installed_with_uv,,,
-brew,cloc,cli,less_is_more,,,
-brew,fastfetch,cli,too_much_storage,,,
 nix,nixpkgs.man,cli,minimal,,,
 nix,nixpkgs.git,cli,minimal,,,
 nix,nixpkgs.gcc,cli,minimal,,,
@@ -181,7 +175,6 @@ nix,nixpkgs.nnn,cli,minimal,,,
 nix,nixpkgs.stow,cli,minimal,,,
 nix,nixpkgs.tmux,cli,minimal,,,
 nix,nixpkgs.neovim,cli,minimal,,,
-nix,nixpkgs.fastfetch,cli,minimal,,,
 nix,nixpkgs.ripgrep,cli,minimal,,,
 nix,nixpkgs.zsh-fzf-tab,cli,minimal,,,
 nix,nixpkgs.font-awesome,cli,minimal,,,Font
@@ -222,7 +215,6 @@ stow,fd,cli,minimal,,,
 stow,tmux,cli,minimal,,,
 stow,linux,cli,minimal,,,
 stow,kitty,gui,minimal,,,
-stow,fastfetch,cli,archived,,,
 stow,i3,gui,minimal,,,
 stow,rofi,gui,minimal,,,
 stow,sway,gui,minimal,,,
