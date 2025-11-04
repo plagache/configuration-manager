@@ -6,6 +6,8 @@ less tags, is a program nescessary or not ?
 
 set flag for git i owned or not, in context seems relevant
 
+replace stow with CURL
+
 interface should be removed for something like Right, do we need Admin ?
 
 check should be like this:
