@@ -6,7 +6,7 @@ less tags, is a program nescessary or not ?
 
 set flag for git i owned or not, in context seems relevant
 
-replace stow with CURL
+replace stow with ln -s
 
 interface should be removed for something like Right, do we need Admin ?
 
