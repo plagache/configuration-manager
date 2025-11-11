@@ -206,6 +206,7 @@ git,ping,cli,personal,workspace/ping,git@github.com:plagache/ping.git,WIP_ping
 git,dslr,cli,personal,workspace/dslr,git@github.com:plagache/DSLR.git,WIP_DSLR
 git,Make-venv,cli,personal,workspace/Make-venv,git@github.com:plagache/Make-venv.git,Makefile example of a virtual environment in Python
 git,fusion,cli,personal,workspace/fusion,git@github.com:plagache/fusion.git,Fusion of different tools for Machine learning
+git,mlp,cli,personal,workspace/multi-layer-perceptron,git@github.com:plagache/mlp.git,Multi Layer Perceptron 42 project
 git,inception of things,cli,archived,workspace/inception_of_things,git@github.com:plagache/inception_of_things.git,WIP_inception
 git,memory,cli,personal,workspace/memory,git@gitlab.com:plgch/memory.git,this is where i do test
 git,tiny_test,cli,personal,workspace/tiny_test,git@github.com:plagache/tiny_test.git,this is where i do test on tinygrad
