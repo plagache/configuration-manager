@@ -6,9 +6,11 @@ less tags, is a program nescessary or not ?
 
 set flag for git i owned or not, in context seems relevant
 
-replace stow with ln -s
+- replace stow with ln -s
 
-interface should be removed for something like Right, do we need Admin ?
+- interface should be removed for something like Right, do we need Admin ?
+
+- what tags for curl, or git, maybe some tags about extra installation step
 
 check should be like this:
 sh
