@@ -132,8 +132,8 @@ apt,swaylock,cli,minimal,,,
 apt,wlsunset,cli,minimal,,,
 apt,kitty,cli,minimal,,,
 apt,waybar,cli,minimal,,,
-apt,rofi,minimal,,,
-apt,discord,minimal,,,
+apt,rofi,gui,minimal,,
+apt,discord,gui,not_available,,https://discord.com/api/download?platform=linux&format=deb,not installed this way on debian need to wget a .deb
 apt,tk,gui,minimal,,,lib graphique
 apt,pip,cli,minimal,,,
 apt,fd-find,cli,minimal,,,better find in rust
