@@ -1,5 +1,8 @@
 how do we query the information from the system ?
 what is your package manager ?
+    - case: at school i detected apt but do not have sudo right and therefore should not use this package manager
+    - also it did not detect brew, it was not installed and it should only download a small amount of packages from brew since
+    - i should strive to install things in the simplest way possible: git/curl/install.sh
 what are your packages ?
 
 less tags, is a program nescessary or not ?
