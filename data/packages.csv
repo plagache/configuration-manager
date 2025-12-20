@@ -211,6 +211,7 @@ git,wallpapers-collection,gui,fancy,.tools/wallpapers,git@gitlab.com:plgch/wallp
 git,fzf,cli,minimal,.tools/fzf,https://github.com/junegunn/fzf.git,FuzzyFinder in go
 git,fzf-tab,cli,minimal,.tools/fzf-tab,https://github.com/Aloxaf/fzf-tab,Extension for fzf
 git,ping,cli,personal,workspace/ping,git@github.com:plagache/ping.git,WIP_ping
+git,configuration-manager,cli,personal,workspace/configuration-manager,git@github.com:plagache/configuration-manager.git,WIP_ping
 git,dslr,cli,personal,workspace/dslr,git@github.com:plagache/DSLR.git,WIP_DSLR
 git,Make-venv,cli,personal,workspace/Make-venv,git@github.com:plagache/Make-venv.git,Makefile example of a virtual environment in Python
 git,fusion,cli,personal,workspace/fusion,git@github.com:plagache/fusion.git,Fusion of different tools for Machine learning
