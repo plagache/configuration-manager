@@ -204,22 +204,23 @@ git,notes,cli,personal,notes,git@gitlab.com:plgch/notes.git,My Personal notes
 git,dotfiles,cli,personal,.config/dot_files,git@gitlab.com:plgch/dot_files.git,My Personal dotfiles
 git,neovim,cli,personal,.config/nvim,https://gitlab.com/plgch/neovim_config,My Personal Neovim Config
 git,nvim_fmr,cli,minimal,workspace/nvim_fmr,https://github.com/plagache/nvim_fmr,Tool to create a portable neovim configuration
+git,configuration-manager,cli,personal,workspace/configuration-manager,git@github.com:plagache/configuration-manager.git,WIP_ping
+git,Make-venv,cli,personal,workspace/Make-venv,git@github.com:plagache/Make-venv.git,Makefile example of a virtual environment in Python
+git,wallpapers-collection,gui,fancy,.tools/wallpapers,git@gitlab.com:plgch/wallpapers.git,My Personal wallpapers
+git,inception of things,cli,archived,workspace/inception_of_things,git@github.com:plagache/inception_of_things.git,WIP_inception
+git,dslr,cli,personal,workspace/dslr,git@github.com:plagache/DSLR.git,WIP_DSLR
+git,ping,cli,personal,workspace/ping,git@github.com:plagache/ping.git,WIP_ping
+git,python-for-data-science,cli,personal,workspace/python-for-data-science,git@github.com:plagache/python-for-data-science.git,
+git,fusion,cli,personal,workspace/fusion,git@github.com:plagache/fusion.git,Fusion of different tools for Machine learning
+git,multi-layer-perceptron,cli,personal,workspace/multi-layer-perceptron,git@github.com:plagache/mlp.git,Multi Layer Perceptron 42 project
+git,leaffliction,cli,personal,workspace/leaffliction,git@github.com:plagache/leaffliction.git,
+git,tiny_test,cli,personal,workspace/tiny_test,git@github.com:plagache/tiny_test.git,this is where i do test on tinygrad
+git,memory,cli,personal,workspace/memory,git@gitlab.com:plgch/memory.git,this is where i do test
+git,fzf,cli,minimal,.tools/fzf,https://github.com/junegunn/fzf.git,FuzzyFinder in go
+git,fzf-tab,cli,minimal,.tools/fzf-tab,https://github.com/Aloxaf/fzf-tab,Extension for fzf
 git,tmux-thumbs,cli,minimal,.config/tmux/tmux-thumbs,https://github.com/fcsonline/tmux-thumbs,Extension for tmux
 git,tmux-resurrect,cli,minimal,.config/tmux/tmux-resurrect,https://github.com/tmux-plugins/tmux-resurrect,Restore tmux session
 git,tmux-continuum,cli,minimal,.config/tmux/tmux-continuum,https://github.com/tmux-plugins/tmux-continuum,Save tmux session periodically
-git,wallpapers-collection,gui,fancy,.tools/wallpapers,git@gitlab.com:plgch/wallpapers.git,My Personal wallpapers
-git,fzf,cli,minimal,.tools/fzf,https://github.com/junegunn/fzf.git,FuzzyFinder in go
-git,fzf-tab,cli,minimal,.tools/fzf-tab,https://github.com/Aloxaf/fzf-tab,Extension for fzf
-git,ping,cli,personal,workspace/ping,git@github.com:plagache/ping.git,WIP_ping
-git,configuration-manager,cli,personal,workspace/configuration-manager,git@github.com:plagache/configuration-manager.git,WIP_ping
-git,dslr,cli,personal,workspace/dslr,git@github.com:plagache/DSLR.git,WIP_DSLR
-git,Make-venv,cli,personal,workspace/Make-venv,git@github.com:plagache/Make-venv.git,Makefile example of a virtual environment in Python
-git,fusion,cli,personal,workspace/fusion,git@github.com:plagache/fusion.git,Fusion of different tools for Machine learning
-git,multi-layer-perceptron,cli,personal,workspace/multi-layer-perceptron,git@github.com:plagache/mlp.git,Multi Layer Perceptron 42 project
-git,inception of things,cli,archived,workspace/inception_of_things,git@github.com:plagache/inception_of_things.git,WIP_inception
-git,memory,cli,personal,workspace/memory,git@gitlab.com:plgch/memory.git,this is where i do test
-git,tiny_test,cli,personal,workspace/tiny_test,git@github.com:plagache/tiny_test.git,this is where i do test on tinygrad
-git,leaffliction,cli,personal,workspace/leaffliction,git@github.com:plagache/leaffliction.git,
 git,ddgr,cli,archived,.tools/ddgr,https://github.com/jarun/ddgr,search
 git,ytfzf,cli,archived,.tools/ytfzf,https://github.com/pystardust/ytfzf,search
 git,ytmp,cli,archived,.tools/ytmp,https://github.com/unclereeemus/ytmp/,search
