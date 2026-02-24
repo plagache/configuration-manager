@@ -1,0 +1,77 @@
+#!/bin/sh
+# detect_environment.sh - Detect available sources
+# Options:
+#   --level N   : Set plan level (0=base, 1=work, 2=media, 3=all, default: 0)
+
+# Default level
+LEVEL=0
+
+# Parse arguments
+while [ $# -gt 0 ]; do
+    case "$1" in
+        --level)
+            LEVEL="$2"
+            shift 2
+            ;;
+        *)
+            shift
+            ;;
+    esac
+done
+
+detect_os() {
+    uname -s | tr '[:upper:]' '[:lower:]'
+}
+
+# Check if we have root/sudo access
+has_root_access() {
+    if [ "$(id -u)" -eq 0 ]; then
+        return 0
+    fi
+    sudo -n true 2>/dev/null
+}
+
+# Check if SSH keys are available
+has_ssh_key() {
+    if [ -d "$HOME/.ssh" ]; then
+        for key in "$HOME/.ssh/id_rsa" "$HOME/.ssh/id_ed25519" "$HOME/.ssh/id_ecdsa"; do
+            if [ -f "$key" ]; then
+                return 0
+            fi
+        done
+    fi
+    return 1
+}
+
+# Detect usable sources
+detect_sources() {
+    os=$(detect_os)
+    
+    # Output metadata as first lines (will be filtered by AWK)
+    echo "level,$LEVEL"
+    if has_root_access; then
+        echo "root,yes"
+    else
+        echo "root,no"
+    fi
+    if has_ssh_key; then
+        echo "ssh,yes"
+    else
+        echo "ssh,no"
+    fi
+    
+    # Base tools (available if command exists)
+    command -v ln >/dev/null 2>&1 && echo "ln"
+    command -v curl >/dev/null 2>&1 && echo "curl"
+    command -v git >/dev/null 2>&1 && echo "git"
+    
+    # Package managers
+    command -v pacman >/dev/null 2>&1 && echo "pacman"
+    command -v apt-get >/dev/null 2>&1 && echo "apt"
+    command -v brew >/dev/null 2>&1 && echo "brew"
+    command -v nix-env >/dev/null 2>&1 && echo "nix"
+    command -v paru >/dev/null 2>&1 && echo "paru"
+    command -v yay >/dev/null 2>&1 && echo "yay"
+}
+
+detect_sources
