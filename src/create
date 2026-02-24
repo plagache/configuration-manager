@@ -93,7 +93,7 @@ auto_create_profile() {
     # Skip activation in non-interactive mode (when stdin is not a terminal)
     if [ -t 0 ]; then
         # Offer to activate
-        if request_confirmation "\nActivate this profile?"; then
+        if request_confirmation "Activate this profile?"; then
             profile_name="$profile_name" activate "$output_dir"
         fi
     fi
