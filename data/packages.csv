@@ -1,239 +1,264 @@
-source,name,interface,context,directory,URL,description
-pacman,git,cli,minimal,,,clone repo
-pacman,bluez,cli,hardware,,,clone repo
-pacman,bluez-utils,cli,hardware,,,clone repo
-pacman,zsh,cli,minimal,,,
-pacman,nushell,cli,archived,,,
-pacman,man,cli,minimal,,,
-pacman,minimal-devel,cli,minimal,,,
-pacman,patch,cli,minimal,,,
-pacman,make,cli,minimal,,,
-pacman,cmake,cli,minimal,,,
-pacman,clang,cli,minimal,,,
-pacman,gdb,cli,minimal,,,
-pacman,lldb,cli,minimal,,,
-pacman,llvm,cli,minimal,,,
-pacman,valgrind,cli,minimal,,,
-pacman,python,cli,minimal,,,
-pacman,python-pip,cli,minimal,,,not sure i need it system wide
-pacman,python-uv,cli,archived,,,will replace pip
-pacman,uv,cli,minimal,,,replacement for pip python-venv
-pacman,hdf5,cli,donotneed,,,General purpose library and file format for storing scientific data
-pacman,tk,gui,minimal,,,lib graphique pour pynput
-pacman,fd,cli,minimal,,,fd-find
-pacman,ripgrep,cli,minimal,,,
-pacman,bat,cli,minimal,,,
-pacman,wget,cli,minimal,,,
-pacman,curl,cli,minimal,,,
-pacman,stow,cli,minimal,,,
-pacman,tmux,cli,minimal,,,
-pacman,kitty,gui,minimal,,,
-pacman,htop,cli,minimal,,,
-pacman,poppler,cli,minimal,,,PDF rendering library minimald on xpdf 3.0
-pacman,net-tools,cli,minimal,,,Configuration tools for Linux networking
-pacman,openssh,cli,minimal,,,
-pacman,iptables,cli,minimal,,,
-pacman,fail2ban,cli,minimal,,,
-pacman,alsa-utils,cli,minimal,,,
-pacman,alsa-ucm-conf,cli,minimal,,,
-pacman,brightnessctl,gui,minimal,,,
-pacman,pulseaudio,cli,archived,,,
-pacman,pipewire,cli,minimal,,,
-pacman,wireplumber,cli,minimal,,,
-pacman,pipewire-pulse,cli,minimal,,,
-pacman,keepassxc,gui,minimal,,,
-pacman,graphviz,gui,archived,,,Graph Visualization Software in the DOT language needs to be installed locally to work | I prefer a minimal python web server
-pacman,nnn,cli,minimal,,,
-pacman,redshift,gui,minimal,,,
-pacman,firefox,gui,minimal,,,
-pacman,tree,cli,minimal,,,
-pacman,discord,gui,minimal,,,
-pacman,p7zip,cli,minimal,,,
-pacman,sway,gui,minimal,,,
-pacman,swaybg,gui,minimal,,,
-pacman,imv,cli,minimal,,,
-pacman,obsidian,gui,minimal,,,
-pacman,barrier,gui,archived,,,replaced by input-leap
-pacman,input-leap,gui,minimal,,,replace barrier
-pacman,qbittorrent,gui,minimal,,,
-pacman,docker,cli,minimal,,,
-pacman,docker-compose,cli,minimal,,,
-pacman,nextcloud-client,gui,minimal,,,
-pacman,kdeconnect,gui,minimal,,,
-pacman,wireshark-qt,gui,minimal,,,Network GUI analyzer
-pacman,nmap,cli,minimal,,,Network Mapper
-pacman,nfs-utils,cli,minimal,,,Network file system needed in the inception project
-pacman,qemu-full,cli,virtualization,,,Machine emulator Virtualizer
-pacman,virt-manager,gui,virtualization,,,graphical user front end for the LibVirt library
-pacman,virt-viewer,gui,virtualization,,,A lightweight interface for interacting with the graphical display of virtualized guest OS.
-pacman,dnsmasq,cli,minimal,,,DNS configuration for Qemu
-pacman,feh,gui,minimal,,,X11 image viewer
-pacman,i3,gui,minimal,,,window manager
-pacman,dmenu,cli,Archived_for_rofi,,,dmenu is a dynamic menu for X | We Should git clone this one
-pacman,rofi,gui,minimal,,,A dmenu replacement
-pacman,xorg-xinput,gui,minimal,,,X11 change input pad
-pacman,xorg-xrandr,gui,minimal,,,X11 change resolution
-pacman,wine,gui,gaming,,,
-pacman,ntfs-3g,cli,minimal,,,NTFS filesystem driver and utilities
-pacman,hyprland,gui,minimal,,,
-pacman,monero,cli,finance,,,
-pacman,monero-gui,gui,finance,,,
-pacman,vlc,gui,minimal,,,
-pacman,lsusb,cli,hardware,,,
-pacman,nvidia,driver,hardware,,,nvidia driver
-pacman,nvidia-settings,cli,hardware,,,nvidia gui settings manager
-pacman,xf86-video-intel,driver,hardware,,,intel integrated driver
-pacman,glxinfo,cli,hardware,,,
-pacman,cuda,driver,coding,,,nvidia gpu programming toolkit
-pacman,nvidia-prime,driver,hardware,,,nvidia software to balance between integrated graphique and nvidia gpu
-pacman,gimp,gui,minimal,,,GNU Image Manipulation Program
-pacman,hplip,driver,imprimante,,,imprimante hp driver
-pacman,cups,driver,imprimante,,,imprimante service
-pacman,system-config-printer,driver,imprimante,,,imprimante shit
-pacman,lizardbyte/sunshine,driver,archived,,https://github.com/LizardByte/Sunshine,Self-hosted game stream host for Moonlight
-pacman,scrcpy,gui,hardware,,,Display and control your Android device require dev mode on android device
-pacman,yt-dlp,cli,software,,,feature-rich command-line audio/video downloader
-pacman,rmpc,cli,software,,,Rusty Music Player Client
-pacman,mpd,cli,software,,,music player daemon
-pacman,python-mutagen,cli,software,,,An audio metadata tag reader and writer (python library)
-pacman,flameshot,gui,software,,,Flameshot is a program for taking screenshots
-paru,python311,cli,archived,,,python-uv can download required version of python
-paru,gnome-browser-connector,gui,minimal,,,
-paru,extension-manager,gui,minimal,,,
-paru,touchegg,gui,minimal,,,
-paru,wiki-tui,cli,archived,,,
-paru,wofi,gui,minimal,,,
-paru,waybar,gui,minimal,,,
-paru,swaylock,gui,minimal,,,
-paru,lazydocker,gui,archived,,,test better docker Visualization
-paru,kanata,cli,minimal,,,cross-platform software keyboard remapper
-paru,google-chrome,gui,archived,,,browser for work
-paru,optimus-manager-git,cli,hardware,,,manage balance between integrated and external graphique card
-paru,freetube,gui,software,,,free as in free software youtube
-paru,yt-x,cli,software,,,Browse YouTube from your terminal
-apt,git,cli,minimal,,,clone repo
-apt,libx11-dev,gui,minimal,,,Dependencies
-apt,libxft-dev,gui,minimal,,,Dependencies
-apt,libxext-dev,gui,minimal,,,Dependencies
-apt,libxinerama-dev,gui,minimal,,,Dependencies
-apt,zsh,cli,minimal,,,
-apt,man,cli,minimal,,,
-apt,build-essential,cli,minimal,,,
-apt,cmake,cli,minimal,,,
-apt,clang,cli,minimal,,,
-apt,clangd,cli,minimal,,,
-apt,clang-tools,cli,minimal,,,
-apt,llvm,cli,minimal,,,
-apt,lldb,cli,minimal,,,
-apt,sway,cli,minimal,,,
-apt,brightnessctl,gui,minimal,,
-apt,pipewire,gui,minimal,,
-apt,wireplumber,gui,minimal,,
-apt,pipewire-pulse,gui,minimal,,
-apt,inetutils-tools,cli,minimal,,,collection of common network programs from GNU
-apt,inetutils-ping,cli,minimal,,,ping command from GNU
-apt,valgrind,cli,minimal,,,
-apt,python3,cli,minimal,,,
-apt,kanata,cli,minimal,,,
-apt,sway,cli,minimal,,,
-apt,swaylock,cli,minimal,,,
-apt,wlsunset,cli,minimal,,,
-apt,kitty,cli,minimal,,,
-apt,waybar,cli,minimal,,,
-apt,rofi,gui,minimal,,
-apt,discord,gui,not_available,,https://discord.com/api/download?platform=linux&format=deb,not installed this way on debian need to wget a .deb
-apt,tk,gui,minimal,,,lib graphique
-apt,pip,cli,minimal,,,
-apt,fd-find,cli,minimal,,,better find in rust
-apt,wget,cli,minimal,,,
-apt,curl,cli,minimal,,,C URL library
-apt,tar,cli,minimal,,,
-apt,unzip,cli,minimal,,,
-apt,gzip,cli,minimal,,,
-apt,xcompmgr,cli,minimal,,,
-apt,stow,cli,minimal,,,
-apt,fuse,cli,minimal,,,
-apt,libfuse2,cli,minimal,,,
-apt,tmux,cli,minimal,,,
-apt,htop,cli,minimal,,,
-apt,btop,cli,minimal,,,
-apt,poppler-utils,cli,minimal,,,
-apt,net-tools,cli,minimal,,,
-apt,ssh,cli,minimal,,,
-apt,iptables,cli,minimal,,,
-apt,fail2ban,cli,minimal,,,
-apt,ripgrep,cli,minimal,,,
-apt,bat,cli,minimal,,,
-apt,sendmail,cli,minimal,,,
-apt,keepassxc,gui,minimal,,,
-apt,nnn,cli,archived,,,
-apt,redshift-gtk,gui,minimal,,,
-apt,tree,cli,minimal,,,
-apt,wireshark,gui,archived,,,
-brew,tmux,cli,minimal,,,
-brew,stow,cli,minimal,,,
-brew,fd,cli,minimal,,,
-brew,bat,cli,minimal,,,
-brew,ripgrep,cli,minimal,,,
-brew,helix,cli,test,,,
-brew,python@3.11,cli,installed_with_uv,,,
-nix,nixpkgs.man,cli,minimal,,,
-nix,nixpkgs.git,cli,minimal,,,
-nix,nixpkgs.gcc,cli,minimal,,,
-nix,nixpkgs.cmake,cli,minimal,,,
-nix,nixpkgs.zsh,cli,minimal,,,
-nix,nixpkgs.bat,cli,minimal,,,
-nix,nixpkgs.nnn,cli,minimal,,,
-nix,nixpkgs.stow,cli,minimal,,,
-nix,nixpkgs.tmux,cli,minimal,,,
-nix,nixpkgs.neovim,cli,minimal,,,
-nix,nixpkgs.ripgrep,cli,minimal,,,
-nix,nixpkgs.zsh-fzf-tab,cli,minimal,,,
-nix,nixpkgs.font-awesome,cli,minimal,,,Font
-nix,nixpkgs.nerdfonts,cli,minimal,,,Font
-nix,nixpkgs.keepassxc,gui,minimal,,,Tool
-nix,nixpkgs.stremio,gui,minimal,,,Video
-nix,nixpkgs.barrier,gui,minimal,,,Hardware Sharing
-nix,nixpkgs.obsidian,gui,minimal,,,NON FREE SOFTWARE
-curl,Hack-Nerd-Font,gui,minimal,.local/share/fonts/Hack-Nerd-Font.ttf,https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Hack/Regular/HackNerdFont-Regular.ttf,
-curl,Hack-Nerd-Font-Mono,gui,minimal,.local/share/fonts/Hack-Nerd-Font-Mono.ttf,https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Hack/Regular/HackNerdFontMono-Regular.ttf,
-curl,Fira-Code-Nerd-Font-Mono,gui,minimal,.local/share/fonts/Fira-Code-Nerd-Font-Mono.ttf,https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/FiraCode/Regular/FiraCodeNerdFontMono-Regular.ttf,
-curl,MaterialDesign-Font,gui,minimal,.local/share/fonts/MaterialDesign-Font.ttf,https://github.com/Templarian/MaterialDesign-Font/raw/master/MaterialDesignIconsDesktop.ttf,
-git,base,cli,personal,base,git@gitlab.com:plgch/base.git,This is the Base
-git,notes,cli,personal,notes,git@gitlab.com:plgch/notes.git,My Personal notes
-git,dotfiles,cli,personal,.config/dot_files,git@gitlab.com:plgch/dot_files.git,My Personal dotfiles
-git,neovim,cli,personal,.config/nvim,https://gitlab.com/plgch/neovim_config,My Personal Neovim Config
-git,nvim_fmr,cli,minimal,workspace/nvim_fmr,https://github.com/plagache/nvim_fmr,Tool to create a portable neovim configuration
-git,configuration-manager,cli,personal,workspace/configuration-manager,git@github.com:plagache/configuration-manager.git,WIP_ping
-git,Make-venv,cli,personal,workspace/Make-venv,git@github.com:plagache/Make-venv.git,Makefile example of a virtual environment in Python
-git,wallpapers-collection,gui,fancy,.tools/wallpapers,git@gitlab.com:plgch/wallpapers.git,My Personal wallpapers
-git,inception of things,cli,archived,workspace/inception_of_things,git@github.com:plagache/inception_of_things.git,WIP_inception
-git,dslr,cli,personal,workspace/dslr,git@github.com:plagache/DSLR.git,WIP_DSLR
-git,ping,cli,personal,workspace/ping,git@github.com:plagache/ping.git,WIP_ping
-git,python-for-data-science,cli,personal,workspace/python-for-data-science,git@github.com:plagache/python-for-data-science.git,
-git,fusion,cli,personal,workspace/fusion,git@github.com:plagache/fusion.git,Fusion of different tools for Machine learning
-git,multi-layer-perceptron,cli,personal,workspace/multi-layer-perceptron,git@github.com:plagache/mlp.git,Multi Layer Perceptron 42 project
-git,leaffliction,cli,personal,workspace/leaffliction,git@github.com:plagache/leaffliction.git,
-git,tiny_test,cli,personal,workspace/tiny_test,git@github.com:plagache/tiny_test.git,this is where i do test on tinygrad
-git,memory,cli,personal,workspace/memory,git@gitlab.com:plgch/memory.git,this is where i do test
-git,fzf,cli,minimal,.tools/fzf,https://github.com/junegunn/fzf.git,FuzzyFinder in go
-git,fzf-tab,cli,minimal,.tools/fzf-tab,https://github.com/Aloxaf/fzf-tab,Extension for fzf
-git,tmux-thumbs,cli,minimal,.config/tmux/tmux-thumbs,https://github.com/fcsonline/tmux-thumbs,Extension for tmux
-git,tmux-resurrect,cli,minimal,.config/tmux/tmux-resurrect,https://github.com/tmux-plugins/tmux-resurrect,Restore tmux session
-git,tmux-continuum,cli,minimal,.config/tmux/tmux-continuum,https://github.com/tmux-plugins/tmux-continuum,Save tmux session periodically
-git,ddgr,cli,archived,.tools/ddgr,https://github.com/jarun/ddgr,search
-git,ytfzf,cli,archived,.tools/ytfzf,https://github.com/pystardust/ytfzf,search
-git,ytmp,cli,archived,.tools/ytmp,https://github.com/unclereeemus/ytmp/,search
-git,keyboards,cli,archived,.tools/keyboard,git@gitlab.com:plgch/keyboard.git,My Personal keyboard
-stow,zsh,cli,minimal,,,
-stow,fd,cli,minimal,,,
-stow,tmux,cli,minimal,,,
-stow,linux,cli,minimal,,,
-stow,kitty,gui,minimal,,,
-stow,i3,gui,minimal,,,
-stow,rofi,gui,minimal,,,
-stow,sway,gui,minimal,,,
-stow,waybar,gui,minimal,,,
-stow,kanata,cli,minimal,,,
-stow,helix,cli,archived,,,
-stow,gnome,gui,archived,,,
+source,name,level,directory,url,description
+# Level 0 - base: core tooling (shell, editor, basic tools)
+# Level 1 - work: dev tools, compilers, containers
+# Level 2 - media: graphics, video, audio, browsers
+# Level 3 - all: system, virtualization, hardware, gaming
+# Level 999 - archived: not selectable, kept for reference
+
+# === GIT (personal repos) ===
+git,base,0,base,git@gitlab.com:plgch/base.git,Core configuration
+git,dotfiles,0,.config/dot_files,git@gitlab.com:plgch/dot_files.git,Personal dotfiles
+git,notes,0,notes,git@gitlab.com:plgch/notes.git,Personal notes
+git,neovim,0,.config/nvim,https://gitlab.com/plgch/neovim_config,Personal Neovim config
+git,mlp,1,workspace/multi-layer-perceptron,git@github.com:plagache/mlp.git,42 project
+git,make-venv,1,workspace/Make-venv,git@github.com:plagache/Make-venv.git,Python venv tool
+git,fusion,1,workspace/fusion,git@github.com:plagache/fusion.git,ML fusion project
+git,leaffliction,1,workspace/leaffliction,git@github.com:plagache/leaffliction.git,Project
+git,dslr,1,workspace/dslr,git@github.com:plagache/DSLR.git,WIP project
+git,nvim-fmr,1,workspace/nvim-fmr,https://github.com/plagache/nvim_fmr,Portable Neovim tool
+git,ping,1,workspace/ping,git@github.com:plagache/ping.git,WIP project
+git,tiny-test,1,workspace/tiny-test,git@github.com:plagache/tiny_test.git,Tinygrad tests
+git,inception-things,1,workspace/inception_of_things,git@github.com:plagache/inception_of_things.git,WIP inception
+git,wallpapers,2,.tools/wallpapers,git@gitlab.com:plgch/wallpapers.git,Personal wallpapers
+
+# === GIT (external repos) ===
+git,fzf,0,.tools/fzf,https://github.com/junegunn/fzf.git,Fuzzy finder
+git,fzf-tab,0,.tools/fzf-tab,https://github.com/Aloxaf/fzf-tab,Fzf completion
+git,tmux-thumbs,0,.config/tmux/tmux-thumbs,https://github.com/fcsonline/tmux-thumbs,Tmux extension
+git,tmux-resurrect,0,.config/tmux/tmux-resurrect,https://github.com/tmux-plugins/tmux-resurrect,Session restore
+git,tmux-continuum,0,.config/tmux/tmux-continuum,https://github.com/tmux-plugins/tmux-continuum,Auto-save sessions
+
+# === LN (dotfiles - uses dotfiles_dir from git,dotfiles) ===
+ln,zsh,0,.config/zsh,,zsh configuration
+ln,fd,0,.config/fd,,fd configuration
+ln,tmux,0,.config/tmux,,tmux configuration
+ln,linux,0,.config/linux,,linux configuration
+ln,kitty,0,.config/kitty,,kitty configuration
+ln,i3,0,.config/i3,,i3 configuration
+ln,rofi,0,.config/rofi,,rofi configuration
+ln,sway,0,.config/sway,,sway configuration
+ln,waybar,0,.config/waybar,,waybar configuration
+ln,kanata,0,.config/kanata,,kanata configuration
+
+# === CURL (direct downloads) ===
+curl,Hack-Nerd-Font,0,.local/share/fonts/Hack-Nerd-Font.ttf,https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Hack/Regular/HackNerdFont-Regular.ttf,Nerd font
+curl,Hack-Nerd-Font-Mono,0,.local/share/fonts/Hack-Nerd-Font-Mono.ttf,https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Hack/Regular/HackNerdFontMono-Regular.ttf,Nerd font mono
+curl,Fira-Code-Nerd-Font-Mono,0,.local/share/fonts/Fira-Code-Nerd-Font-Mono.ttf,https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/FiraCode/Regular/FiraCodeNerdFontMono-Regular.ttf,FiraCode nerd font
+curl,MaterialDesign-Font,0,.local/share/fonts/MaterialDesign-Font.ttf,https://github.com/Templarian/MaterialDesign-Font/raw/master/MaterialDesignIconsDesktop.ttf,Material Design icons
+
+# === PACMAN (system packages) ===
+pacman,git,0,,,Version control
+pacman,curl,0,,,Downloader
+pacman,zsh,0,,,Shell
+pacman,tmux,0,,,Terminal multiplexer
+pacman,kitty,0,,,Terminal emulator
+pacman,stow,0,,,Dotfile manager
+pacman,fd,0,,,Fast find
+pacman,ripgrep,0,,,Fast grep
+pacman,bat,0,,,Cat with syntax
+pacman,wget,0,,,Downloader
+pacman,man,0,,,Manual pages
+pacman,minimal-devel,1,,,Development tools
+pacman,patch,1,,,Patch utility
+pacman,make,1,,,Build tool
+pacman,cmake,1,,,Build system
+pacman,clang,1,,,C compiler
+pacman,gdb,1,,,Debugger
+pacman,lldb,1,,,Debugger
+pacman,llvm,1,,,Compiler infrastructure
+pacman,valgrind,1,,,Memory debugger
+pacman,python,1,,,Python
+pacman,python-pip,1,,,Python package manager
+pacman,uv,1,,,Python package manager (modern)
+pacman,tk,1,,,GUI library
+pacman,htop,1,,,Process viewer
+pacman,tree,1,,,Directory tree
+pacman,p7zip,1,,,Archive utility
+pacman,openssh,1,,,SSH client/server
+pacman,net-tools,1,,,Network tools
+pacman,docker,1,,,Container runtime
+pacman,docker-compose,1,,,Container orchestration
+pacman,poppler,2,,,PDF rendering
+pacman,feh,2,,,Image viewer
+pacman,imv,2,,,Image viewer
+pacman,firefox,2,,,Web browser
+pacman,discord,2,,,Chat
+pacman,qbittorrent,2,,,Torrent client
+pacman,vlc,2,,,Media player
+pacman,obsidian,2,,,Knowledge base
+pacman,gimp,2,,,Image editor
+pacman,redshift,2,,,Blue light filter
+pacman,pipewire,2,,,Audio server
+pacman,wireplumber,2,,,Session manager
+pacman,pipewire-pulse,2,,,PulseAudio compatibility
+pacman,alsa-utils,2,,,Audio utilities
+pacman,alsa-cm-conf,2,,,Audio configuration
+pacman,brightnessctl,2,,,Brightness control
+pacman,sway,2,,,Window manager
+pacman,swaybg,2,,,Wallpaper
+pacman,input-leap,2,,,Hardware sharing
+pacman,yt-dlp,2,,,Video downloader
+pacman,flameshot,2,,,Screenshots
+pacman,nextcloud-client,2,,,Cloud sync
+pacman,rofi,2,,,Application launcher
+pacman,i3,2,,,Window manager
+pacman,bluez,3,,,Bluetooth
+pacman,bluez-utils,3,,,Bluetooth utilities
+pacman,iptables,3,,,Firewall
+pacman,fail2ban,3,,,Intrusion prevention
+pacman,nvidia,3,,,NVIDIA driver
+pacman,nvidia-settings,3,,,NVIDIA settings
+pacman,xf86-video-intel,3,,,Intel graphics
+pacman,glxinfo,3,,,OpenGL info
+pacman,cuda,3,,,NVIDIA compute
+pacman,nvidia-prime,3,,,GPU switching
+pacman,lsusb,3,,,USB tools
+pacman,xorg-xinput,3,,,X11 input
+pacman,xorg-xrandr,3,,,X11 display
+pacman,ntfs-3g,3,,,NTFS filesystem
+pacman,hyprland,3,,,Window manager
+pacman,wine,3,,,Windows compatibility
+pacman,monero,3,,,Cryptocurrency
+pacman,monero-gui,3,,,Cryptocurrency GUI
+pacman,keepassxc,3,,,Password manager
+pacman,kdeconnect,3,,,Device sync
+pacman,wireshark-qt,3,,,Network analyzer
+pacman,nmap,3,,,Network scanner
+pacman,nfs-utils,3,,,Network filesystem
+pacman,qemu-full,3,,,Virtualization
+pacman,virt-manager,3,,,VM manager
+pacman,virt-viewer,3,,,VM viewer
+pacman,dnsmasq,3,,,DNS for VMs
+pacman,mpd,3,,,Music player daemon
+pacman,rmpc,3,,,Music player client
+pacman,python-mutagen,3,,,Audio metadata
+
+# === PARU (AUR) ===
+paru,waybar,2,,,Status bar
+paru,swaylock,2,,,Screen locker
+paru,kanata,2,,,Keyboard remapper
+paru,wofi,2,,,Application launcher
+paru,touchegg,3,,,Touch gestures
+paru,google-chrome,3,,,Browser
+paru,freetube,3,,,YouTube client
+paru,yt-x,3,,,YouTube TUI
+paru,gnome-browser-connector,3,,,Browser integration
+paru,extension-manager,3,,,GNOME extensions
+paru,lazydocker,3,,,Docker TUI
+paru,optimus-manager-git,3,,,GPU switching
+
+# === YAY (AUR) ===
+yay,waybar,2,,,Status bar
+yay,swaylock,2,,,Screen locker
+yay,kanata,2,,,Keyboard remapper
+yay,wofi,2,,,Application launcher
+yay,touchegg,3,,,Touch gestures
+yay,google-chrome,3,,,Browser
+yay,freetube,3,,,YouTube client
+yay,yt-x,3,,,YouTube TUI
+yay,gnome-browser-connector,3,,,Browser integration
+yay,extension-manager,3,,,GNOME extensions
+yay,lazydocker,3,,,Docker TUI
+yay,optimus-manager-git,3,,,GPU switching
+
+# === APT (Debian/Ubuntu) ===
+apt,git,0,,,Version control
+apt,curl,0,,,Downloader
+apt,wget,0,,,Downloader
+apt,zsh,0,,,Shell
+apt,tmux,0,,,Terminal multiplexer
+apt,kitty,0,,,Terminal emulator
+apt,stow,0,,,Dotfile manager
+apt,fzf,0,,,Fuzzy finder
+apt,ripgrep,0,,,Fast grep
+apt,bat,0,,,Cat with syntax
+apt,htop,0,,,Process viewer
+apt,btop,0,,,Process viewer
+apt,tree,0,,,Directory tree
+apt,man,0,,,Manual pages
+apt,tar,0,,,Archive utility
+apt,unzip,0,,,Archive utility
+apt,gzip,0,,,Compression
+apt,fuse,0,,,Filesystem in userspace
+apt,libfuse2,0,,,FUSE library
+apt,xcompmgr,0,,,Compositor
+apt,build-essential,1,,,Development tools
+apt,cmake,1,,,Build system
+apt,clang,1,,,C compiler
+apt,clangd,1,,,Language server
+apt,clang-tools,1,,,Clang tools
+apt,llvm,1,,,Compiler infrastructure
+apt,lldb,1,,,Debugger
+apt,valgrind,1,,,Memory debugger
+apt,python3,1,,,Python
+apt,pip,1,,,Python package manager
+apt,tk,1,,,GUI library
+apt,inetutils-tools,1,,,Network tools
+apt,inetutils-ping,1,,,Ping
+apt,libx11-dev,1,,,X11 development
+apt,libxft-dev,1,,,X11 fonts
+apt,libxext-dev,1,,,X11 extensions
+apt,libxinerama-dev,1,,,X11 multi-head
+apt,poppler-utils,1,,,PDF tools
+apt,ssh,1,,,SSH client/server
+apt,iptables,1,,,Firewall
+apt,fail2ban,1,,,Intrusion prevention
+apt,net-tools,1,,,Network tools
+apt,sway,2,,,Window manager
+apt,swaylock,2,,,Screen locker
+apt,wlsunset,2,,,Blue light filter
+apt,redshift-gtk,2,,,Blue light filter
+apt,waybar,2,,,Status bar
+apt,rofi,2,,,Application launcher
+apt,wofi,2,,,Application launcher
+apt,pipewire,2,,,Audio server
+apt,wireplumber,2,,,Session manager
+apt,pipewire-pulse,2,,,PulseAudio compatibility
+apt,brightnessctl,2,,,Brightness control
+apt,discord,2,,,Chat
+apt,keepassxc,2,,,Password manager
+
+# === BREW (macOS/Linux) ===
+brew,tmux,0,,,Terminal multiplexer
+brew,stow,0,,,Dotfile manager
+brew,fd,0,,,Fast find
+brew,bat,0,,,Cat with syntax
+brew,ripgrep,0,,,Fast grep
+
+# === NIX ===
+nix,nixpkgs.git,0,,,Version control
+nix,nixpkgs.zsh,0,,,Shell
+nix,nixpkgs.tmux,0,,,Terminal multiplexer
+nix,nixpkgs.neovim,0,,,Editor
+nix,nixpkgs.bat,0,,,Cat alternative
+nix,nixpkgs.ripgrep,0,,,Fast grep
+nix,nixpkgs.fd,0,,,Fast find
+nix,nixpkgs.stow,0,,,Dotfile manager
+nix,nixpkgs.fzf,0,,,Fuzzy finder
+nix,nixpkgs.man,1,,,Manual pages
+nix,nixpkgs.gcc,1,,,C compiler
+nix,nixpkgs.cmake,1,,,Build system
+
+# === ARCHIVED (level 999 - not selectable) ===
+pacman,hdf5,999,,,Scientific data library
+pacman,pulseaudio,999,,,Audio server (archived)
+pacman,graphviz,999,,,Graph visualization
+pacman,dmenu,999,,,Application launcher
+pacman,barrier,999,,,Hardware sharing
+pacman,nnn,999,,,File manager
+git,memory,999,workspace/memory,git@gitlab.com:plgch/memory.git,Test repo
+git,keyboard,999,.tools/keyboard,git@gitlab.com:plgch/keyboard.git,Personal keyboard config
+git,ddgr,999,.tools/ddgr,https://github.com/jarun/ddgr,DuckDuckGo search
+git,ytfzf,999,.tools/ytfzf,https://github.com/pystardust/ytfzf,YouTube search
+git,ytmp,999,.tools/ytmp,https://github.com/unclereeemus/ytmp,YouTube music
+git,helix,999,.config/helix,https://github.com/helix-editor/helix,Editor config
+git,gnome,999,.config/gnome,https://github.com/plagache/gnome,GNOME config
+paru,python311,999,,,Python 3.11
+paru,wiki-tui,999,,,Wikipedia TUI
+yay,python311,999,,,Python 3.11
+yay,wiki-tui,999,,,Wikipedia TUI
+brew,helix,999,,,Editor
+brew,python311,999,,,Python (use uv instead)
+apt,nnn,999,,,File manager
+apt,wireshark,999,,,Network analyzer
+apt,discord,999,,,Chat (manual install)

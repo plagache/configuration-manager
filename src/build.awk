@@ -1,235 +1,310 @@
 #!/usr/bin/awk -f
+# build.awk - Generate install/update/remove scripts
+# Groups by source, uses ln instead of stow, update per source
 
 BEGIN {
     FS = ","
+    OFS = ","
+    
+    # Get output directory from environment
+    output_dir = ENVIRON["OUTPUT_DIR"]
+    if (output_dir == "") {
+        output_dir = "."
+    }
+    
+    # Get HOME from environment
+    home = ENVIRON["HOME"]
+    if (home == "") {
+        home = "/home/plagache"
+    }
+    
+    # Source priority order for sorting
+    # System package managers first, then user, then git/curl, then ln
+    source_order["pacman"] = 1
+    source_order["apt"] = 2
+    source_order["paru"] = 3
+    source_order["yay"] = 4
+    source_order["brew"] = 5
+    source_order["nix"] = 6
+    source_order["git"] = 7
+    source_order["curl"] = 8
+    source_order["ln"] = 9
+    
+    # Default level filter (0 = base)
+    target_level = 0
+    
+    # Track dotfiles directory from git repo
+    dotfiles_dir = ""
+}
 
-    script_file = home_dir "not this file anymore"
+# Read capabilities file
+# Format: source OR metadata: level,N / root,yes / ssh,yes
+FILENAME ~ /capabilities/ {
+    # Skip metadata lines
+    if ($1 == "level") {
+        target_level = $2 + 0
+        next
+    }
+    if ($1 == "root" || $1 == "ssh") {
+        next
+    }
+    if ($1 == "" || $1 == "source") next
+    
+    # This is a source capability line
+    usable_sources[$1] = 1
+    
+    # Track unique sources
+    if (!($1 in unique_sources)) {
+        unique_sources[$1] = 1
+        source_list[++source_count] = $1
+    }
+    next
+}
 
-    home_dir = ENVIRON["HOME"]
+# Read source commands file - has header
+# Format: source,update_cmd,upgrade_pkgm,clean_pkgm,install_cmd,remove_cmd
+FILENAME ~ /source_commands/ {
+    if (FNR == 1) next  # Skip header
+    if ($1 == "" || $1 == "source") next
+    if ($1 ~ /^#/) next  # Skip comments
+    src = $1
+    commands[src, "update"] = $2
+    commands[src, "upgrade"] = $3
+    commands[src, "clean"] = $4
+    commands[src, "install"] = $5
+    commands[src, "remove"] = $6
+    next
+}
 
-    # REWRITE THIS PART
-    # REMOVE ALL UNECSESSARY FILES
+# Process packages_v2.csv format:
+# source,name,level,directory,url,description
+FILENAME ~ /packages/ && !($1 == "" || $1 == "source" || $1 ~ /^#/) {
+    source = $1
+    name = $2
+    level = $3 + 0  # Convert to number
+    directory = $4
+    url = $5
+    description = $6
+    
+    # Skip archived packages (level 999)
+    if (level == 999) next
+    
+    # Filter by level (only include packages <= target level)
+    if (level > target_level) next
+    
+    # Convert stow to ln for dotfiles
+    if (source == "stow") {
+        source = "ln"
+    }
+    
+    # Track dotfiles git repo directory for ln packages
+    if (source == "git" && (name == "dotfiles" || name == "dot_files")) {
+        dotfiles_dir = directory
+    }
+    
+    # Store the original directory before any modification
+    original_directory = directory
+    
+    # For ln packages, source is dotfiles_dir/name, target is original directory
+    # The substitution will use %dir for target and %dotfiles for source
+    
+    # Check if this source is available on this system
+    if (!usable_sources[source]) next
+    
+    # Track packages per source
+    source_pkg_count[source]++
+    if (!(source in source_packages)) {
+        source_packages[source] = name
+    } else {
+        source_packages[source] = source_packages[source] "|" name
+    }
+    
+    # Store package details
+    pkg_key = source "_" name
+    packages[pkg_key, "name"] = name
+    packages[pkg_key, "directory"] = original_directory
+    packages[pkg_key, "url"] = url
+    packages[pkg_key, "source"] = source
+    packages[pkg_key, "level"] = level
+    
+    total_packages++
+}
 
-    # Construct the path to the data files
-    if (config_file == "") {
-        config_file = home_dir "/base/unix/user/user_configuration.csv"
-            command = "ls " config_file " 2>/dev/null"
-            if (system(command) != 0) {
-                print "Warning: No Configuration find\n:: Running user configuration creator"
-                system("bash /home/user/base/unix/setup/create_user_configuration")
+END {
+    if (total_packages == 0) {
+        print "No packages to install"
+        exit 1
+    }
+    
+    # Sort sources by priority order
+    sorted_count = 0
+    for (src in source_packages) {
+        prio = source_order[src]
+        if (prio == 0) prio = 99
+        if (!(prio in sorted_sources)) {
+            sorted_sources[prio] = src
+            sorted_list[++sorted_count] = prio
+        }
+    }
+    # Sort priorities
+    n = sorted_count
+    for (i = 1; i <= n; i++) {
+        for (j = i + 1; j <= n; j++) {
+            if (sorted_list[i] > sorted_list[j]) {
+                tmp = sorted_list[i]
+                sorted_list[i] = sorted_list[j]
+                sorted_list[j] = tmp
             }
-        # print("no config file has been given backing on", config_file)
-    }
-    if (commands_file == "") {
-        commands_file = home_dir "/base/list/source_commands.csv"
-        # print("no commands file has been given backing on", commands_file)
-    }
-    if (packages_file == "") {
-        packages_file = home_dir "/base/list/packages.csv"
-        # print("no packages file has been given backing on", packages_file)
-    }
-
-    if (profile_directory == "") {
-        profile_directory = "active"
-    }
-
-    read_config(config_file)
-    read_commands(commands_file)
-    read_packages(packages_file)
-
-    # generate_update_script("update_script")
-    # generate_remove_script("clean_script")
-    # generate_install_script("install_script")
-
-    update_file = profile_directory "/update_script"
-    clean_file = profile_directory "/clean_script"
-    install_file = profile_directory "/install_script"
-
-    generate_update_script(update_file)
-    generate_remove_script(clean_file)
-    generate_install_script(install_file)
-}
-
-function read_config(file) {
-    config_counter = 0
-    source_count = 0
-    while ((getline < file) > 0) {
-        if ($1 != "") {
-            config_sources[config_counter] = $1
-            source_count++
         }
-        if ($2 != "") {
-            config_interfaces[config_counter] = $2
-        }
-        if ($3 != "") {
-            config_contexts[config_counter] = $3
-        }
-        config_counter++
     }
-    close(file)
-}
-
-function read_commands(file) {
-    while ((getline < file) > 0) {
-        if ($1 == "" || $1 == "source") {
+    # Rebuild source_list in sorted order
+    delete sorted_source_list
+    for (i = 1; i <= sorted_count; i++) {
+        prio = sorted_list[i]
+        src = sorted_sources[prio]
+        if (src != "" && (src in source_packages)) {
+            sorted_source_list[++source_count_sorted] = src
+        }
+    }
+    
+    # ========== GENERATE INSTALL SCRIPT ==========
+    install_file = output_dir "/install_system"
+    printf "#!/usr/bin/env bash\n\n" > install_file
+    printf "# This file was automatically generated with\n" >> install_file
+    printf "# Level: %d\n", target_level >> install_file
+    printf "\n### From {%d} sources {%d} packages to install\n\n", source_count_sorted, total_packages >> install_file
+    
+    # Group by source
+    for (s = 1; s <= source_count_sorted; s++) {
+        src = sorted_source_list[s]
+        if (!(src in source_packages)) continue
+        
+        printf "\n###----------[ %s ]----------###\n", src >> install_file
+        
+        n = split(source_packages[src], pkg_arr, "|")
+        for (i = 1; i <= n; i++) {
+            name = pkg_arr[i]
+            if (name == "") continue
+            
+            pkg_key = src "_" name
+            directory = packages[pkg_key, "directory"]
+            url = packages[pkg_key, "url"]
+            pkg_source = packages[pkg_key, "source"]
+            
+            install_cmd = commands[pkg_source, "install"]
+            
+            # Substitute variables (keep relative paths)
+            gsub(/%name/, name, install_cmd)
+            gsub(/%dir/, directory, install_cmd)
+            gsub(/%url/, url, install_cmd)
+            gsub(/%dotfiles/, dotfiles_dir, install_cmd)
+            gsub(/\$HOME/, home, install_cmd)
+            
+            printf "%s\n", install_cmd >> install_file
+        }
+    }
+    
+    printf "\n### End of %s/install_system ###\n", output_dir >> install_file
+    close(install_file)
+    
+    # ========== GENERATE UPDATE SCRIPT ==========
+    update_file = output_dir "/update_system"
+    printf "#!/bin/sh\n\n" > update_file
+    printf "# This file was automatically generated with\n" >> update_file
+    printf "# Level: %d\n", target_level >> update_file
+    printf "\n### From {%d} sources\n\n", source_count_sorted >> update_file
+    
+    for (s = 1; s <= source_count_sorted; s++) {
+        src = sorted_source_list[s]
+        if (src == "" || !(src in source_packages)) continue
+        
+        # Skip git, curl, ln (no update/upgrade/clean commands needed)
+        if (src == "git" || src == "curl" || src == "ln") {
             continue
         }
-        for (source_iterator in config_sources) {
-            if (config_sources[source_iterator] == $1) {
-                config_sources[source_iterator, "update"] = $2
-                config_sources[source_iterator, "upgrade"] = $3
-                config_sources[source_iterator, "clean"] = $4
-                config_sources[source_iterator, "install"] = $5
-                config_sources[source_iterator, "remove"] = $6
-            }
-        }
-    }
-    close(file)
-}
-
-function match_package_config(package_name, context, interface) {
-    stock_interface = ""
-    for (counter in config_interfaces) {
-        if (config_interfaces[counter] == interface) {
-            stock_interface = "active"
-            break
-        }
-    };
-    stock_context = ""
-    for (counter in config_contexts) {
-        if (config_contexts[counter] == context) {
-            stock_context = "active"
-            break
-
-        }
-    }
-    if (stock_context == "active" && stock_interface == "active") {
-        return 1
-    }
-    else if (stock_context != "active" || stock_interface != "active") {
-        return 0
-    }
-}
-
-function build_package_command(action, source, name, directory, url, package_number) {
-    if (source == "git") {
-        if (action == "install") {
-            packages[source, action, package_number] = url " " ENVIRON["HOME"] "/" directory
-        }
-        if (action == "remove") {
-            packages[source, action, package_number] = ENVIRON["HOME"] "/" directory
-        }
-    }
-    else if (source == "curl") {
-        if (action == "install") {
-            packages[source, action, package_number] = ENVIRON["HOME"] "/" directory " " url
-        }
-        if (action == "remove") {
-            packages[source, action, package_number] = ENVIRON["HOME"] "/" directory
-        }
-    }
-    else {
-        packages[source, action, package_number] = name
-    }
-}
-
-function read_packages(file) {
-    package_counter = 1
-    package_install = 0
-    package_remove = 0
-    while ((getline < file) > 0) {
-        if ($1 == "" || $1 == "source") {
+        
+        # Check if this source has any update-related commands
+        update_cmd = commands[src, "update"]
+        upgrade_cmd = commands[src, "upgrade"]
+        clean_cmd = commands[src, "clean"]
+        
+        if (update_cmd == "" && upgrade_cmd == "" && clean_cmd == "") {
             continue
         }
-
-        package_source = $1
-        for (source_iterator in config_sources) {
-            source = config_sources[source_iterator]
-            if (source == package_source) {
-                package_name = $2
-                package_interface = $3
-                package_context = $4
-                package_directory = $5
-                package_url = $6
-                if (match_package_config(package_name, package_context, package_interface) == 1) {
-                    build_package_command("install", source, package_name, package_directory, package_url, package_install)
-                    package_install++
-                }
-                else if (match_package_config(package_name, package_context, package_interface) == 0) {
-                    build_package_command("remove", source, package_name, package_directory, package_url, package_remove)
-                    package_remove++
-                }
-            }
+        
+        printf "\n###----------[ %s ]----------###\n", src >> update_file
+        
+        if (update_cmd != "") {
+            gsub(/\$HOME/, home, update_cmd)
+            printf "%s\n", update_cmd >> update_file
         }
-        package_counter++
-    }
-    close(file)
-}
-
-function generate_update_script(update_file) {
-    printf("#!/bin/sh\n\n") > update_file
-    printf("# This file was automatically generated with %s\n\n", script_file) >> update_file
-    # printf("# set -eu\n\n") >> update_file
-    printf("### From {%d} sources\n", source_count) >> update_file
-
-    for (source_iterator = 0; source_iterator < source_count; source_iterator++) {
-        if (config_sources[source_iterator, "update"] != "" || config_sources[source_iterator, "upgrade"] != "" || config_sources[source_iterator, "clean"] != "") {
-            printf("\nprintf '\\n========== %s ==========\\n'\n\n", config_sources[source_iterator]) >> update_file
+        
+        if (upgrade_cmd != "") {
+            gsub(/\$HOME/, home, upgrade_cmd)
+            printf "%s\n", upgrade_cmd >> update_file
         }
-        else if (config_sources[source_iterator, "update"] == "" && config_sources[source_iterator, "upgrade"] == "" && config_sources[source_iterator, "clean"] == "") {
-            printf("\n# No command found for [%s]\n", config_sources[source_iterator]) >> update_file
-        }
-
-        if (config_sources[source_iterator, "update"] != "") {
-            printf("printf '\\n>>> Updating %s...\\n\\n'\n", config_sources[source_iterator]) >> update_file
-            printf("%s\n", config_sources[source_iterator, "update"]) >> update_file
-        }
-
-        if (config_sources[source_iterator, "upgrade"] != "") {
-            printf("printf '\\n>>> Upgrading %s...\\n\\n'\n", config_sources[source_iterator]) >> update_file
-            printf("%s\n", config_sources[source_iterator, "upgrade"]) >> update_file
-        }
-
-        if (config_sources[source_iterator, "clean"] != "") {
-            printf("printf '\\n>>> Cleaning %s...\\n\\n'\n", config_sources[source_iterator]) >> update_file
-            printf("%s\n", config_sources[source_iterator, "clean"]) >> update_file
+        
+        if (clean_cmd != "") {
+            gsub(/\$HOME/, home, clean_cmd)
+            printf "%s\n", clean_cmd >> update_file
         }
     }
-
-    printf("\n### don't forget to add a cronjob\n") >> update_file
-    printf("#@reboot        root    $HOME/.multi_to0L/unix/user/update_user\n") >> update_file
-}
-
-function generate_remove_script(clean_file) {
-    printf("#!/usr/bin/env bash\n\n") > clean_file
-    printf("# This file was automatically generated with %s\n\n", script_file) >> clean_file
-    printf("### From {%s} sources {%s} packages to remove\n", source_count, package_remove) >> clean_file
-
-    for (source_iterator = 0; source_iterator < source_count; source_iterator++) {
-        source = config_sources[source_iterator]
-        printf("\n###----------[ %s ]-----------###\n", source) >> clean_file
-        for (package = 0; package <= package_install; package++){
-            if (packages[source, "remove", package] != "") {
-                printf("%s %s\n", config_sources[source_iterator, "remove"], packages[source, "remove", package]) >> clean_file
+    
+    printf "\n### don't forget to add a cronjob\n" >> update_file
+    printf "#@reboot        root    $HOME/.multi_to0l/unix/user/update_user\n" >> update_file
+    close(update_file)
+    
+    # ========== GENERATE REMOVE SCRIPT ==========
+    remove_file = output_dir "/clean_system"
+    printf "#!/usr/bin/env bash\n\n" > remove_file
+    printf "# This file was automatically generated with\n" >> remove_file
+    printf "# Level: %d\n", target_level >> remove_file
+    printf "\n### From {%d} sources {0} packages to remove\n\n", source_count_sorted >> remove_file
+    
+    for (s = 1; s <= source_count_sorted; s++) {
+        src = sorted_source_list[s]
+        if (!(src in source_packages)) continue
+        
+        # Check if there's a remove command
+        remove_sample = commands[src, "remove"]
+        if (remove_sample == "") {
+            printf "\n# %s - no remove command available\n" >> remove_file
+            continue
+        }
+        
+        printf "\n###----------[ %s ]----------###\n", src >> remove_file
+        
+        n = split(source_packages[src], pkg_arr, "|")
+        for (i = 1; i <= n; i++) {
+            name = pkg_arr[i]
+            if (name == "") continue
+            
+            pkg_key = src "_" name
+            directory = packages[pkg_key, "directory"]
+            pkg_source = packages[pkg_key, "source"]
+            
+            remove_cmd = commands[pkg_source, "remove"]
+            
+            # Substitute variables (keep relative paths)
+            gsub(/%name/, name, remove_cmd)
+            gsub(/%dir/, directory, remove_cmd)
+            gsub(/\$HOME/, home, remove_cmd)
+            
+            if (remove_cmd != "") {
+                printf "%s\n", remove_cmd >> remove_file
             }
         }
     }
-    printf("\n### End of %s ###", clean_file) >> clean_file
-}
-
-function generate_install_script(install_file) {
-    printf("#!/usr/bin/env bash\n\n") > install_file
-    printf("# This file was automatically generated with %s\n\n", script_file) >> install_file
-    printf("### From {%s} sources {%s} packages to install\n", source_count, package_install) >> install_file
-
-    for (source_iterator = 0; source_iterator < source_count; source_iterator++) {
-        source = config_sources[source_iterator]
-        printf("\n###----------[ %s ]-----------###\n", source) >> install_file
-        for (package = 0; package <= package_install; package++){
-            if (packages[source, "install", package] != "") {
-                printf("%s %s\n", config_sources[source_iterator, "install"], packages[source, "install", package]) >> install_file
-            }
+    
+    printf "\n### End of %s/clean_system ###\n", output_dir >> remove_file
+    close(remove_file)
+    
+    # ========== SUMMARY ==========
+    printf "Generated profile (level %d) with %d sources and %d packages:\n", target_level, source_count_sorted, total_packages
+    for (s = 1; s <= source_count_sorted; s++) {
+        src = sorted_source_list[s]
+        if (src in source_pkg_count) {
+            printf "  - %s: %d packages\n", src, source_pkg_count[src]
         }
     }
-    printf("\n### End of %s ###", install_file) >> install_file
 }

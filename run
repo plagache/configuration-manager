@@ -1,6 +1,27 @@
 #!/bin/sh
+# run - Auto-generate profile based on environment detection with level filtering
+# Usage: ./run [-l N] [--level N]
+#   -l N, --level N   Plan level: 0=base, 1=work, 2=media, 3=all (default: 0)
 
-dash configuration-manager create
+SCRIPT_DIR="$(cd -- "$(dirname "$0")" && pwd)"
 
-# dash configuration-manager build -p dev
-# dash configuration-manager build -p minimal
+# Set up paths
+export configuration_directory="$SCRIPT_DIR/profile"
+export data_directory="$SCRIPT_DIR/data"
+export src_dir="$SCRIPT_DIR/src"
+
+# Create directories
+mkdir -p "$configuration_directory"
+
+# Show usage if --help
+case "$1" in
+    -h|--help)
+        printf "Usage: %s [-l N] [--level N]\n" "$0"
+        printf "  -l N, --level N   Plan level: 0=base, 1=work, 2=media, 3=all (default: 0)\n"
+        exit 0
+        ;;
+esac
+
+# Run the auto-create
+printf "=== Configuration Manager (Level-Based) ===\n\n"
+"$src_dir"/create "$@"

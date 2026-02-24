@@ -1,184 +1,102 @@
 #!/bin/sh
+# create - Auto-generate profile based on environment detection with level filtering
+# Levels: 0=base, 1=work, 2=media, 3=all
 
-check_available_source() {
-    source_name="$1"
+# Default level
+LEVEL=0
 
-    if command -v "$source_name" >/dev/null 2>&1; then
-        echo "$source_name"
-    fi
-}
+# Parse arguments
+while [ $# -gt 0 ]; do
+    case "$1" in
+        -l|--level)
+            LEVEL="$2"
+            shift 2
+            ;;
+        *)
+            shift
+            ;;
+    esac
+done
 
-create_new_configuration() {
-    clear
-    printf "Define a new profil\n\nProfile Name: "
-    read -r profile_name
-    output_directory="$configuration_directory"/"$profile_name"
-    output_file="$output_directory"/"$profile_name".csv
-    # printf "\n$output_directory\n"
-    # printf "\n$output_file\n"
-    ensure_directory_exist "$output_directory"
-}
+. "$src_dir"/utils
 
-select_sources() {
-    clear
+PACKAGES="$data_directory"/packages.csv
+COMMANDS="$data_directory"/source_commands.csv
 
-    valid_sources=$(awk -F, 'NR>1 { print $1 }' "$packages_file" | sort | uniq | \
-    while IFS= read -r source; do
-        check_available_source "$source"
-    done)
-
-    sources_count=$(printf "%s" "$valid_sources" | wc -w)
-    printf "Sources (%d)\n\n" "$sources_count"
-    printf "%s\n" "$valid_sources"
-    printf "\n:: Enter the sources you want to select: "
-    read -r selected_sources
-
-    for source in $(echo "$selected_sources" | tr ' ' '\n'); do
-        if ! awk -F, -v source="$source" 'NR > 1 { if ($1 == source) found=1 } END { exit !found }' "$packages_file"; then
-            echo "Error: Invalid source selected: $source"
-            exit 1
-        fi
-    done
-}
-
-select_interfaces() {
-    clear
-    interfaces=$(awk -F, -v sources="$selected_sources" '
-        BEGIN {
-            # Split selected_sources into an array
-            n = split(sources, selected_array, " ")
-        }
-        NR > 1 {
-            # Check if column 1 (source) is in selected_array
-            for (i = 1; i <= n; i++) {
-                if ($1 == selected_array[i]) {
-                    print $3  # Print the interface (column 3)
-                    break
-                }
-            }
-        }
-    ' "$packages_file" | sort | uniq)
-
-    if [ -z "$interfaces" ]; then
-        echo "No interfaces found for the selected sources."
+auto_create_profile() {
+    # Create timestamped profile directory
+    profile_name="auto-$(date +%Y%m%d-%H%M%S)"
+    output_dir="$configuration_directory/$profile_name"
+    ensure_directory_exist "$output_dir"
+    
+    printf "Detecting environment (level %s)...\n" "$LEVEL"
+    
+    # Detect available sources with level
+    capabilities=$("$src_dir"/detect_environment --level "$LEVEL")
+    
+    if [ -z "$capabilities" ]; then
+        echo "Error: No usable package sources detected"
         exit 1
     fi
-
-    interfaces_count=$(echo "$interfaces" | wc -w)
-    printf "Interfaces (%d)\n\n" "$interfaces_count"
-    printf "%s\n" "$interfaces"
-    printf "\n:: Enter the interfaces you want to select: "
-    read -r selected_interfaces
-
-    for interface in $(echo "$selected_interfaces" | tr ' ' '\n'); do
-        if ! awk -F, -v interface="$interface" 'NR > 1 { if ($3 == interface) found=1 } END { exit !found }' "$packages_file"; then
-            echo "Error: Invalid interface selected: $interface"
-            exit 1
-        fi
+    
+    # Extract metadata and display sources
+    printf "\nDetected environment:\n"
+    echo "$capabilities" | while read -r line; do
+        case "$line" in
+            level,*)
+                level_val="${line#level,}"
+                printf "  • Level: %s\n" "$level_val"
+                ;;
+            root,*)
+                root_val="${line#root,}"
+                printf "  • Root access: %s\n" "$root_val"
+                ;;
+            ssh,*)
+                ssh_val="${line#ssh,}"
+                printf "  • SSH key found: %s\n" "$ssh_val"
+                ;;
+            pacman|apt|paru|yay|brew|nix|git|curl|ln)
+                printf "  ✓ %s\n" "$line"
+                ;;
+        esac
     done
-}
-
-select_contexts() {
-    clear
-    contexts=$(awk -F, -v sources="$selected_sources" '
-        BEGIN {
-            # Split selected_sources into an array
-            n = split(sources, selected_array, " ")
-        }
-        NR > 1 {
-            # Check if column 1 (source) is in selected_array
-            for (i = 1; i <= n; i++) {
-                if ($1 == selected_array[i]) {
-                    print $4  # Print the context (column 4)
-                    break
-                }
-            }
-        }
-    ' "$packages_file" | sort | uniq)
-
-    if [ -z "$contexts" ]; then
-        echo "No contexts found for the selected sources."
-        exit 1
-    fi
-
-    contexts_count=$(echo "$contexts" | wc -w)
-    printf "Contexts (%d)\n\n" "$contexts_count"
-    printf "%s\n" "$contexts"
-    printf "\n:: Enter the contexts you want to select: "
-    read -r selected_contexts
-
-    for context in $(echo "$selected_contexts" | tr ' ' '\n'); do
-        if ! awk -F, -v context="$context" 'NR > 1 { if ($4 == context) found=1 } END { exit !found }' "$packages_file"; then
-            echo "Error: Invalid context selected: $context"
-            exit 1
+    
+    # Generate profile
+    printf "\nGenerating profile: %s\n" "$profile_name"
+    printf "Packages selected for level %s...\n" "$LEVEL"
+    
+    # Create temporary capabilities file for AWK
+    cap_file="$output_dir/.capabilities"
+    echo "$capabilities" > "$cap_file"
+    
+    # Run AWK with all three input files
+    # Pass output_dir via environment variable
+    OUTPUT_DIR="$output_dir" awk -f "$src_dir"/build.awk \
+        "$cap_file" \
+        "$COMMANDS" \
+        "$PACKAGES"
+    
+    # Make scripts executable
+    chmod +x "$output_dir"/install_system "$output_dir"/update_system "$output_dir"/clean_system 2>/dev/null || true
+    
+    printf "\nProfile created: %s\n" "$output_dir"
+    printf "\nGenerated scripts:\n"
+    printf "  → install_system - Install all packages\n"
+    printf "  → update_system - Update packages (per source)\n"
+    printf "  → clean_system  - Remove packages\n"
+    printf "  → .capabilities - Profile capabilities\n"
+    
+    # Show what would be installed
+    printf "\nTo see what would be installed, run:\n"
+    printf "  head -50 %s/install_system\n" "$output_dir"
+    
+    # Skip activation in non-interactive mode (when stdin is not a terminal)
+    if [ -t 0 ]; then
+        # Offer to activate
+        if request_confirmation "\nActivate this profile?"; then
+            activate "$output_dir"
         fi
-    done
-}
-
-set_new_configuration() {
-    clear
-    awk -v sources="$selected_sources" -v interfaces="$selected_interfaces" -v contexts="$selected_contexts" '
-    BEGIN {
-        # Split each string into arrays
-        n_sources = split(sources, src_arr, " ")
-        n_interfaces = split(interfaces, int_arr, " ")
-        n_contexts = split(contexts, ctx_arr, " ")
-
-        # Calculate the maximum length to iterate over
-        max_rows = (n_sources > n_interfaces ? n_sources : n_interfaces)
-        max_rows = (max_rows > n_contexts ? max_rows : n_contexts)
-
-        # Generate output
-        for (i = 1; i <= max_rows; i++) {
-            # Print the source, interface, and context in CSV format
-            printf "%s,%s,%s\n",
-                (i <= n_sources ? src_arr[i] : ""),
-                (i <= n_interfaces ? int_arr[i] : ""),
-                (i <= n_contexts ? ctx_arr[i] : "")
-        }
-    }' > "$output_file"
-
-    printf "[%s] created at %s\n\n" "${profile_name}" "${output_file}"
-    cat "${output_file}"
-    printf "\n"
-}
-
-create_configuration() {
-    # printf '%s\n' "$configuration_directory"
-    # printf '%s\n' "$data_directory"
-    # printf '%s\n' "$config_file"
-
-    packages_file="$data_directory"/packages.csv
-    if [ ! -f "$packages_file" ]; then
-        echo "Error: packages file not found!"
-    fi
-
-    create_new_configuration
-
-    select_sources
-
-    select_interfaces
-
-    select_contexts
-
-    set_new_configuration
-}
-
-create() {
-    # could take as aruguments a profil name ?
-    create_configuration
-    printf ':: Building [%s]...\n' "$profile_name"
-    awk -f "$src_dir"/build.awk \
-        -v config_file="$output_file" \
-        -v commands_file="$data_directory/source_commands.csv" \
-        -v packages_file="$packages_file" \
-        -v profile_directory="$output_directory"
-    find "${output_directory}" -type f ! -name "*.csv" -print0 | xargs -0 chmod 744
-    # clear
-    printf ' [%s] is built\n' "$profile_name"
-    if request_confirmation ":: Do you want to activate the profile?"; then
-        activate "$output_directory"
-    else
-        printf 'Warning: [%s] not activated.\n' "${profile_name}"
     fi
 }
+
+auto_create_profile
