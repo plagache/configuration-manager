@@ -7,9 +7,10 @@
 # set the path to the active configuration
 SCRIPT_DIR="$(cd -- "$(dirname "$0")" && pwd)"
 
-# These are example of usage
+# Run with level 0 and activate
 ACTIVATE=1 "./run"
 
+# These are examples
 # ACTIVATE=1 LEVEL=3 "./run"
 # same has
 # ACTIVATE=1 "./run" -l 2
