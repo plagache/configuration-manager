@@ -2,8 +2,11 @@
 # create - Auto-generate profile based on environment detection with level filtering
 # Levels: 0=base, 1=work, 2=media, 3=all
 
-# Default level
-LEVEL=0
+# Default activation 0 = not
+ACTIVATE="${ACTIVATE:-0}"
+
+# Default level 0
+LEVEL="${LEVEL:-0}"
 
 # Parse arguments
 while [ $# -gt 0 ]; do
@@ -28,17 +31,17 @@ auto_create_profile() {
     profile_name="auto-$(date +%Y%m%d-%H%M%S)"
     output_dir="$configuration_directory/$profile_name"
     ensure_directory_exist "$output_dir"
-    
+
     printf "Detecting environment (level %s)...\n" "$LEVEL"
-    
+
     # Detect available sources with level
     capabilities=$("$src_dir"/detect_environment --level "$LEVEL")
-    
+
     if [ -z "$capabilities" ]; then
         echo "Error: No usable package sources detected"
         exit 1
     fi
-    
+
     # Extract metadata and display sources
     printf "\nDetected environment:\n"
     echo "$capabilities" | while read -r line; do
@@ -60,42 +63,36 @@ auto_create_profile() {
                 ;;
         esac
     done
-    
+
     # Generate profile
     printf "\nGenerating profile: %s\n" "$profile_name"
     printf "Packages selected for level %s...\n" "$LEVEL"
-    
+
     # Create temporary capabilities file for AWK
     cap_file="$output_dir/.capabilities"
     echo "$capabilities" > "$cap_file"
-    
+
     # Run AWK with all three input files
     # Pass output_dir via environment variable
     OUTPUT_DIR="$output_dir" awk -f "$src_dir"/build.awk \
         "$cap_file" \
         "$COMMANDS" \
         "$PACKAGES"
-    
+
     # Make scripts executable
     chmod +x "$output_dir"/install_system "$output_dir"/update_system "$output_dir"/clean_system 2>/dev/null || true
-    
+
     printf "\nProfile created: %s\n" "$output_dir"
     printf "\nGenerated scripts:\n"
     printf "  → install_system - Install all packages\n"
     printf "  → update_system - Update packages (per source)\n"
     printf "  → clean_system  - Remove packages\n"
-    printf "  → .capabilities - Profile capabilities\n"
-    
-    # Show what would be installed
-    printf "\nTo see what would be installed, run:\n"
-    printf "  head -50 %s/install_system\n" "$output_dir"
-    
+    printf "  → .capabilities - Profile capabilities\n\n"
+
     # Skip activation in non-interactive mode (when stdin is not a terminal)
-    if [ -t 0 ]; then
-        # Offer to activate
-        if request_confirmation "Activate this profile?"; then
-            profile_name="$profile_name" activate "$output_dir"
-        fi
+    # Or use the ACTIVATE environment variable
+    if [ "$ACTIVATE" = "1" ] || ([ -t 0 ] && request_confirmation "Activate this profile?"); then
+        profile_name="$profile_name" activate "$output_dir"
     fi
 }
 

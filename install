@@ -1,7 +1,18 @@
 #!/bin/sh
 
+# data verification
+# awk -f "src/data_verification.awk" "data/packages.csv" > "data/tmp.csv"
+
 # link configuration manager to .local/bin
 # set the path to the active configuration
 SCRIPT_DIR="$(cd -- "$(dirname "$0")" && pwd)"
+
+# These are example of usage
+ACTIVATE=1 "./run"
+
+# ACTIVATE=1 LEVEL=3 "./run"
+# same has
+# ACTIVATE=1 "./run" -l 2
+
 active_directory="$SCRIPT_DIR"/profile/active
 find "${active_directory}" -type f -executable -print0 | xargs -0 ln -s -t ~/.local/bin/

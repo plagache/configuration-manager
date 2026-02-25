@@ -1,11 +1,11 @@
 source,name,level,directory,url,description
-# Level 0 - base: core tooling (shell, editor, basic tools)
-# Level 1 - work: dev tools, compilers, containers
-# Level 2 - media: graphics, video, audio, browsers
-# Level 3 - all: system, virtualization, hardware, gaming
-# Level 999 - archived: not selectable, kept for reference
-
-# === GIT (personal repos) ===
+# Level 0 - base: core tooling (shell, editor, basic tools),,,
+# Level 1 - work: dev tools, compilers, containers,,,
+# Level 2 - media: graphics, video, audio, browsers,,
+# Level 3 - all: system, virtualization, hardware, gaming,,
+# Level 999 - archived: not selectable, kept for reference,,,,
+,,,,,
+# === GIT (personal repos) ===,,,,,
 git,base,0,base,git@gitlab.com:plgch/base.git,Core configuration
 git,dotfiles,0,.config/dot_files,git@gitlab.com:plgch/dot_files.git,Personal dotfiles
 git,notes,0,notes,git@gitlab.com:plgch/notes.git,Personal notes
@@ -20,15 +20,15 @@ git,ping,1,workspace/ping,git@github.com:plagache/ping.git,WIP project
 git,tiny-test,1,workspace/tiny-test,git@github.com:plagache/tiny_test.git,Tinygrad tests
 git,inception-things,1,workspace/inception_of_things,git@github.com:plagache/inception_of_things.git,WIP inception
 git,wallpapers,2,.tools/wallpapers,git@gitlab.com:plgch/wallpapers.git,Personal wallpapers
-
-# === GIT (external repos) ===
+,,,,,
+# === GIT (external repos) ===,,,,,
 git,fzf,0,.tools/fzf,https://github.com/junegunn/fzf.git,Fuzzy finder
 git,fzf-tab,0,.tools/fzf-tab,https://github.com/Aloxaf/fzf-tab,Fzf completion
 git,tmux-thumbs,0,.config/tmux/tmux-thumbs,https://github.com/fcsonline/tmux-thumbs,Tmux extension
 git,tmux-resurrect,0,.config/tmux/tmux-resurrect,https://github.com/tmux-plugins/tmux-resurrect,Session restore
 git,tmux-continuum,0,.config/tmux/tmux-continuum,https://github.com/tmux-plugins/tmux-continuum,Auto-save sessions
-
-# === LN (dotfiles - uses dotfiles_dir from git,dotfiles) ===
+,,,,,
+# === LN (dotfiles - uses dotfiles_dir from git,dotfiles) ===,,,,
 ln,zsh,0,.config/zsh,,zsh configuration
 ln,fd,0,.config/fd,,fd configuration
 ln,tmux,0,.config/tmux,,tmux configuration
@@ -39,14 +39,14 @@ ln,rofi,0,.config/rofi,,rofi configuration
 ln,sway,0,.config/sway,,sway configuration
 ln,waybar,0,.config/waybar,,waybar configuration
 ln,kanata,0,.config/kanata,,kanata configuration
-
-# === CURL (direct downloads) ===
+,,,,,
+# === CURL (direct downloads) ===,,,,,
 curl,Hack-Nerd-Font,0,.local/share/fonts/Hack-Nerd-Font.ttf,https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Hack/Regular/HackNerdFont-Regular.ttf,Nerd font
 curl,Hack-Nerd-Font-Mono,0,.local/share/fonts/Hack-Nerd-Font-Mono.ttf,https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Hack/Regular/HackNerdFontMono-Regular.ttf,Nerd font mono
 curl,Fira-Code-Nerd-Font-Mono,0,.local/share/fonts/Fira-Code-Nerd-Font-Mono.ttf,https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/FiraCode/Regular/FiraCodeNerdFontMono-Regular.ttf,FiraCode nerd font
 curl,MaterialDesign-Font,0,.local/share/fonts/MaterialDesign-Font.ttf,https://github.com/Templarian/MaterialDesign-Font/raw/master/MaterialDesignIconsDesktop.ttf,Material Design icons
-
-# === PACMAN (system packages) ===
+,,,,,
+# === PACMAN (system packages) ===,,,,,
 pacman,git,0,,,Version control
 pacman,curl,0,,,Downloader
 pacman,zsh,0,,,Shell
@@ -132,8 +132,8 @@ pacman,dnsmasq,3,,,DNS for VMs
 pacman,mpd,3,,,Music player daemon
 pacman,rmpc,3,,,Music player client
 pacman,python-mutagen,3,,,Audio metadata
-
-# === PARU (AUR) ===
+,,,,,
+# === PARU (AUR) ===,,,,,
 paru,waybar,2,,,Status bar
 paru,swaylock,2,,,Screen locker
 paru,kanata,2,,,Keyboard remapper
@@ -146,8 +146,8 @@ paru,gnome-browser-connector,3,,,Browser integration
 paru,extension-manager,3,,,GNOME extensions
 paru,lazydocker,3,,,Docker TUI
 paru,optimus-manager-git,3,,,GPU switching
-
-# === YAY (AUR) ===
+,,,,,
+# === YAY (AUR) ===,,,,,
 yay,waybar,2,,,Status bar
 yay,swaylock,2,,,Screen locker
 yay,kanata,2,,,Keyboard remapper
@@ -160,8 +160,8 @@ yay,gnome-browser-connector,3,,,Browser integration
 yay,extension-manager,3,,,GNOME extensions
 yay,lazydocker,3,,,Docker TUI
 yay,optimus-manager-git,3,,,GPU switching
-
-# === APT (Debian/Ubuntu) ===
+,,,,,
+# === APT (Debian/Ubuntu) ===,,,,,
 apt,git,0,,,Version control
 apt,curl,0,,,Downloader
 apt,wget,0,,,Downloader
@@ -217,15 +217,15 @@ apt,pipewire-pulse,2,,,PulseAudio compatibility
 apt,brightnessctl,2,,,Brightness control
 apt,discord,2,,,Chat
 apt,keepassxc,2,,,Password manager
-
-# === BREW (macOS/Linux) ===
+,,,,,
+# === BREW (macOS/Linux) ===,,,,,
 brew,tmux,0,,,Terminal multiplexer
 brew,stow,0,,,Dotfile manager
 brew,fd,0,,,Fast find
 brew,bat,0,,,Cat with syntax
 brew,ripgrep,0,,,Fast grep
-
-# === NIX ===
+,,,,,
+# === NIX ===,,,,,
 nix,nixpkgs.git,0,,,Version control
 nix,nixpkgs.zsh,0,,,Shell
 nix,nixpkgs.tmux,0,,,Terminal multiplexer
@@ -238,8 +238,8 @@ nix,nixpkgs.fzf,0,,,Fuzzy finder
 nix,nixpkgs.man,1,,,Manual pages
 nix,nixpkgs.gcc,1,,,C compiler
 nix,nixpkgs.cmake,1,,,Build system
-
-# === ARCHIVED (level 999 - not selectable) ===
+,,,,,
+# === ARCHIVED (level 999 - not selectable) ===,,,,,
 pacman,hdf5,999,,,Scientific data library
 pacman,pulseaudio,999,,,Audio server (archived)
 pacman,graphviz,999,,,Graph visualization
