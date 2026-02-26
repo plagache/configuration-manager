@@ -5,7 +5,7 @@ Started as a collection of scripts
 
 You need git, awk and find
 ```sh
-git clone https://github.com/plagache/configuration-manager
+git clone git@github.com:plagache/configuration-manager.git
 cd configuration-manager
 ./install
 ```
