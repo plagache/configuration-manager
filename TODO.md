@@ -3,7 +3,10 @@
 - build session
     - create script install;update;clean
     - post install action ? services to enable ? Other Config file to add, e.g. kanata config file (script that check and replace already exist) ?
-    - packages not in the list of data with special install Neovim, nextcloud
+    - packages not in the list of data with special install
+        - [ ] Neovim for different architecture
+        - [ ] UV
+        - [ ] nextcloud has been integrated with the NIXOS server
 - detect change from session / and packages
 
 ## limitations
@@ -22,7 +25,6 @@ what are your packages ?
 is a program nescessary or not ?
 
 set flag for git i owned or not, in context seems relevant
-
 
 - interface should be removed for something like Right, do we need Admin ?
 
@@ -53,9 +55,9 @@ sh
     - [ ] the service could be enable by install
     - [ ] and could be turned off with disable
 
-- [ ] create a script that can be curl/git and sh
+- [ ] create a script that can be curl/git and sh for example: `curl -LsSf https://astral.sh/uv/install.sh | sh`
     - [ ] dll its own git config_manager and launch it
-        - [ ] minimal dependencies
+        - [ ] minimal dependency check before run
 
 - [ ] should error message when a packages need to be installed/removed and the program dit not find the command
 

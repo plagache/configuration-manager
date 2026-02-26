@@ -8,17 +8,17 @@ source,name,level,directory,url,description
 # === GIT (personal repos) ===,,,,,
 git,base,0,base,git@gitlab.com:plgch/base.git,Core configuration
 git,dotfiles,0,.config/dot_files,git@gitlab.com:plgch/dot_files.git,Personal dotfiles
-git,notes,0,notes,git@gitlab.com:plgch/notes.git,Personal notes
 git,neovim,0,.config/nvim,https://gitlab.com/plgch/neovim_config,Personal Neovim config
 git,mlp,1,workspace/multi-layer-perceptron,git@github.com:plagache/mlp.git,42 project
-git,make-venv,1,workspace/Make-venv,git@github.com:plagache/Make-venv.git,Python venv tool
 git,fusion,1,workspace/fusion,git@github.com:plagache/fusion.git,ML fusion project
-git,leaffliction,1,workspace/leaffliction,git@github.com:plagache/leaffliction.git,Project
-git,dslr,1,workspace/dslr,git@github.com:plagache/DSLR.git,WIP project
+git,make-venv,1,workspace/Make-venv,git@github.com:plagache/Make-venv.git,Python venv tool
 git,nvim-fmr,1,workspace/nvim-fmr,https://github.com/plagache/nvim_fmr,Portable Neovim tool
 git,ping,1,workspace/ping,git@github.com:plagache/ping.git,WIP project
 git,tiny-test,1,workspace/tiny-test,git@github.com:plagache/tiny_test.git,Tinygrad tests
-git,inception-things,1,workspace/inception_of_things,git@github.com:plagache/inception_of_things.git,WIP inception
+git,notes,2,notes,git@gitlab.com:plgch/notes.git,Personal notes
+git,dslr,2,workspace/dslr,git@github.com:plagache/DSLR.git,WIP project
+git,inception-things,2,workspace/inception_of_things,git@github.com:plagache/inception_of_things.git,WIP inception
+git,leaffliction,2,workspace/leaffliction,git@github.com:plagache/leaffliction.git,Project
 git,wallpapers,2,.tools/wallpapers,git@gitlab.com:plgch/wallpapers.git,Personal wallpapers
 ,,,,,
 # === GIT (external repos) ===,,,,,
@@ -33,12 +33,12 @@ ln,zsh,0,.config/zsh,,zsh configuration
 ln,fd,0,.config/fd,,fd configuration
 ln,tmux,0,.config/tmux,,tmux configuration
 ln,linux,0,.config/linux,,linux configuration
-ln,kitty,0,.config/kitty,,kitty configuration
-ln,i3,0,.config/i3,,i3 configuration
-ln,rofi,0,.config/rofi,,rofi configuration
-ln,sway,0,.config/sway,,sway configuration
-ln,waybar,0,.config/waybar,,waybar configuration
-ln,kanata,0,.config/kanata,,kanata configuration
+ln,kitty,2,.config/kitty,,kitty configuration
+ln,i3,2,.config/i3,,i3 configuration
+ln,rofi,2,.config/rofi,,rofi configuration
+ln,sway,2,.config/sway,,sway configuration
+ln,waybar,2,.config/waybar,,waybar configuration
+ln,kanata,1,.config/kanata,,kanata configuration
 ,,,,,
 # === CURL (direct downloads) ===,,,,,
 curl,Hack-Nerd-Font,0,.local/share/fonts/Hack-Nerd-Font.ttf,https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Hack/Regular/HackNerdFont-Regular.ttf,Nerd font
@@ -52,7 +52,6 @@ pacman,curl,0,,,Downloader
 pacman,zsh,0,,,Shell
 pacman,tmux,0,,,Terminal multiplexer
 pacman,kitty,0,,,Terminal emulator
-pacman,stow,0,,,Dotfile manager
 pacman,fd,0,,,Fast find
 pacman,ripgrep,0,,,Fast grep
 pacman,bat,0,,,Cat with syntax
@@ -168,7 +167,6 @@ apt,wget,0,,,Downloader
 apt,zsh,0,,,Shell
 apt,tmux,0,,,Terminal multiplexer
 apt,kitty,0,,,Terminal emulator
-apt,stow,0,,,Dotfile manager
 apt,fzf,0,,,Fuzzy finder
 apt,ripgrep,0,,,Fast grep
 apt,bat,0,,,Cat with syntax
@@ -220,7 +218,6 @@ apt,keepassxc,2,,,Password manager
 ,,,,,
 # === BREW (macOS/Linux) ===,,,,,
 brew,tmux,0,,,Terminal multiplexer
-brew,stow,0,,,Dotfile manager
 brew,fd,0,,,Fast find
 brew,bat,0,,,Cat with syntax
 brew,ripgrep,0,,,Fast grep
@@ -233,7 +230,6 @@ nix,nixpkgs.neovim,0,,,Editor
 nix,nixpkgs.bat,0,,,Cat alternative
 nix,nixpkgs.ripgrep,0,,,Fast grep
 nix,nixpkgs.fd,0,,,Fast find
-nix,nixpkgs.stow,0,,,Dotfile manager
 nix,nixpkgs.fzf,0,,,Fuzzy finder
 nix,nixpkgs.man,1,,,Manual pages
 nix,nixpkgs.gcc,1,,,C compiler
@@ -246,6 +242,7 @@ pacman,graphviz,999,,,Graph visualization
 pacman,dmenu,999,,,Application launcher
 pacman,barrier,999,,,Hardware sharing
 pacman,nnn,999,,,File manager
+pacman,stow,999,,,Dotfile manager
 git,memory,999,workspace/memory,git@gitlab.com:plgch/memory.git,Test repo
 git,keyboard,999,.tools/keyboard,git@gitlab.com:plgch/keyboard.git,Personal keyboard config
 git,ddgr,999,.tools/ddgr,https://github.com/jarun/ddgr,DuckDuckGo search
@@ -259,6 +256,9 @@ yay,python311,999,,,Python 3.11
 yay,wiki-tui,999,,,Wikipedia TUI
 brew,helix,999,,,Editor
 brew,python311,999,,,Python (use uv instead)
+brew,stow,999,,,Dotfile manager
 apt,nnn,999,,,File manager
 apt,wireshark,999,,,Network analyzer
 apt,discord,999,,,Chat (manual install)
+apt,stow,999,,,Dotfile manager
+nix,nixpkgs.stow,999,,,Dotfile manager
