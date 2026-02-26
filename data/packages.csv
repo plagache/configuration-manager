@@ -111,15 +111,15 @@ pacman,xf86-video-intel,3,,,Intel graphics
 pacman,glxinfo,3,,,OpenGL info
 pacman,cuda,3,,,NVIDIA compute
 pacman,nvidia-prime,3,,,GPU switching
-pacman,lsusb,3,,,USB tools
+pacman,lsusb,1,,,USB tools
 pacman,xorg-xinput,3,,,X11 input
 pacman,xorg-xrandr,3,,,X11 display
 pacman,ntfs-3g,3,,,NTFS filesystem
-pacman,hyprland,3,,,Window manager
+pacman,hyprland,2,,,Window manager
 pacman,wine,3,,,Windows compatibility
 pacman,monero,3,,,Cryptocurrency
 pacman,monero-gui,3,,,Cryptocurrency GUI
-pacman,keepassxc,3,,,Password manager
+pacman,keepassxc,0,,,Password manager
 pacman,kdeconnect,3,,,Device sync
 pacman,wireshark-qt,3,,,Network analyzer
 pacman,nmap,3,,,Network scanner
@@ -214,13 +214,14 @@ apt,wireplumber,2,,,Session manager
 apt,pipewire-pulse,2,,,PulseAudio compatibility
 apt,brightnessctl,2,,,Brightness control
 apt,discord,2,,,Chat
-apt,keepassxc,2,,,Password manager
+apt,keepassxc,0,,,Password manager
 ,,,,,
 # === BREW (macOS/Linux) ===,,,,,
 brew,tmux,0,,,Terminal multiplexer
 brew,fd,0,,,Fast find
 brew,bat,0,,,Cat with syntax
 brew,ripgrep,0,,,Fast grep
+brew,keepassxc,999,,,Password manager not working anymore need to dll appImage
 ,,,,,
 # === NIX ===,,,,,
 nix,nixpkgs.git,0,,,Version control
