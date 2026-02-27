@@ -5,7 +5,11 @@
     - post install action ? services to enable ? Other Config file to add, e.g. kanata config file (script that check and replace already exist) ?
     - packages not in the list of data with special install
         - [ ] Neovim for different architecture
+        - [ ] brew for school
         - [ ] UV
+        - [ ] Refacto Ln for working with stow architecture
+            - problem is with zsh that has a file at the ~/
+            - 2 action would be needed for this file
         - [ ] nextcloud has been integrated with the NIXOS server
 - detect change from session / and packages
 

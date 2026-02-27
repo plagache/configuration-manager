@@ -8,4 +8,4 @@ yay,yay -Sy,yay --noconfirm -Sua,yay --noconfirm -Scc,yay --noconfirm -S %name,y
 git,,,,git clone --recursive --depth 1 --recurse-submodules %url "$HOME/%dir",rm -rf "$HOME/%dir",
 stow,,,,stow --dir=$HOME/.config/dot_files --target=$HOME --stow,stow --target=$HOME --delete,
 curl,,,,curl --create-dirs -fLo "$HOME/%dir" %url,rm -rf "$HOME/%dir",
-ln,,,,ln -sf "%dotfiles/%name" "$HOME/%dir",rm -f "$HOME/%dir",
+ln,,,,ln -sf "$HOME/%dotfiles/%name" "$HOME/%dir",rm -f "$HOME/%dir",
