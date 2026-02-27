@@ -30,6 +30,7 @@ git,tmux-continuum,0,.config/tmux/tmux-continuum,https://github.com/tmux-plugins
 ,,,,,
 # === LN (dotfiles - uses dotfiles_dir from git,dotfiles) ===,,,,
 ln,zsh,0,.config/zsh,,zsh configuration
+ln,zsh/.zshenv,0,~/.zshenv,,zsh configuration
 ln,fd,0,.config/fd,,fd configuration
 ln,tmux,0,.config/tmux,,tmux configuration
 ln,linux,0,.config/linux,,linux configuration
