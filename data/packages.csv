@@ -8,11 +8,11 @@ source,name,level,directory,url,description
 # === GIT (personal repos) ===,,,,,
 git,base,0,base,git@gitlab.com:plgch/base.git,Core configuration
 git,dotfiles,0,.config/dot_files,git@gitlab.com:plgch/dot_files.git,Personal dotfiles
-git,neovim,0,.config/nvim,https://gitlab.com/plgch/neovim_config,Personal Neovim config
+git,neovim,0,.config/nvim,git@gitlab.com:plgch/neovim_config.git,Personal Neovim config
 git,mlp,1,workspace/multi-layer-perceptron,git@github.com:plagache/mlp.git,42 project
 git,fusion,1,workspace/fusion,git@github.com:plagache/fusion.git,ML fusion project
 git,make-venv,1,workspace/Make-venv,git@github.com:plagache/Make-venv.git,Python venv tool
-git,nvim-fmr,1,workspace/nvim-fmr,https://github.com/plagache/nvim_fmr,Portable Neovim tool
+git,nvim-fmr,1,workspace/nvim-fmr,git@github.com:plagache/nvim_fmr.git,Portable Neovim tool
 git,ping,1,workspace/ping,git@github.com:plagache/ping.git,WIP project
 git,tiny-test,1,workspace/tiny-test,git@github.com:plagache/tiny_test.git,Tinygrad tests
 git,notes,2,notes,git@gitlab.com:plgch/notes.git,Personal notes
