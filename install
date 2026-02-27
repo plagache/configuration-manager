@@ -8,12 +8,18 @@
 SCRIPT_DIR="$(cd -- "$(dirname "$0")" && pwd)"
 
 # Run with level 0 and activate
-ACTIVATE=1 "./run"
+# ACTIVATE=1 "./run"
 
 # These are examples
-# ACTIVATE=1 LEVEL=3 "./run"
+ACTIVATE=1 LEVEL=3 "./run"
 # same has
 # ACTIVATE=1 "./run" -l 2
 
+# Ensure .local/bin exist and that we can put the files there
+export src_dir="$SCRIPT_DIR/src"
+. "$src_dir"/utils
+output_directory="$HOME/.local/bin"
+ensure_directory_exist "$output_directory"
+
 active_directory="$SCRIPT_DIR"/profile/active
-find "${active_directory}" -type f -executable -print0 | xargs -0 ln -s -t ~/.local/bin/
+find "${active_directory}" -type f -executable -print0 | xargs -0 ln -s -t "$output_directory"
