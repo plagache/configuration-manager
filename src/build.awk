@@ -35,6 +35,9 @@ BEGIN {
     
     # Track dotfiles directory from git repo
     dotfiles_dir = ""
+    
+    # Quote character
+    q = "\""
 }
 
 # Read capabilities file
@@ -193,12 +196,30 @@ END {
             
             install_cmd = commands[pkg_source, "install"]
             
-            # Substitute variables (keep relative paths)
-            gsub(/%name/, name, install_cmd)
-            gsub(/%dir/, directory, install_cmd)
-            gsub(/%url/, url, install_cmd)
-            gsub(/%dotfiles/, dotfiles_dir, install_cmd)
-            gsub(/\$HOME/, home, install_cmd)
+            # Special handling for ln packages
+            if (src == "ln") {
+                if (name ~ /\//) {
+                    # Has subdirectory: "zsh/.zshenv"
+                    split(name, parts, "/")
+                    pkg_dir = parts[1]
+                    subdir = parts[2]
+                    ln_target = home "/" subdir
+                    ln_source = home "/" dotfiles_dir "/" pkg_dir "/" subdir
+                } else {
+                    # No subdirectory: "zsh" -> .config/zsh
+                    ln_target = home "/.config/" name
+                    ln_source = home "/" dotfiles_dir "/" name "/.config/" name
+                }
+                # Build the ln command manually
+                install_cmd = "ln -sf " q ln_source q " " q ln_target q
+            } else {
+                # Substitute variables (keep relative paths)
+                gsub(/%name/, name, install_cmd)
+                gsub(/%dir/, directory, install_cmd)
+                gsub(/%url/, url, install_cmd)
+                gsub(/%dotfiles/, dotfiles_dir, install_cmd)
+                gsub(/\$HOME/, home, install_cmd)
+            }
             
             printf "%s\n", install_cmd >> install_file
         }
