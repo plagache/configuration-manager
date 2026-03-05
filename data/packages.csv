@@ -24,9 +24,9 @@ git,wallpapers,2,.tools/wallpapers,git@gitlab.com:plgch/wallpapers.git,Personal 
 # === GIT (external repos) ===,,,,,
 git,fzf,0,.tools/fzf,https://github.com/junegunn/fzf.git,Fuzzy finder
 git,fzf-tab,0,.tools/fzf-tab,https://github.com/Aloxaf/fzf-tab,Fzf completion
-git,tmux-thumbs,0,.config/tmux/tmux-thumbs,https://github.com/fcsonline/tmux-thumbs,Tmux extension
-git,tmux-resurrect,0,.config/tmux/tmux-resurrect,https://github.com/tmux-plugins/tmux-resurrect,Session restore
-git,tmux-continuum,0,.config/tmux/tmux-continuum,https://github.com/tmux-plugins/tmux-continuum,Auto-save sessions
+git,tmux-thumbs,0,.local/share/tmux/plugins/tmux-thumbs,https://github.com/fcsonline/tmux-thumbs,Better select
+git,tmux-resurrect,0,.local/share/tmux/plugins/tmux-resurrect,https://github.com/tmux-plugins/tmux-resurrect,Session restore
+git,tmux-continuum,0,.local/share/tmux/plugins/tmux-continuum,https://github.com/tmux-plugins/tmux-continuum,Auto-save sessions
 ,,,,,
 # === LN (dotfiles - uses dotfiles_dir from git,dotfiles) ===,,,,
 ln,zsh,0,.config/zsh,,zsh configuration
