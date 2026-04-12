@@ -5,26 +5,25 @@ Started as a collection of scripts
 
 You need ssh keys for your different repositories
 
-You need git, awk and find
+You need git, awk and find to compile the scripts
 ```sh
 git clone git@github.com:plagache/configuration-manager.git
 cd configuration-manager
 ./install
 ```
 
-finally we can use 
+Run scripts
 ```sh
-~/.local/bin/install_system
-~/.local/bin/remove_system
-~/.local/bin/update_system
+${HOME}/.local/bin/update_system
+${HOME}/.local/bin/install_system
 ```
 
-to finish you need to set your shell
+Setup your shell
 ```sh
 chsh -s $(which zsh)
 ```
 
-a few script/commands from base can be run:
+Others
 ```sh
 install_nvim
 install_nvm
@@ -32,7 +31,7 @@ curl -fsSL https://opencode.ai/install | bash
 ```
 
 ## Todo
-how tree-sitter-cli
-add fd-find, npm or nvm
-when to replace with bun
-do we need node ?
+how to tree-sitter-cli 
+    add npm or nvm 
+    when to replace with bun 
+    do we need node  

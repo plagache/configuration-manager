@@ -33,7 +33,6 @@ ln,zsh,0,.config/zsh,,zsh configuration
 ln,zsh/.zshenv,0,.zshenv,,zsh configuration
 ln,fd,0,.config/fd,,fd configuration
 ln,tmux,0,.config/tmux,,tmux configuration
-ln,linux,0,.config/linux,,linux configuration
 ln,kitty,2,.config/kitty,,kitty configuration
 ln,i3,2,.config/i3,,i3 configuration
 ln,rofi,2,.config/rofi,,rofi configuration
@@ -163,6 +162,7 @@ yay,optimus-manager-git,3,,,GPU switching
 ,,,,,
 # === APT (Debian/Ubuntu) ===,,,,,
 apt,git,0,,,Version control
+apt,fd-find,0,,,Version control
 apt,curl,0,,,Downloader
 apt,wget,0,,,Downloader
 apt,zsh,0,,,Shell
