@@ -41,10 +41,7 @@ ln,waybar,2,.config/waybar,,waybar configuration
 ln,kanata,1,.config/kanata,,kanata configuration
 ,,,,,
 # === CURL (direct downloads) ===,,,,,
-curl,Hack-Nerd-Font,0,.local/share/fonts/Hack-Nerd-Font.ttf,https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Hack/Regular/HackNerdFont-Regular.ttf,Nerd font
 curl,Hack-Nerd-Font-Mono,0,.local/share/fonts/Hack-Nerd-Font-Mono.ttf,https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Hack/Regular/HackNerdFontMono-Regular.ttf,Nerd font mono
-curl,Fira-Code-Nerd-Font-Mono,0,.local/share/fonts/Fira-Code-Nerd-Font-Mono.ttf,https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/FiraCode/Regular/FiraCodeNerdFontMono-Regular.ttf,FiraCode nerd font
-curl,MaterialDesign-Font,0,.local/share/fonts/MaterialDesign-Font.ttf,https://github.com/Templarian/MaterialDesign-Font/raw/master/MaterialDesignIconsDesktop.ttf,Material Design icons
 ,,,,,
 # === PACMAN (system packages) ===,,,,,
 pacman,git,0,,,Version control
@@ -220,22 +217,17 @@ apt,keepassxc,0,,,Password manager
 # === BREW (macOS/Linux) ===,,,,,
 brew,tmux,0,,,Terminal multiplexer
 brew,fd,0,,,Fast find
-brew,bat,0,,,Cat with syntax
 brew,ripgrep,0,,,Fast grep
 brew,keepassxc,999,,,Password manager not working anymore need to dll appImage
 ,,,,,
 # === NIX ===,,,,,
-nix,nixpkgs.git,0,,,Version control
-nix,nixpkgs.zsh,0,,,Shell
-nix,nixpkgs.tmux,0,,,Terminal multiplexer
-nix,nixpkgs.neovim,0,,,Editor
-nix,nixpkgs.bat,0,,,Cat alternative
-nix,nixpkgs.ripgrep,0,,,Fast grep
-nix,nixpkgs.fd,0,,,Fast find
-nix,nixpkgs.fzf,0,,,Fuzzy finder
-nix,nixpkgs.man,1,,,Manual pages
-nix,nixpkgs.gcc,1,,,C compiler
-nix,nixpkgs.cmake,1,,,Build system
+nix,tmux,0,,,Terminal multiplexer
+nix,fd,0,,,Fast find
+nix,fzf,0,,,Fuzzy finder
+nix,ripgrep,0,,,Fast grep
+nix,gcc,1,,,C compiler
+nix,cmake,1,,,Build system
+nix,keepassxc,0,,,Password manager not working anymore need to dll appImage
 ,,,,,
 # === ARCHIVED (level 999 - not selectable) ===,,,,,
 pacman,hdf5,999,,,Scientific data library
@@ -263,4 +255,7 @@ apt,nnn,999,,,File manager
 apt,wireshark,999,,,Network analyzer
 apt,discord,999,,,Chat (manual install)
 apt,stow,999,,,Dotfile manager
-nix,nixpkgs.stow,999,,,Dotfile manager
+nix,stow,999,,,Dotfile manager
+nix,git,999,,,Version control
+nix,zsh,999,,,Shell
+nix,man,999,,,Manual pages

@@ -1,7 +1,7 @@
 source,update_cmd,upgrade_pkgm,clean_pkgm,install_cmd,remove_cmd,
 apt,sudo apt-get update,sudo DEBIAN_FRONTEND=noninteractive NEEDRESTART_MODE=a apt-get -y dist-upgrade,sudo apt-get autoclean && sudo apt-get clean && sudo apt-get -y autoremove,sudo apt-get -y install %name,sudo apt-get -y remove %name,
 brew,brew update,brew upgrade,brew cleanup,brew install %name,brew remove %name,
-nix,nix-channel --update nixpkgs,nix-env -u '*',nix-collect-garbage -d,nix-env -iA,nix-env -e,
+nix,nix-channel --update nixpkgs,nix-env -u '*',nix-collect-garbage -d,nix-env -iA nixpkgs.%name,nix-env -e %name,
 pacman,sudo pacman -Sy,sudo pacman --noconfirm -Su,sudo pacman --noconfirm -Scc,sudo pacman --noconfirm --needed -S %name,sudo pacman --noconfirm -Rs %name,
 paru,paru -Sy,paru --noconfirm -Sua,paru --noconfirm -Scc,paru --noconfirm -S %name,paru --noconfirm -Rs %name,
 yay,yay -Sy,yay --noconfirm -Sua,yay --noconfirm -Scc,yay --noconfirm -S %name,yay --noconfirm -Rs %name,
