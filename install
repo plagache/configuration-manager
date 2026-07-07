@@ -22,4 +22,5 @@ output_directory="$HOME/.local/bin"
 ensure_directory_exist "$output_directory"
 
 active_directory="$SCRIPT_DIR"/profile/active
-find "${active_directory}" -type f -executable -print0 | xargs -0 ln -s -t "$output_directory"
+# find "${active_directory}" -type f -executable -print0 | xargs -0 ln -s -t "$output_directory"
+find "${active_directory}" -type f -perm +111 -exec ln -s {} "$output_directory" \;
