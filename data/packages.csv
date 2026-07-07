@@ -225,6 +225,9 @@ nix,tmux,0,,,Terminal multiplexer
 nix,fd,0,,,Fast find
 nix,fzf,0,,,Fuzzy finder
 nix,ripgrep,0,,,Fast grep
+nix,luaPackages.tree-sitter-cli,0,,,tree-sitter-cli
+nix,nodejs,0,,,last node version + npm needed for neovim lsp
+nix,usbutils,0,,,lsusb
 nix,gcc,1,,,C compiler
 nix,cmake,1,,,Build system
 nix,keepassxc,0,,,Password manager not working anymore need to dll appImage
