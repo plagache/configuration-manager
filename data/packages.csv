@@ -224,6 +224,7 @@ brew,keepassxc,999,,,Password manager not working anymore need to dll appImage
 # === NIX ===,,,,,
 nix,tmux,0,,,Terminal multiplexer
 nix,fd,0,,,Fast find
+nix,bat,0,,,use by fzf-preview
 nix,ripgrep,0,,,Fast grep
 nix,luaPackages.tree-sitter-cli,0,,,tree-sitter-cli
 nix,nodejs,0,,,last node version + npm needed for neovim lsp
