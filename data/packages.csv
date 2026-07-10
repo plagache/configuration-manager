@@ -223,12 +223,12 @@ brew,keepassxc,999,,,Password manager not working anymore need to dll appImage
 # === NIX ===,,,,,
 nix,tmux,0,,,Terminal multiplexer
 nix,fd,0,,,Fast find
-nix,fzf,0,,,Fuzzy finder
 nix,ripgrep,0,,,Fast grep
 nix,luaPackages.tree-sitter-cli,0,,,tree-sitter-cli
 nix,nodejs,0,,,last node version + npm needed for neovim lsp
-nix,coreutils,1,,,needed for dircolors but adds lots of good stuff
-nix,toybox,0,,,lsusb/pgrep/xargs
+nix,usbutils,0,,,lsusb
+nix,procps,0,,,pgrep
+nix,coreutils,0,,,dircolors
 nix,gcc,1,,,C compiler
 nix,cmake,1,,,Build system
 nix,keepassxc,0,,,Password manager not working anymore need to dll appImage
@@ -263,3 +263,4 @@ nix,stow,999,,,Dotfile manager
 nix,git,999,,,Version control
 nix,zsh,999,,,Shell
 nix,man,999,,,Manual pages
+nix,fzf,999,,,should be installed with git and install so that preview can work
