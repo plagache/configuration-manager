@@ -229,8 +229,6 @@ nix,ripgrep,0,,,Fast grep
 nix,luaPackages.tree-sitter-cli,0,,,tree-sitter-cli
 nix,nodejs,0,,,last node version + npm needed for neovim lsp
 nix,usbutils,0,,,lsusb
-nix,procps,0,,,pgrep
-nix,coreutils,0,,,dircolors
 nix,gcc,1,,,C compiler
 nix,cmake,1,,,Build system
 nix,keepassxc,0,,,Password manager not working anymore need to dll appImage
@@ -266,3 +264,5 @@ nix,git,999,,,Version control
 nix,zsh,999,,,Shell
 nix,man,999,,,Manual pages
 nix,fzf,999,,,should be installed with git and install so that preview can work
+nix,procps,999,,,pgrep
+nix,coreutils,999,,,dircolors
