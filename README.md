@@ -12,9 +12,15 @@ cd configuration-manager
 ./install
 ```
 
-Run scripts
+Goto
+```sh
+cd ${HOME}/.local/bin
+```
+
+Run
 ```sh
 ${HOME}/.local/bin/update_system
+${HOME}/.local/bin/clean_system
 ${HOME}/.local/bin/install_system
 ```
 
@@ -31,7 +37,7 @@ curl -fsSL https://opencode.ai/install | bash
 ```
 
 ## Todo
-how to tree-sitter-cli 
-    add npm or nvm 
-    when to replace with bun 
+how to tree-sitter-cli  
+    add npm or nvm  
+    when to replace with bun  
     do we need node  
