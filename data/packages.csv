@@ -20,7 +20,6 @@ git,dslr,2,workspace/dslr,git@github.com:plagache/DSLR.git,WIP project
 git,inception-things,2,workspace/inception_of_things,git@github.com:plagache/inception_of_things.git,WIP inception
 git,leaffliction,2,workspace/leaffliction,git@github.com:plagache/leaffliction.git,Project
 git,wallpapers,2,.tools/wallpapers,git@gitlab.com:plgch/wallpapers.git,Personal wallpapers
-git,token-colorscheme,2,.tools/token_colorscheme,git@github.com:ThorstenRhau/token.git,zshTheme
 ,,,,,
 # === GIT (external repos) ===,,,,,
 git,fzf,0,.tools/fzf,https://github.com/junegunn/fzf.git,Fuzzy finder
