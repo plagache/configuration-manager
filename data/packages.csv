@@ -53,6 +53,7 @@ pacman,fd,0,,,Fast find
 pacman,ripgrep,0,,,Fast grep
 pacman,bat,0,,,Cat with syntax
 pacman,wget,0,,,Downloader
+pacman,lsof,0,,,Needed for opencode
 pacman,man,0,,,Manual pages
 pacman,minimal-devel,1,,,Development tools
 pacman,patch,1,,,Patch utility
