@@ -226,8 +226,11 @@ nix,tmux,0,,,Terminal multiplexer
 nix,fd,0,,,Fast find
 nix,bat,0,,,use by fzf-preview
 nix,ripgrep,0,,,Fast grep
+nix,ffmpeg,0,,,ffmpeg
 nix,luaPackages.tree-sitter-cli,0,,,tree-sitter-cli
 nix,nodejs,0,,,last node version + npm needed for neovim lsp
+nix,git-lfs,0,,,git large file transfer
+nix,git-lfs-transfer,0,,,Server Side
 nix,usbutils,0,,,lsusb
 nix,gcc,1,,,C compiler
 nix,cmake,1,,,Build system
