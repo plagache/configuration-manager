@@ -227,6 +227,8 @@ nix,fd,0,,,Fast find
 nix,bat,0,,,use by fzf-preview
 nix,ripgrep,0,,,Fast grep
 nix,ffmpeg,0,,,ffmpeg
+nix,bazel,0,,,compiler for zml
+nix,bazelisk,0,,,nvm for bazel
 nix,luaPackages.tree-sitter-cli,0,,,tree-sitter-cli
 nix,nodejs,0,,,last node version + npm needed for neovim lsp
 nix,git-lfs,0,,,git large file transfer
