@@ -37,7 +37,7 @@ curl -fsSL https://opencode.ai/install | bash
 ```
 
 ## Todo
-how to tree-sitter-cli  
-    add npm or nvm  
-    when to replace with bun  
-    do we need node  
+- how to tree-sitter-cli
+- add npm or nvm
+- when to replace with bun
+- do we need node
