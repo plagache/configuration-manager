@@ -24,6 +24,9 @@ git,wallpapers,2,.tools/wallpapers,git@gitlab.com:plgch/wallpapers.git,Personal 
 # === GIT (external repos) ===,,,,,
 git,fzf,0,.tools/fzf,https://github.com/junegunn/fzf.git,Fuzzy finder
 git,fzf-tab,0,.tools/fzf-tab,https://github.com/Aloxaf/fzf-tab,Fzf completion
+git,ut3g,0,workspace/ut3g,git@github.com:plagache/ut3g.git,machine learning hardware setup
+git,tinygrad,0,workspace/tinygrad,git@github.com:tinygrad/tinygrad.git,tinygrad
+git,tinyagent,0,workspace/tinyagent,git@github.com:tinygrad/tinygrad.git,tinygrad checkout to 33cd373ad
 git,tmux-thumbs,0,.local/share/tmux/plugins/tmux-thumbs,https://github.com/fcsonline/tmux-thumbs,Better select
 git,tmux-resurrect,0,.local/share/tmux/plugins/tmux-resurrect,https://github.com/tmux-plugins/tmux-resurrect,Session restore
 git,tmux-continuum,0,.local/share/tmux/plugins/tmux-continuum,https://github.com/tmux-plugins/tmux-continuum,Auto-save sessions
