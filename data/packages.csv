@@ -221,6 +221,7 @@ apt,keepassxc,0,,,Password manager
 # === BREW (macOS/Linux) ===,,,,,
 brew,tmux,0,,,Terminal multiplexer
 brew,fd,0,,,Fast find
+brew,llvm@21,0,,,llvm
 brew,ripgrep,0,,,Fast grep
 brew,keepassxc,999,,,Password manager not working anymore need to dll appImage
 ,,,,,
@@ -275,3 +276,5 @@ nix,man,999,,,Manual pages
 nix,fzf,999,,,should be installed with git and install so that preview can work
 nix,procps,999,,,pgrep
 nix,coreutils,999,,,dircolors
+nix,llvmPackages.llvm,0,,,llvm
+nix,llvmPackages.lld,0,,,llvm-linker
