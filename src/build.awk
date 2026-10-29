@@ -273,17 +273,17 @@ END {
         
         if (update_cmd != "") {
             update_cmd = substitute(update_cmd, "", "", "", home, dotfiles_dir)
-            printf "%s\n", update_cmd >> update_file
+            printf "%s || printf '✗ failed: %s update\\n' >&2\n", update_cmd, src >> update_file
         }
         
         if (upgrade_cmd != "") {
             upgrade_cmd = substitute(upgrade_cmd, "", "", "", home, dotfiles_dir)
-            printf "%s\n", upgrade_cmd >> update_file
+            printf "%s || printf '✗ failed: %s upgrade\\n' >&2\n", upgrade_cmd, src >> update_file
         }
         
         if (clean_cmd != "") {
             clean_cmd = substitute(clean_cmd, "", "", "", home, dotfiles_dir)
-            printf "%s\n", clean_cmd >> update_file
+            printf "%s || printf '✗ failed: %s clean\\n' >&2\n", clean_cmd, src >> update_file
         }
     }
     

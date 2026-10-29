@@ -1,7 +1,7 @@
 source,update_cmd,upgrade_pkgm,clean_pkgm,install_cmd,remove_cmd,present_cmd,remove_guard,
 apt,sudo apt-get update,sudo DEBIAN_FRONTEND=noninteractive NEEDRESTART_MODE=a apt-get -y dist-upgrade,sudo apt-get autoclean && sudo apt-get clean && sudo apt-get -y autoremove,sudo apt-get -y install %name,sudo apt-get -y remove %name,dpkg-query -W -f='${Status}' %name 2>/dev/null | grep -q 'install ok installed',dpkg-query -W -f='${Status}' %name 2>/dev/null | grep -q 'install ok installed',
 brew,brew update,brew upgrade,brew cleanup,brew install %name,brew remove %name,brew list %name >/dev/null 2>&1,brew list %name >/dev/null 2>&1,
-nix,nix-channel --update nixpkgs,nix-env -u '*',nix-collect-garbage -d,nix-env -iA nixpkgs.%name,nix-env -e %name,nix-env -q %name >/dev/null 2>&1,nix-env -q %name >/dev/null 2>&1,
+nix,nix-channel --update nixpkgs,,nix-collect-garbage -d,nix-env -iA nixpkgs.%name,nix-env -e %name,nix-env -q %name >/dev/null 2>&1,nix-env -q %name >/dev/null 2>&1,
 pacman,sudo pacman -Sy,sudo pacman --noconfirm -Su,sudo pacman --noconfirm -Scc,sudo pacman --noconfirm --needed -S %name,sudo pacman --noconfirm -Rs %name,pacman -Q %name >/dev/null 2>&1,pacman -Q %name >/dev/null 2>&1,
 paru,paru -Sy,paru --noconfirm -Sua,paru --noconfirm -Scc,paru --noconfirm -S %name,paru --noconfirm -Rs %name,pacman -Q %name >/dev/null 2>&1,pacman -Q %name >/dev/null 2>&1,
 yay,yay -Sy,yay --noconfirm -Sua,yay --noconfirm -Scc,yay --noconfirm -S %name,yay --noconfirm -Rs %name,pacman -Q %name >/dev/null 2>&1,pacman -Q %name >/dev/null 2>&1,
