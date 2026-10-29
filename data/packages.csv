@@ -43,9 +43,6 @@ ln,sway,2,.config/sway,,sway configuration
 ln,waybar,2,.config/waybar,,waybar configuration
 ln,kanata,1,.config/kanata,,kanata configuration
 ,,,,,
-# === CURL (direct downloads) ===,,,,,
-curl,Hack-Nerd-Font-Mono,0,.local/share/fonts/Hack-Nerd-Font-Mono.ttf,https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Hack/Regular/HackNerdFontMono-Regular.ttf,Nerd font mono
-,,,,,
 # === PACMAN (system packages) ===,,,,,
 pacman,git,0,,,Version control
 pacman,curl,0,,,Downloader

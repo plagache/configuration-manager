@@ -40,6 +40,16 @@ BEGIN {
     q = "\""
 }
 
+# Substitute CSV template variables.
+function substitute(text, name, directory, url, home, dotfiles) {
+    gsub(/%name/, name, text)
+    gsub(/%dir/, directory, text)
+    gsub(/%url/, url, text)
+    gsub(/%dotfiles/, dotfiles, text)
+    gsub(/\$HOME/, home, text)
+    return text
+}
+
 # Read capabilities file
 # Format: source OR metadata: level,N / root,yes / ssh,yes
 FILENAME ~ /capabilities/ {
@@ -65,7 +75,7 @@ FILENAME ~ /capabilities/ {
 }
 
 # Read source commands file - has header
-# Format: source,update_cmd,upgrade_pkgm,clean_pkgm,install_cmd,remove_cmd
+# Format: source,update_cmd,upgrade_pkgm,clean_pkgm,install_cmd,remove_cmd,present_cmd,remove_guard
 FILENAME ~ /source_commands/ {
     if (FNR == 1) next  # Skip header
     if ($1 == "" || $1 == "source") next
@@ -76,6 +86,8 @@ FILENAME ~ /source_commands/ {
     commands[src, "clean"] = $4
     commands[src, "install"] = $5
     commands[src, "remove"] = $6
+    commands[src, "present"] = $7
+    commands[src, "remove_guard"] = $8
     next
 }
 
@@ -172,10 +184,11 @@ END {
     
     # ========== GENERATE INSTALL SCRIPT ==========
     install_file = output_dir "/install_system"
-    printf "#!/usr/bin/env bash\n\n" > install_file
+    printf "#!/bin/sh\n\n" > install_file
     printf "# This file was automatically generated with\n" >> install_file
     printf "# Level: %d\n", target_level >> install_file
-    printf "\n### From {%d} sources {%d} packages to install\n\n", source_count_sorted, total_packages >> install_file
+    printf "\n### From {%d} sources {%d} packages to install\n", source_count_sorted, total_packages >> install_file
+    printf "\nset -e\n" >> install_file
     
     # Group by source
     for (s = 1; s <= source_count_sorted; s++) {
@@ -195,6 +208,7 @@ END {
             pkg_source = packages[pkg_key, "source"]
             
             install_cmd = commands[pkg_source, "install"]
+            present_cmd = commands[pkg_source, "present"]
             
             # Special handling for ln packages
             if (src == "ln") {
@@ -213,15 +227,16 @@ END {
                 # Build the ln command manually
                 install_cmd = "ln -sf " q ln_source q " " q ln_target q
             } else {
-                # Substitute variables (keep relative paths)
-                gsub(/%name/, name, install_cmd)
-                gsub(/%dir/, directory, install_cmd)
-                gsub(/%url/, url, install_cmd)
-                gsub(/%dotfiles/, dotfiles_dir, install_cmd)
-                gsub(/\$HOME/, home, install_cmd)
+                install_cmd = substitute(install_cmd, name, directory, url, home, dotfiles_dir)
             }
             
-            printf "%s\n", install_cmd >> install_file
+            present_cmd = substitute(present_cmd, name, directory, url, home, dotfiles_dir)
+            
+            if (present_cmd != "") {
+                printf "%s || %s\n", present_cmd, install_cmd >> install_file
+            } else {
+                printf "%s\n", install_cmd >> install_file
+            }
         }
     }
     
@@ -233,7 +248,8 @@ END {
     printf "#!/bin/sh\n\n" > update_file
     printf "# This file was automatically generated with\n" >> update_file
     printf "# Level: %d\n", target_level >> update_file
-    printf "\n### From {%d} sources\n\n", source_count_sorted >> update_file
+    printf "\n### From {%d} sources\n", source_count_sorted >> update_file
+    printf "\nset -e\n" >> update_file
     
     for (s = 1; s <= source_count_sorted; s++) {
         src = sorted_source_list[s]
@@ -256,17 +272,17 @@ END {
         printf "\n###----------[ %s ]----------###\n", src >> update_file
         
         if (update_cmd != "") {
-            gsub(/\$HOME/, home, update_cmd)
+            update_cmd = substitute(update_cmd, "", "", "", home, dotfiles_dir)
             printf "%s\n", update_cmd >> update_file
         }
         
         if (upgrade_cmd != "") {
-            gsub(/\$HOME/, home, upgrade_cmd)
+            upgrade_cmd = substitute(upgrade_cmd, "", "", "", home, dotfiles_dir)
             printf "%s\n", upgrade_cmd >> update_file
         }
         
         if (clean_cmd != "") {
-            gsub(/\$HOME/, home, clean_cmd)
+            clean_cmd = substitute(clean_cmd, "", "", "", home, dotfiles_dir)
             printf "%s\n", clean_cmd >> update_file
         }
     }
@@ -277,10 +293,11 @@ END {
     
     # ========== GENERATE REMOVE SCRIPT ==========
     remove_file = output_dir "/clean_system"
-    printf "#!/usr/bin/env bash\n\n" > remove_file
+    printf "#!/bin/sh\n\n" > remove_file
     printf "# This file was automatically generated with\n" >> remove_file
     printf "# Level: %d\n", target_level >> remove_file
-    printf "\n### From {%d} sources {0} packages to remove\n\n", source_count_sorted >> remove_file
+    printf "\n### From {%d} sources {0} packages to remove\n", source_count_sorted >> remove_file
+    printf "\nset -e\n" >> remove_file
     
     for (s = 1; s <= source_count_sorted; s++) {
         src = sorted_source_list[s]
@@ -305,14 +322,17 @@ END {
             pkg_source = packages[pkg_key, "source"]
             
             remove_cmd = commands[pkg_source, "remove"]
+            remove_guard = commands[pkg_source, "remove_guard"]
             
-            # Substitute variables (keep relative paths)
-            gsub(/%name/, name, remove_cmd)
-            gsub(/%dir/, directory, remove_cmd)
-            gsub(/\$HOME/, home, remove_cmd)
+            remove_cmd = substitute(remove_cmd, name, directory, "", home, dotfiles_dir)
+            remove_guard = substitute(remove_guard, name, directory, "", home, dotfiles_dir)
             
             if (remove_cmd != "") {
-                printf "%s\n", remove_cmd >> remove_file
+                if (remove_guard != "") {
+                    printf "%s && %s\n", remove_guard, remove_cmd >> remove_file
+                } else {
+                    printf "%s\n", remove_cmd >> remove_file
+                }
             }
         }
     }
