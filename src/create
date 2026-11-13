@@ -42,7 +42,7 @@ auto_create_profile() {
         exit 1
     fi
 
-    # Extract metadata and display sources
+    # Extract metadata and display sources (registry order)
     printf "\nDetected environment:\n"
     echo "$capabilities" | while read -r line; do
         case "$line" in
@@ -58,7 +58,7 @@ auto_create_profile() {
                 ssh_val="${line#ssh,}"
                 printf "  • SSH key found: %s\n" "$ssh_val"
                 ;;
-            pacman|apt|paru|yay|brew|nix|git|curl|ln)
+            *)
                 printf "  ✓ %s\n" "$line"
                 ;;
         esac

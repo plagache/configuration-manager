@@ -1,47 +1,35 @@
 #!/usr/bin/awk -f
-# build.awk - Generate install/update/remove scripts
-# Groups by source, uses ln instead of stow, update per source
+# build.awk - Generate install/update/remove scripts from CSV data
+#
+# Concepts:
+#   ingest: capabilities (usable sources) + source registry (order, commands)
+#           + packages (the data model)
+#   emit:   three scripts, three shapes:
+#     install -> per package, guard || command
+#     update  -> per source,  command || report-failure
+#     clean   -> per package, guard && command
+# Every emitted line is runnable on its own; failures are visible, not silent.
 
 BEGIN {
     FS = ","
-    OFS = ","
-    
-    # Get output directory from environment
+
     output_dir = ENVIRON["OUTPUT_DIR"]
     if (output_dir == "") {
         output_dir = "."
     }
-    
-    # Get HOME from environment
+
     home = ENVIRON["HOME"]
     if (home == "") {
         home = "/home/plagache"
     }
-    
-    # Source priority order for sorting
-    # System package managers first, then user, then git/curl, then ln
-    source_order["pacman"] = 1
-    source_order["apt"] = 2
-    source_order["paru"] = 3
-    source_order["yay"] = 4
-    source_order["brew"] = 5
-    source_order["nix"] = 6
-    source_order["git"] = 7
-    source_order["curl"] = 8
-    source_order["ln"] = 9
-    
-    # Default level filter (0 = base)
-    target_level = 0
-    
-    # Track dotfiles directory from git repo
-    dotfiles_dir = ""
-    
-    # Quote character
+
+    target_level = 0     # default, overridden by capabilities metadata
+    dotfiles_dir = ""    # filled by the git dotfiles package, needed by ln rows
     q = "\""
 }
 
 # Substitute CSV template variables.
-function substitute(text, name, directory, url, home, dotfiles) {
+function substitute(text, name, directory, url, dotfiles) {
     gsub(/%name/, name, text)
     gsub(/%dir/, directory, text)
     gsub(/%url/, url, text)
@@ -50,167 +38,64 @@ function substitute(text, name, directory, url, home, dotfiles) {
     return text
 }
 
-# Read capabilities file
-# Format: source OR metadata: level,N / root,yes / ssh,yes
-FILENAME ~ /capabilities/ {
-    # Skip metadata lines
-    if ($1 == "level") {
-        target_level = $2 + 0
-        next
-    }
-    if ($1 == "root" || $1 == "ssh") {
-        next
-    }
-    if ($1 == "" || $1 == "source") next
-    
-    # This is a source capability line
-    usable_sources[$1] = 1
-    
-    # Track unique sources
-    if (!($1 in unique_sources)) {
-        unique_sources[$1] = 1
-        source_list[++source_count] = $1
-    }
-    next
-}
-
-# Read source commands file - has header
-# Format: source,update_cmd,upgrade_pkgm,clean_pkgm,install_cmd,remove_cmd,present_cmd,remove_guard
-FILENAME ~ /source_commands/ {
-    if (FNR == 1) next  # Skip header
-    if ($1 == "" || $1 == "source") next
-    if ($1 ~ /^#/) next  # Skip comments
-    src = $1
-    commands[src, "update"] = $2
-    commands[src, "upgrade"] = $3
-    commands[src, "clean"] = $4
-    commands[src, "install"] = $5
-    commands[src, "remove"] = $6
-    commands[src, "present"] = $7
-    commands[src, "remove_guard"] = $8
-    next
-}
-
-# Process packages_v2.csv format:
-# source,name,level,directory,url,description
-FILENAME ~ /packages/ && !($1 == "" || $1 == "source" || $1 ~ /^#/) {
-    source = $1
-    name = $2
-    level = $3 + 0  # Convert to number
-    directory = $4
-    url = $5
-    description = $6
-    
-    # Skip archived packages (level 999)
-    if (level == 999) next
-    
-    # Filter by level (only include packages <= target level)
-    if (level > target_level) next
-    
-    # Convert stow to ln for dotfiles
-    if (source == "stow") {
-        source = "ln"
-    }
-    
-    # Track dotfiles git repo directory for ln packages
-    if (source == "git" && (name == "dotfiles" || name == "dot_files")) {
-        dotfiles_dir = directory
-    }
-    
-    # Store the original directory before any modification
-    original_directory = directory
-    
-    # For ln packages, source is dotfiles_dir/name, target is original directory
-    # The substitution will use %dir for target and %dotfiles for source
-    
-    # Check if this source is available on this system
-    if (!usable_sources[source]) next
-    
-    # Track packages per source
-    source_pkg_count[source]++
-    if (!(source in source_packages)) {
-        source_packages[source] = name
+# Write the common script header. detail completes the banner.
+function open_script(file, detail) {
+    printf "#!/bin/sh\n\n" > file
+    printf "# This file was automatically generated with\n" >> file
+    printf "# Level: %d\n", target_level >> file
+    if (detail == "") {
+        printf "\n### From {%d} sources\n", ordered_count >> file
     } else {
-        source_packages[source] = source_packages[source] "|" name
+        printf "\n### From {%d} sources %s\n", ordered_count, detail >> file
     }
-    
-    # Store package details
-    pkg_key = source "_" name
-    packages[pkg_key, "name"] = name
-    packages[pkg_key, "directory"] = original_directory
-    packages[pkg_key, "url"] = url
-    packages[pkg_key, "source"] = source
-    packages[pkg_key, "level"] = level
-    
-    total_packages++
+    printf "\nset -e\n" >> file
 }
 
-END {
-    if (total_packages == 0) {
-        print "No packages to install"
-        exit 1
-    }
-    
-    # Sort sources by priority order
-    sorted_count = 0
-    for (src in source_packages) {
-        prio = source_order[src]
-        if (prio == 0) prio = 99
-        if (!(prio in sorted_sources)) {
-            sorted_sources[prio] = src
-            sorted_list[++sorted_count] = prio
-        }
-    }
-    # Sort priorities
-    n = sorted_count
-    for (i = 1; i <= n; i++) {
-        for (j = i + 1; j <= n; j++) {
-            if (sorted_list[i] > sorted_list[j]) {
-                tmp = sorted_list[i]
-                sorted_list[i] = sorted_list[j]
-                sorted_list[j] = tmp
+function section(file, src) {
+    printf "\n###----------[ %s ]----------###\n", src >> file
+}
+
+# Emit sources in canonical order: declared order first, undeclared last.
+function ordered_sources(    src, p) {
+    ordered_count = 0
+    for (p = 1; p <= 98; p++) {
+        for (src in source_packages) {
+            if (source_priority[src] == p) {
+                ordered_list[++ordered_count] = src
             }
         }
     }
-    # Rebuild source_list in sorted order
-    delete sorted_source_list
-    for (i = 1; i <= sorted_count; i++) {
-        prio = sorted_list[i]
-        src = sorted_sources[prio]
-        if (src != "" && (src in source_packages)) {
-            sorted_source_list[++source_count_sorted] = src
+    for (src in source_packages) {
+        if (source_priority[src] == "" || source_priority[src] >= 99) {
+            ordered_list[++ordered_count] = src
         }
     }
-    
-    # ========== GENERATE INSTALL SCRIPT ==========
-    install_file = output_dir "/install_system"
-    printf "#!/bin/sh\n\n" > install_file
-    printf "# This file was automatically generated with\n" >> install_file
-    printf "# Level: %d\n", target_level >> install_file
-    printf "\n### From {%d} sources {%d} packages to install\n", source_count_sorted, total_packages >> install_file
-    printf "\nset -e\n" >> install_file
-    
-    # Group by source
-    for (s = 1; s <= source_count_sorted; s++) {
-        src = sorted_source_list[s]
-        if (!(src in source_packages)) continue
-        
-        printf "\n###----------[ %s ]----------###\n", src >> install_file
-        
+}
+
+# install_system: one guard || command line per package
+function write_install_script(    file, src, s, i, n, name, pkg_key,
+                                  directory, url, install_cmd, present_cmd,
+                                  pkg_arr, parts, pkg_dir, subdir,
+                                  ln_target, ln_source) {
+    file = output_dir "/install_system"
+    open_script(file, sprintf("{%d} packages to install", total_packages))
+
+    for (s = 1; s <= ordered_count; s++) {
+        src = ordered_list[s]
+        section(file, src)
+
         n = split(source_packages[src], pkg_arr, "|")
         for (i = 1; i <= n; i++) {
             name = pkg_arr[i]
             if (name == "") continue
-            
+
             pkg_key = src "_" name
             directory = packages[pkg_key, "directory"]
             url = packages[pkg_key, "url"]
-            pkg_source = packages[pkg_key, "source"]
-            
-            install_cmd = commands[pkg_source, "install"]
-            present_cmd = commands[pkg_source, "present"]
-            
-            # Special handling for ln packages
+
+            install_cmd = commands[src, "install"]
+            present_cmd = commands[src, "present"]
+
             if (src == "ln") {
                 if (name ~ /\//) {
                     # Has subdirectory: "zsh/.zshenv"
@@ -224,126 +109,190 @@ END {
                     ln_target = home "/.config/" name
                     ln_source = home "/" dotfiles_dir "/" name "/.config/" name
                 }
-                # Build the ln command manually
                 install_cmd = "ln -sf " q ln_source q " " q ln_target q
             } else {
-                install_cmd = substitute(install_cmd, name, directory, url, home, dotfiles_dir)
+                install_cmd = substitute(install_cmd, name, directory, url, dotfiles_dir)
             }
-            
-            present_cmd = substitute(present_cmd, name, directory, url, home, dotfiles_dir)
-            
+
+            present_cmd = substitute(present_cmd, name, directory, url, dotfiles_dir)
+
             if (present_cmd != "") {
-                printf "%s || %s\n", present_cmd, install_cmd >> install_file
+                printf "%s || %s\n", present_cmd, install_cmd >> file
             } else {
-                printf "%s\n", install_cmd >> install_file
+                printf "%s\n", install_cmd >> file
             }
         }
     }
-    
-    printf "\n### End of %s/install_system ###\n", output_dir >> install_file
-    close(install_file)
-    
-    # ========== GENERATE UPDATE SCRIPT ==========
-    update_file = output_dir "/update_system"
-    printf "#!/bin/sh\n\n" > update_file
-    printf "# This file was automatically generated with\n" >> update_file
-    printf "# Level: %d\n", target_level >> update_file
-    printf "\n### From {%d} sources\n", source_count_sorted >> update_file
-    printf "\nset -e\n" >> update_file
-    
-    for (s = 1; s <= source_count_sorted; s++) {
-        src = sorted_source_list[s]
-        if (src == "" || !(src in source_packages)) continue
-        
-        # Skip git, curl, ln (no update/upgrade/clean commands needed)
-        if (src == "git" || src == "curl" || src == "ln") {
+
+    printf "\n### End of %s/install_system ###\n", output_dir >> file
+    close(file)
+}
+
+# update_system: one source-level step per line, each reporting its own failure
+function write_update_script(    file, src, s, a, actions, action, cmd) {
+    file = output_dir "/update_system"
+    open_script(file, "")
+
+    for (s = 1; s <= ordered_count; s++) {
+        src = ordered_list[s]
+
+        # Sources with no update/upgrade/clean at all (git, curl, ln, ...)
+        # produce no block; this is a data fact, not a hardcoded list.
+        if (commands[src, "update"] == "" &&
+            commands[src, "upgrade"] == "" &&
+            commands[src, "clean"] == "") {
             continue
         }
-        
-        # Check if this source has any update-related commands
-        update_cmd = commands[src, "update"]
-        upgrade_cmd = commands[src, "upgrade"]
-        clean_cmd = commands[src, "clean"]
-        
-        if (update_cmd == "" && upgrade_cmd == "" && clean_cmd == "") {
-            continue
-        }
-        
-        printf "\n###----------[ %s ]----------###\n", src >> update_file
-        
-        if (update_cmd != "") {
-            update_cmd = substitute(update_cmd, "", "", "", home, dotfiles_dir)
-            printf "%s || printf '✗ failed: %s update\\n' >&2\n", update_cmd, src >> update_file
-        }
-        
-        if (upgrade_cmd != "") {
-            upgrade_cmd = substitute(upgrade_cmd, "", "", "", home, dotfiles_dir)
-            printf "%s || printf '✗ failed: %s upgrade\\n' >&2\n", upgrade_cmd, src >> update_file
-        }
-        
-        if (clean_cmd != "") {
-            clean_cmd = substitute(clean_cmd, "", "", "", home, dotfiles_dir)
-            printf "%s || printf '✗ failed: %s clean\\n' >&2\n", clean_cmd, src >> update_file
+
+        section(file, src)
+
+        split("update upgrade clean", actions, " ")
+        for (a = 1; a <= 3; a++) {
+            action = actions[a]
+            cmd = commands[src, action]
+            if (cmd == "") continue
+
+            cmd = substitute(cmd, "", "", "", dotfiles_dir)
+            printf "%s || printf '✗ failed: %s %s\\n' >&2\n", cmd, src, action >> file
         }
     }
-    
-    printf "\n### don't forget to add a cronjob\n" >> update_file
-    printf "#@reboot        root    $HOME/.multi_to0l/unix/user/update_user\n" >> update_file
-    close(update_file)
-    
-    # ========== GENERATE REMOVE SCRIPT ==========
-    remove_file = output_dir "/clean_system"
-    printf "#!/bin/sh\n\n" > remove_file
-    printf "# This file was automatically generated with\n" >> remove_file
-    printf "# Level: %d\n", target_level >> remove_file
-    printf "\n### From {%d} sources {0} packages to remove\n", source_count_sorted >> remove_file
-    printf "\nset -e\n" >> remove_file
-    
-    for (s = 1; s <= source_count_sorted; s++) {
-        src = sorted_source_list[s]
-        if (!(src in source_packages)) continue
-        
-        # Check if there's a remove command
-        remove_sample = commands[src, "remove"]
-        if (remove_sample == "") {
-            printf "\n# %s - no remove command available\n" >> remove_file
+
+    printf "\n### don't forget to add a cronjob\n" >> file
+    printf "#@reboot        root    $HOME/.multi_to0l/unix/user/update_user\n" >> file
+    close(file)
+}
+
+# clean_system: one guard && command line per package
+function write_clean_script(    file, src, s, i, n, name, pkg_key,
+                                directory, pkg_arr) {
+    file = output_dir "/clean_system"
+    open_script(file, "{0} packages to remove")
+
+    for (s = 1; s <= ordered_count; s++) {
+        src = ordered_list[s]
+
+        if (commands[src, "remove"] == "") {
+            printf "\n# %s - no remove command available\n", src >> file
             continue
         }
-        
-        printf "\n###----------[ %s ]----------###\n", src >> remove_file
-        
+
+        section(file, src)
+
         n = split(source_packages[src], pkg_arr, "|")
         for (i = 1; i <= n; i++) {
             name = pkg_arr[i]
             if (name == "") continue
-            
+
             pkg_key = src "_" name
             directory = packages[pkg_key, "directory"]
-            pkg_source = packages[pkg_key, "source"]
-            
-            remove_cmd = commands[pkg_source, "remove"]
-            remove_guard = commands[pkg_source, "remove_guard"]
-            
-            remove_cmd = substitute(remove_cmd, name, directory, "", home, dotfiles_dir)
-            remove_guard = substitute(remove_guard, name, directory, "", home, dotfiles_dir)
-            
-            if (remove_cmd != "") {
-                if (remove_guard != "") {
-                    printf "%s && %s\n", remove_guard, remove_cmd >> remove_file
-                } else {
-                    printf "%s\n", remove_cmd >> remove_file
-                }
+
+            remove_cmd = substitute(commands[src, "remove"], name, directory, "", dotfiles_dir)
+            remove_guard = substitute(commands[src, "remove_guard"], name, directory, "", dotfiles_dir)
+
+            if (remove_guard != "") {
+                printf "%s && %s\n", remove_guard, remove_cmd >> file
+            } else {
+                printf "%s\n", remove_cmd >> file
             }
         }
     }
-    
-    printf "\n### End of %s/clean_system ###\n", output_dir >> remove_file
-    close(remove_file)
-    
-    # ========== SUMMARY ==========
-    printf "Generated profile (level %d) with %d sources and %d packages:\n", target_level, source_count_sorted, total_packages
-    for (s = 1; s <= source_count_sorted; s++) {
-        src = sorted_source_list[s]
+
+    printf "\n### End of %s/clean_system ###\n", output_dir >> file
+    close(file)
+}
+
+# Read capabilities file
+# Format: source OR metadata: level,N / root,yes / ssh,yes
+FILENAME ~ /capabilities/ {
+    if ($1 == "level") {
+        target_level = $2 + 0
+        next
+    }
+    if ($1 == "root" || $1 == "ssh") {
+        next
+    }
+    if ($1 == "" || $1 == "source") next
+
+    usable_sources[$1] = 1
+    next
+}
+
+# Read source registry - has header
+# Format: source,order,detect_cmd,update_cmd,upgrade_pkgm,clean_pkgm,install_cmd,remove_cmd,present_cmd,remove_guard
+# (detect_cmd is consumed by detect_environment; build.awk only needs order + commands)
+FILENAME ~ /source_commands/ {
+    if (FNR == 1) next
+    if ($1 == "" || $1 == "source" || $1 ~ /^#/) next
+
+    src = $1
+    source_priority[src] = $2 + 0
+    commands[src, "update"] = $4
+    commands[src, "upgrade"] = $5
+    commands[src, "clean"] = $6
+    commands[src, "install"] = $7
+    commands[src, "remove"] = $8
+    commands[src, "present"] = $9
+    commands[src, "remove_guard"] = $10
+    next
+}
+
+# Process packages.csv format:
+# source,name,level,directory,url,description
+#
+# Note: ln rows need dotfiles_dir, set by the git dotfiles row. packages.csv
+# declares the git rows first; the ingest order is load-bearing.
+FILENAME ~ /packages/ && !($1 == "" || $1 == "source" || $1 ~ /^#/) {
+    src = $1
+    name = $2
+    level = $3 + 0
+    directory = $4
+    url = $5
+
+    # Skip archived (999) and above-plan-level packages
+    if (level == 999 || level > target_level) next
+
+    # Legacy stow rows emit ln lines
+    if (src == "stow") {
+        src = "ln"
+    }
+
+    # Track dotfiles directory from the git repo (ln packages reference it)
+    if (src == "git" && (name == "dotfiles" || name == "dot_files")) {
+        dotfiles_dir = directory
+    }
+
+    # Only keep packages whose source is available on this system
+    if (!usable_sources[src]) next
+
+    source_pkg_count[src]++
+    if (!(src in source_packages)) {
+        source_packages[src] = name
+    } else {
+        source_packages[src] = source_packages[src] "|" name
+    }
+
+    pkg_key = src "_" name
+    packages[pkg_key, "directory"] = directory
+    packages[pkg_key, "url"] = url
+
+    total_packages++
+}
+
+END {
+    if (total_packages == 0) {
+        print "No packages to install"
+        exit 1
+    }
+
+    ordered_sources()
+
+    write_install_script()
+    write_update_script()
+    write_clean_script()
+
+    printf "Generated profile (level %d) with %d sources and %d packages:\n", target_level, ordered_count, total_packages
+    for (s = 1; s <= ordered_count; s++) {
+        src = ordered_list[s]
         if (src in source_pkg_count) {
             printf "  - %s: %d packages\n", src, source_pkg_count[src]
         }

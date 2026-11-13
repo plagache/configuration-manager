@@ -1,9 +1,10 @@
 #!/bin/sh
-# detect_environment.sh - Detect available sources
+# detect_environment - Emit usable sources as CSV for build.awk
+# The source registry (data/source_commands.csv) carries each source's own
+# probe command (detect_cmd); this script only orchestrates detection.
 # Options:
-#   --level N   : Set plan level (0=base, 1=work, 2=media, 3=all, default: 0)
+#   --level N : plan level (0=base, 1=work, 2=media, 3=all, default 0)
 
-# Default level
 LEVEL=0
 
 # Parse arguments
@@ -18,10 +19,6 @@ while [ $# -gt 0 ]; do
             ;;
     esac
 done
-
-detect_os() {
-    uname -s | tr '[:upper:]' '[:lower:]'
-}
 
 # Check if we have root/sudo access
 has_root_access() {
@@ -43,35 +40,26 @@ has_ssh_key() {
     return 1
 }
 
-# Detect usable sources
-detect_sources() {
-    os=$(detect_os)
-    
-    # Output metadata as first lines (will be filtered by AWK)
-    echo "level,$LEVEL"
-    if has_root_access; then
-        echo "root,yes"
-    else
-        echo "root,no"
-    fi
-    if has_ssh_key; then
-        echo "ssh,yes"
-    else
-        echo "ssh,no"
-    fi
-    
-    # Base tools (available if command exists)
-    command -v ln >/dev/null 2>&1 && echo "ln"
-    command -v curl >/dev/null 2>&1 && echo "curl"
-    command -v git >/dev/null 2>&1 && echo "git"
-    
-    # Package managers
-    command -v pacman >/dev/null 2>&1 && echo "pacman"
-    command -v apt-get >/dev/null 2>&1 && echo "apt"
-    command -v brew >/dev/null 2>&1 && echo "brew"
-    command -v nix-env >/dev/null 2>&1 && echo "nix"
-    command -v paru >/dev/null 2>&1 && echo "paru"
-    command -v yay >/dev/null 2>&1 && echo "yay"
-}
+# Metadata first (parsed as such by build.awk)
+echo "level,$LEVEL"
+if has_root_access; then
+    echo "root,yes"
+else
+    echo "root,no"
+fi
+if has_ssh_key; then
+    echo "ssh,yes"
+else
+    echo "ssh,no"
+fi
 
-detect_sources
+# Probe the source registry in its declared order.
+# Registry columns: source,order,detect_cmd,...
+awk -F, '
+    FNR == 1 { next }
+    $1 == "" || $1 == "source" || $1 ~ /^#/ { next }
+    { print $2, $1, $3 }
+' "$data_directory/source_commands.csv" | sort -n | while read -r prio src detect_cmd; do
+    [ -n "$detect_cmd" ] || continue
+    eval "$detect_cmd" >/dev/null 2>&1 && echo "$src"
+done
