@@ -164,7 +164,7 @@ function write_update_script(    file, src, s, a, actions, action, cmd) {
 
 # clean_system: one guard && command line per package
 function write_clean_script(    file, src, s, i, n, name, pkg_key,
-                                directory, pkg_arr) {
+                                directory, pkg_arr, remove_cmd, remove_guard) {
     file = output_dir "/clean_system"
     open_script(file, "{0} packages to remove")
 
