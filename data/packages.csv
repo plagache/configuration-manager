@@ -236,8 +236,9 @@ nix,git-lfs,0,,,git large file transfer
 nix,git-lfs-transfer,0,,,Server Side
 nix,usbutils,0,,,lsusb
 nix,pciutils,0,,,lspci
-nix,gcc,1,,,C compiler
-nix,cmake,1,,,Build system
+nix,gcc,0,,,C compiler
+nix,sdcc,0,,,small Device C compiler
+nix,cmake,0,,,Build system
 nix,keepassxc,0,,,Password manager not working anymore need to dll appImage
 ,,,,,
 # === ARCHIVED (level 999 - not selectable) ===,,,,,
